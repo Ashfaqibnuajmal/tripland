@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
 import 'package:textcodetripland/model/bucket.dart';
+import 'package:textcodetripland/view/bottom_navigation.dart';
 
 // ignore: must_be_immutable
 class BucketEdit extends StatefulWidget {
@@ -18,12 +19,12 @@ class BucketEdit extends StatefulWidget {
   int index;
   BucketEdit(
       {super.key,
-      this.date,
-      this.description,
-      this.imageFile,
-      this.location,
+      required this.date,
+      required this.description,
+      required this.imageFile,
+      required this.location,
       required this.index,
-      this.tripType});
+      required this.tripType});
 
   @override
   State<BucketEdit> createState() => _BucketEditState();
@@ -111,6 +112,8 @@ class _BucketEditState extends State<BucketEdit> {
       ),
     );
     editBucket(widget.index, update);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => NotchBar()));
   }
 
   @override
@@ -125,6 +128,7 @@ class _BucketEditState extends State<BucketEdit> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,

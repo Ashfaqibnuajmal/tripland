@@ -13,7 +13,7 @@ enum FilterType { all, completed, incomplete }
 
 // ignore: must_be_immutable
 class Bucketlist extends StatefulWidget {
-  Bucketlist({
+  const Bucketlist({
     super.key,
   });
 
@@ -363,7 +363,16 @@ class _BucketlistState extends State<Bucketlist> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       BucketEdit(
-                                                        index: 0,
+                                                        location:
+                                                            bucket.location,
+                                                        description:
+                                                            bucket.description,
+                                                        date: bucket.date,
+                                                        imageFile:
+                                                            bucket.imageFile,
+                                                        tripType: bucket
+                                                            .selectedTripType,
+                                                        index: index,
                                                       )));
                                         } else if (value == 'delete') {
                                           showDialog(

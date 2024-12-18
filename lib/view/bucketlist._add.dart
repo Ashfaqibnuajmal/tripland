@@ -21,6 +21,12 @@ class _BucketlistAddState extends State<BucketlistAdd> {
   DateTime? _date;
   String? _selectedTripType;
   File? _selectedImage;
+  @override
+  void dispose() {
+    _locationController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
 
   Future<void> _pickDate(BuildContext context) async {
     final DateTime? selectDate = await showDatePicker(
