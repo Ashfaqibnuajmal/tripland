@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget searchBar() {
     return Padding(
-      padding: const EdgeInsets.only(left: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Container(
         height: 45,
         width: 340,

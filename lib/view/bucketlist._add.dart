@@ -271,10 +271,13 @@ class _BucketlistAddState extends State<BucketlistAdd> {
               child: TextFormField(
                 controller: _descriptionController,
                 textAlign: TextAlign.center,
+                maxLines:
+                    null, // This allows the text to wrap and take multiple lines
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                   hintText: "Description",
-                  contentPadding: EdgeInsets.all(50),
+                  contentPadding: EdgeInsets.symmetric(
+                      horizontal: 10, vertical: 20), // Reduced padding
                   hintStyle: TextStyle(fontSize: 12, color: Colors.black38),
                 ),
               ),

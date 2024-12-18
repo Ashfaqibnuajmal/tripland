@@ -13,7 +13,7 @@ import 'package:textcodetripland/view/bottom_navigation.dart';
 class BucketEdit extends StatefulWidget {
   String? location;
   String? description;
-  String? tripType;
+  String? selectedTripType;
   DateTime? date;
   String? imageFile;
   int index;
@@ -24,7 +24,7 @@ class BucketEdit extends StatefulWidget {
       required this.imageFile,
       required this.location,
       required this.index,
-      required this.tripType});
+      required this.selectedTripType});
 
   @override
   State<BucketEdit> createState() => _BucketEditState();
@@ -33,7 +33,7 @@ class BucketEdit extends StatefulWidget {
 class _BucketEditState extends State<BucketEdit> {
   TextEditingController _locationController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
-  String? _tripType;
+  String? _selectedTripType;
   DateTime? _date;
   File? _imageFile;
 
@@ -81,7 +81,7 @@ class _BucketEditState extends State<BucketEdit> {
     final date = _date;
     final description = _descriptionController.text;
     final imageFile = _imageFile;
-    final tripType = _tripType;
+    final tripType = _selectedTripType;
     final update = Bucket(
         date: date,
         location: location,
@@ -121,7 +121,7 @@ class _BucketEditState extends State<BucketEdit> {
     super.initState();
     _locationController = TextEditingController(text: widget.location);
     _descriptionController = TextEditingController(text: widget.description);
-    _tripType = widget.tripType!;
+    _selectedTripType = widget.selectedTripType!;
     _date = widget.date;
     if (widget.imageFile != null) {
       _imageFile = File(widget.imageFile!);
@@ -245,7 +245,7 @@ class _BucketEditState extends State<BucketEdit> {
               ),
               child: DropdownButton<String>(
                 value:
-                    _tripType, // Use _selectedTripType instead of selectedOption
+                    _selectedTripType, // Use _selectedTripType instead of selectedOption
                 icon: const Icon(Icons.arrow_drop_down),
                 iconSize: 24,
                 underline: const SizedBox(),
@@ -256,14 +256,18 @@ class _BucketEditState extends State<BucketEdit> {
                     value: option,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10.0),
-                      child: Text(option,
-                          style: const TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold)),
+                      child: Text(
+                        option,
+                        style: const TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   );
                 }).toList(),
                 onChanged: (String? newValue) {
-                  setState(() {});
+                  setState(() {
+                    _selectedTripType = newValue; // Update the selected value
+                  });
                 },
               ),
             ),
@@ -278,10 +282,13 @@ class _BucketEditState extends State<BucketEdit> {
               child: TextFormField(
                 controller: _descriptionController,
                 textAlign: TextAlign.center,
+                maxLines:
+                    null, // This allows the text to wrap and take multiple lines
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                   hintText: "Description",
-                  contentPadding: EdgeInsets.all(50),
+                  contentPadding: EdgeInsets.symmetric(
+                      horizontal: 10, vertical: 20), // Reduced padding
                   hintStyle: TextStyle(fontSize: 12, color: Colors.black38),
                 ),
               ),
