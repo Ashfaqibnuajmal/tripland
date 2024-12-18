@@ -1,18 +1,16 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip.dart';
 import 'package:textcodetripland/view/bottom_navigation2.dart';
 import 'package:textcodetripland/view/trip_add.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({
-    super.key,
-  });
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -20,7 +18,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController _searchController = TextEditingController();
-  double _rating = 3.0;
   String? _selectedTripType;
   final List<String> tripType = [
     "All",
@@ -34,6 +31,7 @@ class _HomePageState extends State<HomePage> {
     "Backpacking",
     "Natural",
   ];
+
   @override
   void initState() {
     super.initState();
@@ -48,6 +46,16 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+
+  Future<double> getRatingForTrip(String tripKey) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getDouble(tripKey) ?? 0.0;
+  }
+
+  Future<void> saveRatingForTrip(String tripKey, double rating) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setDouble(tripKey, rating);
   }
 
   @override
@@ -147,109 +155,119 @@ class _HomePageState extends State<HomePage> {
       itemCount: filteredTrips.length,
       itemBuilder: (context, index) {
         final data = filteredTrips[index];
-        return Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+        String tripKey =
+            "rating_${data.location}"; // Unique key for each trip based on location
+        return FutureBuilder<double>(
+          future: getRatingForTrip(tripKey), // Fetch rating for each trip
+          builder: (context, snapshot) {
+            double rating = snapshot.data ?? 3.0;
+            return Column(
               children: [
-                const Icon(
-                  Icons.location_on_outlined,
-                  color: Colors.black,
-                  size: 20,
-                ),
-                Text(
-                  data.location?.isNotEmpty ?? false
-                      ? data.location![0].toUpperCase() +
-                          data.location!.substring(1)
-                      : '',
-                  style: GoogleFonts.anton(
-                    fontSize: 20,
-                    color: Colors.black,
-                    letterSpacing: 0.8,
-                  ),
-                )
-              ],
-            ),
-            Container(
-              height: 250,
-              width: 350,
-              margin: const EdgeInsets.only(bottom: 20),
-              decoration: BoxDecoration(
-                color: Colors.yellow,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    spreadRadius: 2,
-                    blurRadius: 8,
-                    offset: const Offset(4, 4),
-                  ),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.file(
-                  File(data.imageFile ?? "NA"),
-                  fit: BoxFit.fill,
-                  width: double.infinity,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RatingBar.builder(
-                    initialRating: _rating,
-                    minRating: 1,
-                    maxRating: 5,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemSize: 30,
-                    itemBuilder: (context, _) => const Icon(
-                      Icons.star,
-                      color: Colors.amber,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.location_on_outlined,
+                      color: Colors.black,
+                      size: 20,
                     ),
-                    onRatingUpdate: (rating) {
-                      setState(() {
-                        _rating = rating;
-                      });
-                    },
+                    Text(
+                      data.location?.isNotEmpty ?? false
+                          ? data.location![0].toUpperCase() +
+                              data.location!.substring(1)
+                          : '',
+                      style: GoogleFonts.anton(
+                        fontSize: 20,
+                        color: Colors.black,
+                        letterSpacing: 0.8,
+                      ),
+                    )
+                  ],
+                ),
+                Container(
+                  height: 250,
+                  width: 350,
+                  margin: const EdgeInsets.only(bottom: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.yellow,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 8,
+                        offset: const Offset(4, 4),
+                      ),
+                    ],
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NotchBar2(
-                            index: index,
-                            location: data.location,
-                            startDate: data.startDate,
-                            endDate: data.endDate,
-                            selectedNumberOfPeople: data.selectedNumberOfPeople,
-                            selectedTripType: data.selectedTripType,
-                            expance: data.expance,
-                            imageFile: data.imageFile,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.file(
+                      File(data.imageFile ?? "NA"),
+                      fit: BoxFit.fill,
+                      width: double.infinity,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      RatingBar.builder(
+                        initialRating: rating, // Set the initial rating here
+                        minRating: 1,
+                        maxRating: 5,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        itemSize: 30,
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        onRatingUpdate: (newRating) {
+                          setState(() {
+                            saveRatingForTrip(
+                                tripKey, newRating); // Save rating when changed
+                          });
+                        },
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NotchBar2(
+                                index: index,
+                                location: data.location,
+                                startDate: data.startDate,
+                                endDate: data.endDate,
+                                selectedNumberOfPeople:
+                                    data.selectedNumberOfPeople,
+                                selectedTripType: data.selectedTripType,
+                                expance: data.expance,
+                                imageFile: data.imageFile,
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          "See more",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            letterSpacing: -1,
                           ),
                         ),
-                      );
-                    },
-                    child: const Text(
-                      "See more",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        letterSpacing: -1,
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 40),
-          ],
+                ),
+                const SizedBox(height: 40),
+              ],
+            );
+          },
         );
       },
     );

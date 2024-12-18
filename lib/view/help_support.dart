@@ -7,6 +7,7 @@ class HelpSupport extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.black87,
         title: Text("Help & Support",
@@ -41,7 +42,7 @@ At TravelMate, we’re here to make your travel experience smooth. If you encoun
 - **Live Chat:** On our website.
 
 3. Technical Support
-- Restart the app, update to the latest version, or clear cache. 
+- Restart the app, update to the latest version, or clear cache.
 - Email us with issue details, screenshots, and your app version if problems persist.
 
 4. Feedback

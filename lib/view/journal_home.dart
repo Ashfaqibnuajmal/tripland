@@ -33,7 +33,7 @@ class _JournalHomeState extends State<JournalHome> {
                 MaterialPageRoute(builder: (context) => const ProfilePage()),
               );
             },
-            icon: const Icon(Icons.person_pin_rounded),
+            icon: const Icon(Icons.settings),
           ),
           actions: [
             IconButton(

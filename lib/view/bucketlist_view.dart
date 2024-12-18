@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
 import 'package:textcodetripland/view/bucket_edit.dart';
 import 'package:textcodetripland/view/bucketlist._add.dart';
+import 'package:textcodetripland/view/proifle_page.dart';
 
 // ignore: must_be_immutable
 class Bucketlist extends StatefulWidget {
@@ -79,6 +79,12 @@ class _BucketlistState extends State<Bucketlist> {
             "BucketList",
             style: GoogleFonts.anton(fontSize: 20),
           ),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const ProfilePage()));
+              },
+              icon: const Icon(Icons.settings)),
           centerTitle: true,
           actions: [
             IconButton(
