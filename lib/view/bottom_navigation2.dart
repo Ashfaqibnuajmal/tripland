@@ -15,7 +15,7 @@ class NotchBar2 extends StatefulWidget {
   final String? selectedTripType;
   final String? expance;
   final String? imageFile;
-  int index;
+  final int index;
 
   NotchBar2({
     super.key,

@@ -1,11 +1,15 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
-import 'package:textcodetripland/view/bucketlist.dart';
-import 'package:textcodetripland/view/home_page.dart';
-import 'package:flutter/material.dart';
-import 'package:textcodetripland/view/journal_home.dart';
 
+import 'package:textcodetripland/view/bucketlist_view.dart';
+import 'package:textcodetripland/view/home_page.dart';
+import 'package:textcodetripland/view/journal_home.dart';
+import 'package:flutter/material.dart';
+
+// ignore: must_be_immutable
 class NotchBar extends StatefulWidget {
-  const NotchBar({super.key});
+  NotchBar({
+    super.key,
+  });
 
   @override
   NotchBarState createState() => NotchBarState();
@@ -18,7 +22,7 @@ class NotchBarState extends State<NotchBar> {
   final List<Widget> _pages = [
     const JournalHome(),
     const HomePage(),
-    const Bucketlist(),
+    Bucketlist(),
   ];
 
   @override

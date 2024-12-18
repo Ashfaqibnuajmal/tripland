@@ -28,7 +28,6 @@ Future<void> deleteTrip(int index) async {
 
 Future<void> editTrip(int index, Trip value) async {
   final tripDb = await Hive.openBox<Trip>("trip_db");
-
   await tripDb.putAt(index, value);
   tripListNotifier.notifyListeners();
 

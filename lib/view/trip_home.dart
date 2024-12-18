@@ -77,9 +77,7 @@ class _TripHomeState extends State<TripHome> {
           builder: (context, value, child) {
             return IconButton(
               onPressed: () {
-                if (value.isNotEmpty) {
-                  showDeleteDialog(context, 0);
-                }
+                showDeleteDialog(context, 0);
               },
               icon: const Icon(Icons.delete_outline_rounded, size: 25),
             );
@@ -275,7 +273,7 @@ Future<void> showDeleteDialog(BuildContext context, int index) {
 
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const NotchBar()),
+                    MaterialPageRoute(builder: (context) => NotchBar()),
                   );
                 }),
               ],

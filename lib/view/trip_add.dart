@@ -115,7 +115,7 @@ class _TripAddState extends State<TripAdd> {
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const NotchBar()),
+      MaterialPageRoute(builder: (context) => NotchBar()),
     );
   }
 

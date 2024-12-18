@@ -3,12 +3,12 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/activities_controlers.dart';
 import 'package:textcodetripland/model/activities.dart';
-
 import 'package:textcodetripland/view/day_planner.dart';
 
 class PlanYourDayAdd extends StatefulWidget {
-  const PlanYourDayAdd({super.key});
-
+  const PlanYourDayAdd({
+    super.key,
+  });
   @override
   State<PlanYourDayAdd> createState() => _PlanYourDayAddState();
 }

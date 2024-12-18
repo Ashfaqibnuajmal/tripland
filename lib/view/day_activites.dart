@@ -10,15 +10,31 @@ class DayActivities extends StatefulWidget {
 }
 
 class _DayActivitiesState extends State<DayActivities> {
-  void deleteItem() {
-    print('Item deleted');
+  final Map<int, bool> _switchStates = {};
+
+  Future<void> _loadAllSwitchStates() async {
+    final activities = activitiesNotifier.value;
+    for (int index = 0; index < activities.length; index++) {
+      String key = 'switchState_$index';
+      bool state = await SharedPreferencesHelper.getSwitchStateByKey(key);
+      _switchStates[index] = state;
+    }
+    setState(() {});
   }
 
-  bool _isSwitched = false;
+  Future<void> _saveSwitchStateByKey(int index, bool value) async {
+    String key = 'switchState_$index';
+    await SharedPreferencesHelper.saveSwitchStateByKey(key, value);
+    setState(() {
+      _switchStates[index] = value;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getAllActivities();
+    _loadAllSwitchStates();
   }
 
   @override
@@ -53,6 +69,8 @@ class _DayActivitiesState extends State<DayActivities> {
               itemCount: activities.length,
               itemBuilder: (context, index) {
                 final activity = activities[index];
+                bool switchState = _switchStates[index] ?? false;
+
                 return ListTile(
                   title: Card(
                     color: Colors.white,
@@ -160,11 +178,9 @@ class _DayActivitiesState extends State<DayActivities> {
                                 activeTrackColor: Colors.blue,
                                 inactiveThumbColor: Colors.white,
                                 inactiveTrackColor: Colors.grey,
-                                value: _isSwitched,
+                                value: switchState,
                                 onChanged: (bool value) {
-                                  setState(() {
-                                    _isSwitched = value;
-                                  });
+                                  _saveSwitchStateByKey(index, value);
                                 },
                               )
                             ],

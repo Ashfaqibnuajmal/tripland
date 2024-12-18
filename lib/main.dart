@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:textcodetripland/model/activities.dart';
+import 'package:textcodetripland/model/bucket.dart';
 import 'package:textcodetripland/model/expance.dart';
 import 'package:textcodetripland/model/trip.dart';
-
 import 'package:textcodetripland/view/intro_screen_1.dart';
 
 void main() async {
@@ -17,6 +17,10 @@ void main() async {
   }
   if (!Hive.isAdapterRegistered(ActivitiesAdapter().typeId)) {
     Hive.registerAdapter(ActivitiesAdapter());
+  }
+  if (!Hive.isAdapterRegistered(BucketAdapter().typeId)) ;
+  {
+    Hive.registerAdapter(BucketAdapter());
   }
   runApp(const MyApp());
 }
@@ -32,7 +36,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const IntroScreen1(),
+      home:
+          const IntroScreen1(), // or use BottomNavigation2() if you want it to be the first screen
     );
   }
 }

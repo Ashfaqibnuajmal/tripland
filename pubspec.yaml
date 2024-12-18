@@ -49,7 +49,9 @@ dependencies:
   fl_chart: ^0.69.2
   hive_generator: ^2.0.1
   build_runner: ^2.4.13
-
+  shared_preferences: ^2.3.3
+  popup_menu: ^2.1.0
+  custom_like_button: ^0.0.5
 
 dev_dependencies:
   flutter_test:
