@@ -1,4 +1,4 @@
-import 'dart:async'; // Correct Timer import
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -119,7 +119,9 @@ class _DayPlannerState extends State<DayPlanner> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const DayActivities(),
+                                    builder: (context) => DayActivities(
+                                      index: index,
+                                    ),
                                   ),
                                 );
                               },

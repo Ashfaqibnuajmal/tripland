@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:textcodetripland/view/bottom_navigation.dart';
 
 class LoginPage extends StatefulWidget {
@@ -11,6 +14,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  File? _pickedImage;
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _pickedImage = File(image.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,14 +52,26 @@ class _LoginPageState extends State<LoginPage> {
                   color: Color(0xFFFCC300),
                   borderRadius: BorderRadius.all(Radius.circular(100)),
                 ),
-                child: Center(
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.person_pin,
-                          size: 100,
-                          color: Colors.black,
-                        ))),
+                child: _pickedImage == null
+                    ? Center(
+                        child: IconButton(
+                          onPressed: _pickImage,
+                          icon: const Icon(
+                            Icons.person_pin,
+                            size: 100,
+                            color: Colors.black,
+                          ),
+                        ),
+                      )
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.file(
+                          _pickedImage!,
+                          fit: BoxFit.cover,
+                          width: 150,
+                          height: 150,
+                        ),
+                      ),
               ),
               const Gap(30),
               Container(
@@ -66,21 +92,70 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   children: [
                     const Gap(60),
-                    textField(
-                      label: "Username",
-                      icon: Icons.person,
+                    Container(
+                      height: 55,
+                      width: 325,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: TextFormField(
+                        obscureText: false,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          labelText: "Username",
+                          labelStyle: TextStyle(color: Colors.black54),
+                          prefixIcon: Icon(
+                            Icons.person,
+                            size: 30,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
                     ),
                     const Gap(15),
-                    textField(
-                      label: "Password",
-                      icon: Icons.lock_outlined,
-                      obscureText: true,
+                    Container(
+                      height: 55,
+                      width: 325,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: TextFormField(
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          labelText: "Password",
+                          labelStyle: TextStyle(color: Colors.black54),
+                          prefixIcon: Icon(
+                            Icons.lock_outlined,
+                            size: 30,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
                     ),
                     const Gap(15),
-                    textField(
-                      label: "Confirm Password",
-                      icon: Icons.key_outlined,
-                      obscureText: true,
+                    Container(
+                      height: 55,
+                      width: 325,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: TextFormField(
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          labelText: "Confirm Password",
+                          labelStyle: TextStyle(color: Colors.black54),
+                          prefixIcon: Icon(
+                            Icons.key_outlined,
+                            size: 30,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
                     ),
                     const Gap(30),
                     Container(
@@ -108,33 +183,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget textField(
-      {required String label,
-      required IconData icon,
-      bool obscureText = false}) {
-    return Container(
-      height: 55,
-      width: 325,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-      ),
-      child: TextFormField(
-        obscureText: obscureText,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          labelText: label,
-          labelStyle: const TextStyle(color: Colors.black54),
-          prefixIcon: Icon(
-            icon,
-            size: 30,
-            color: Colors.black,
           ),
         ),
       ),

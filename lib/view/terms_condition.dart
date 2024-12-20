@@ -9,7 +9,7 @@ class TermsCondition extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.black,
         title: Text(
           "Terms & Condition",
           style: GoogleFonts.anton(

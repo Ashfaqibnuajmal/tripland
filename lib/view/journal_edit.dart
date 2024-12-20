@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,20 +9,37 @@ import 'package:textcodetripland/controllers/journal_controllers.dart';
 import 'package:textcodetripland/model/journal.dart';
 import 'package:textcodetripland/view/bottom_navigation.dart';
 
-class JournalAdd extends StatefulWidget {
-  const JournalAdd({super.key});
+// ignore: must_be_immutable
+class JournalEdit extends StatefulWidget {
+  String? location;
+  String? journal;
+  String? selectedTripType;
+  DateTime? date;
+  int index;
+  String? imageFile;
+  String? time;
+  JournalEdit({
+    super.key,
+    required this.date,
+    required this.imageFile,
+    required this.index,
+    required this.journal,
+    required this.location,
+    required this.time,
+    required this.selectedTripType,
+  });
 
   @override
-  State<JournalAdd> createState() => _JournalAddState();
+  State<JournalEdit> createState() => _JournalEditState();
 }
 
-class _JournalAddState extends State<JournalAdd> {
-  final TextEditingController _locationController = TextEditingController();
-  final TextEditingController _journalController = TextEditingController();
+class _JournalEditState extends State<JournalEdit> {
+  TextEditingController _locationController = TextEditingController();
+  TextEditingController _journalController = TextEditingController();
+  String? _selectedTripType;
   DateTime? _date;
   File? _selectedImage;
   String time = "Select Time";
-  String? _selectedTripType;
   Future<void> selectedTime() async {
     TimeOfDay? selectedTime =
         await showTimePicker(context: context, initialTime: TimeOfDay.now());
@@ -70,56 +88,70 @@ class _JournalAddState extends State<JournalAdd> {
     "Family Vacation",
     "Weekend Getaway"
   ];
-  Future<void> onAddJournal() async {
-    final validations = {
-      "Please give the Image": _selectedImage == null,
-      "Please enter the date ": _date == null,
-      "Please enter the time": time == "Select Time",
-      "Please enter the location": _locationController.text.isEmpty,
-      "Please enter the tripType": _selectedTripType == null,
-      "Please enter the journal": _journalController.text.isEmpty
-    };
-    for (var msg in validations.entries) {
-      if (msg.value) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              backgroundColor: Colors.black,
-              content: Text(msg.key),
-              duration: const Duration(seconds: 2)),
-        );
-        return;
-      }
+  @override
+  void initState() {
+    super.initState();
+    _locationController = TextEditingController(text: widget.location);
+    _journalController = TextEditingController(text: widget.journal);
+    _selectedTripType = widget.selectedTripType;
+    _date = widget.date;
+    time = widget.time ?? "Select Time";
+    if (widget.imageFile != null) {
+      _selectedImage = File(widget.imageFile!);
     }
-    final journal = Journal(
-        date: _date!,
-        imageFile: _selectedImage?.path,
-        journal: _journalController.text,
-        location: _locationController.text,
-        selectedTripType: _selectedTripType,
-        time: time);
-    addJournal(journal);
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Icon(
-            Icons.airplane_ticket_rounded,
-            color: Colors.green,
-          ),
-          Text(
-            "Trip created! Start planning your journey.",
-            style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-          ),
-        ],
+  }
+
+  Future<void> _updateJournal() async {
+    final location = _locationController.text;
+    final date = _date;
+    final journal = _journalController.text; // Use the correct controller
+    final imageFile =
+        _selectedImage; // Assuming _selectedImage holds the image file
+    final tripType = _selectedTripType;
+    final selectedTime = time; // Add the time here
+
+    final updatedJournal = Journal(
+      date: date,
+      location: location,
+      journal: journal,
+      imageFile: imageFile?.path, // Convert image file to path if necessary
+      selectedTripType: tripType,
+      time: selectedTime, // Include the time in the updated journal
+    );
+
+    // Show the Snackbar
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Icon(
+              Icons.airplane_ticket_rounded,
+              color: Colors.green,
+            ),
+            Text(
+              "Update complete! Your trip is ready to go.",
+              style:
+                  TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        duration: Duration(seconds: 2),
+        backgroundColor: Colors.black87,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))),
       ),
-      duration: Duration(seconds: 2),
-      backgroundColor: Colors.black87,
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-    ));
+    );
+
+    // Use editJournal function to update the journal
+    editJournal(widget.index, updatedJournal);
+
+    // Navigate to NotchBar screen
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => NotchBar()));
+      context,
+      MaterialPageRoute(builder: (context) => NotchBar()),
+    );
   }
 
   @override
@@ -320,7 +352,7 @@ class _JournalAddState extends State<JournalAdd> {
           ),
           const Gap(10),
           GestureDetector(
-            onTap: onAddJournal,
+            onTap: _updateJournal,
             child: Container(
               height: 40,
               width: 80,

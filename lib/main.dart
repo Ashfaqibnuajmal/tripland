@@ -3,7 +3,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:textcodetripland/model/activities.dart';
 import 'package:textcodetripland/model/bucket.dart';
 import 'package:textcodetripland/model/expance.dart';
+import 'package:textcodetripland/model/journal.dart';
 import 'package:textcodetripland/model/trip.dart';
+import 'package:textcodetripland/view/d.dart';
 import 'package:textcodetripland/view/intro_screen_1.dart';
 
 void main() async {
@@ -21,6 +23,9 @@ void main() async {
   if (!Hive.isAdapterRegistered(BucketAdapter().typeId)) ;
   {
     Hive.registerAdapter(BucketAdapter());
+  }
+  if (!Hive.isAdapterRegistered(JournalAdapter().typeId)) {
+    Hive.registerAdapter(JournalAdapter());
   }
   runApp(const MyApp());
 }

@@ -1,8 +1,40 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:textcodetripland/controllers/journal_controllers.dart';
 
-class JournalView extends StatelessWidget {
-  const JournalView({super.key});
+class JournalView extends StatefulWidget {
+  final String? location;
+  final String? journal;
+  final String? selectedTripType;
+  final DateTime? date;
+  final int index;
+  final String? imageFile;
+  final String? time;
+  const JournalView({
+    super.key,
+    required this.date,
+    required this.imageFile,
+    required this.index,
+    required this.journal,
+    required this.location,
+    required this.time,
+    required this.selectedTripType,
+  });
+
+  @override
+  State<JournalView> createState() => _JournalViewState();
+}
+
+class _JournalViewState extends State<JournalView> {
+  @override
+  @override
+  void initState() {
+    super.initState();
+    getAllJournal();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +42,15 @@ class JournalView extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text("Wayanad Churam", style: GoogleFonts.anton(fontSize: 20)),
+        title: Text(
+          widget.location.toString(),
+          style: GoogleFonts.anton(
+            fontSize: 20,
+            shadows: const [
+              Shadow(color: Colors.black12, offset: Offset(2, 2))
+            ],
+          ),
+        ),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -19,42 +59,66 @@ class JournalView extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_rounded, size: 25),
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 20),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                "Date:21/07/2022",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "Date:21/07/2022",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const SizedBox(height: 40),
-          Container(
-            height: 400,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(30)),
-            child: Image.asset(
-              "assets/images/ashfaq.jpeg",
-              fit: BoxFit.fill,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  widget.date != null
+                      ? DateFormat('dd MMM yyyy')
+                          .format(widget.date!) // Change format here
+                      : 'N/A',
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                Text(
+                  widget.time != null
+                      ? DateFormat('hh:mm a').format(DateFormat('HH:mm')
+                          .parse(widget.time!)) // Change time format here
+                      : 'N/A',
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+              ],
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Text(
-              "This picture was taken during my last trip with friends—a spontaneous adventure! We originally planned to visit Ooty, but due to weather conditions, we decided to head to Wayanad instead. When we reached the top of Wayanad Churam, we were greeted by the best climate—cool temperatures with a light drizzle. It was truly refreshing! Many families were there, capturing their own memories, making the experience even more special for us.",
-              style: TextStyle(fontSize: 12),
-              textAlign: TextAlign.center,
+            const SizedBox(height: 10),
+            Container(
+                height: 550,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30)),
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: Image.file(
+                      File(widget.imageFile ?? "NA"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )),
+            Text(
+              widget.selectedTripType.toString(),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                widget.journal.toString(),
+                style:
+                    const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Import shared_preferences package
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip.dart';
 import 'package:textcodetripland/view/bottom_navigation2.dart';
@@ -48,11 +48,14 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
+  // Function to get rating from SharedPreferences for a particular trip
   Future<double> getRatingForTrip(String tripKey) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getDouble(tripKey) ?? 0.0;
+    return prefs.getDouble(tripKey) ??
+        3.0; // Default rating is 3.0 if not found
   }
 
+  // Function to save rating to SharedPreferences for a particular trip
   Future<void> saveRatingForTrip(String tripKey, double rating) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setDouble(tripKey, rating);
@@ -184,28 +187,99 @@ class _HomePageState extends State<HomePage> {
                     )
                   ],
                 ),
-                Container(
-                  height: 250,
-                  width: 350,
-                  margin: const EdgeInsets.only(bottom: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.yellow,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.3),
-                        spreadRadius: 2,
-                        blurRadius: 8,
-                        offset: const Offset(4, 4),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NotchBar2(
+                                  index: index,
+                                  location: data.location,
+                                  startDate: data.startDate,
+                                  endDate: data.endDate,
+                                  selectedNumberOfPeople:
+                                      data.selectedNumberOfPeople,
+                                  selectedTripType: data.selectedTripType,
+                                  expance: data.expance,
+                                  imageFile: data.imageFile,
+                                )));
+                  },
+                  child: GestureDetector(
+                    onLongPress: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            backgroundColor: Colors.black54,
+                            title: const Center(
+                              child: Text("Delete Confirmation",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white)),
+                            ),
+                            content: const Text(
+                              '''   Are you sure you want to delete
+                    this Trip?''',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            actions: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text(
+                                      "Cancel",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () async {
+                                      Navigator.of(context).pop();
+                                      await deleteTrip(index);
+                                    },
+                                    child: const Text(
+                                      "Delete",
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
+                      height: 250,
+                      width: 350,
+                      margin: const EdgeInsets.only(bottom: 20),
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 2,
+                            blurRadius: 8,
+                            offset: const Offset(4, 4),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.file(
-                      File(data.imageFile ?? "NA"),
-                      fit: BoxFit.fill,
-                      width: double.infinity,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.file(
+                          File(data.imageFile ?? "NA"),
+                          fit: BoxFit.fill,
+                          width: double.infinity,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -232,34 +306,6 @@ class _HomePageState extends State<HomePage> {
                                 tripKey, newRating); // Save rating when changed
                           });
                         },
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => NotchBar2(
-                                index: index,
-                                location: data.location,
-                                startDate: data.startDate,
-                                endDate: data.endDate,
-                                selectedNumberOfPeople:
-                                    data.selectedNumberOfPeople,
-                                selectedTripType: data.selectedTripType,
-                                expance: data.expance,
-                                imageFile: data.imageFile,
-                              ),
-                            ),
-                          );
-                        },
-                        child: const Text(
-                          "See more",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            letterSpacing: -1,
-                          ),
-                        ),
                       ),
                     ],
                   ),

@@ -9,7 +9,7 @@ class AboutUs extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.black,
         title: Text("About us",
             style: GoogleFonts.anton(color: Colors.white, fontSize: 20)),
         centerTitle: true,

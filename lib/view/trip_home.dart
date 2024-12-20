@@ -71,19 +71,6 @@ class _TripHomeState extends State<TripHome> {
         },
         icon: const Icon(Icons.arrow_back_rounded, size: 25),
       ),
-      actions: [
-        ValueListenableBuilder(
-          valueListenable: tripListNotifier,
-          builder: (context, value, child) {
-            return IconButton(
-              onPressed: () {
-                showDeleteDialog(context, 0);
-              },
-              icon: const Icon(Icons.delete_outline_rounded, size: 25),
-            );
-          },
-        ),
-      ],
     );
   }
 
@@ -209,80 +196,6 @@ class InfoIconBox extends StatelessWidget {
       ),
     );
   }
-}
-
-Future<void> showDeleteDialog(BuildContext context, int index) {
-  return showDialog(
-    context: context,
-    builder: (ctx) => AlertDialog(
-      backgroundColor: Colors.black54,
-      contentPadding: EdgeInsets.zero,
-      content: Container(
-        width: 300,
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.report_gmailerrorred_outlined,
-                size: 30, color: Colors.red),
-            const SizedBox(height: 10),
-            const Text('Delete Trip?',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white)),
-            const SizedBox(height: 10),
-            const Text(
-              'Are you sure you want to delete this Trip?',
-              style: TextStyle(color: Colors.white),
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                button(ctx, 'Cancel', Colors.white12, Colors.white,
-                    () => Navigator.of(ctx).pop()),
-                button(ctx, 'Delete', Colors.redAccent, Colors.white, () {
-                  deleteTrip(index);
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Icon(
-                            Icons.delete_forever_rounded,
-                            color: Colors.redAccent,
-                          ),
-                          Text(
-                            "Trip deleted! Memories live on.",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      duration: Duration(seconds: 2),
-                      backgroundColor: Colors.black87,
-                      behavior: SnackBarBehavior.floating,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                    ),
-                  );
-
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => NotchBar()),
-                  );
-                }),
-              ],
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
 }
 
 Widget button(BuildContext ctx, String text, Color bgColor, Color textColor,

@@ -160,24 +160,49 @@ class _ExpanceHomeState extends State<ExpanceHome> {
                               onLongPress: () {
                                 showDialog(
                                   context: context,
-                                  builder: (context) {
+                                  builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: const Text("Confirm Deletion"),
+                                      backgroundColor: Colors.black54,
+                                      title: const Center(
+                                        child: Text("Delete Confirmation",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white)),
+                                      ),
                                       content: const Text(
-                                          "Are you sure you want to delete this expense?"),
+                                        '''   Are you sure you want to delete
+                    this expance?''',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                       actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: const Text("Cancel"),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            deleteExpance(index);
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text("OK"),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text(
+                                                "Cancel",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                            TextButton(
+                                              onPressed: () async {
+                                                Navigator.of(context).pop();
+                                                await deleteExpance(index);
+                                              },
+                                              child: const Text(
+                                                "Delete",
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     );

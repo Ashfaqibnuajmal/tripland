@@ -3,7 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/activities_controlers.dart';
 
 class DayActivities extends StatefulWidget {
-  const DayActivities({super.key});
+  final int index;
+  const DayActivities({super.key, required this.index});
 
   @override
   State<DayActivities> createState() => _DayActivitiesState();
@@ -146,29 +147,57 @@ class _DayActivitiesState extends State<DayActivities> {
                                   color: Colors.red,
                                   onPressed: () {
                                     showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title:
-                                                const Text("Delete Actitivity"),
-                                            content: const Text(
-                                                "Are you sure want to delete this activity?"),
-                                            actions: [
-                                              TextButton(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          backgroundColor: Colors.black54,
+                                          title: const Center(
+                                            child: Text("Delete Confirmation",
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Colors.white)),
+                                          ),
+                                          content: const Text(
+                                            '''   Are you sure you want to delete
+                    this activity?''',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          actions: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                TextButton(
                                                   onPressed: () {
                                                     Navigator.of(context).pop();
                                                   },
-                                                  child: const Text("Cancel")),
-                                              TextButton(
+                                                  child: const Text(
+                                                    "Cancel",
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                                TextButton(
                                                   onPressed: () async {
+                                                    Navigator.of(context).pop();
                                                     await deleteActivities(
                                                         index);
-                                                    Navigator.of(context).pop();
                                                   },
-                                                  child: const Text("Delete"))
-                                            ],
-                                          );
-                                        });
+                                                  child: const Text(
+                                                    "Delete",
+                                                    style: TextStyle(
+                                                        color: Colors.red),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
                                   },
                                   icon:
                                       const Icon(Icons.delete_outline_rounded)),
