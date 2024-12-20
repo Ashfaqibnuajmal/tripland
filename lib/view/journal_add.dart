@@ -310,10 +310,12 @@ class _JournalAddState extends State<JournalAdd> {
             child: TextFormField(
               controller: _journalController,
               textAlign: TextAlign.center,
+              maxLines: null,
               decoration: const InputDecoration(
                 border: InputBorder.none,
                 hintText: "Journal text",
-                contentPadding: EdgeInsets.all(50),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                 hintStyle: TextStyle(fontSize: 12, color: Colors.black38),
               ),
             ),

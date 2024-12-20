@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
-import 'package:textcodetripland/view/bottom_navigation.dart';
 
 // ignore: must_be_immutable
 class TripHome extends StatefulWidget {
