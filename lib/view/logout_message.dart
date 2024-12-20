@@ -53,10 +53,7 @@ Future<void> showLogoutDialog(BuildContext context, VoidCallback onDelete) {
               children: [
                 button(ctx, 'Cancel', Colors.black, Colors.white,
                     () => Navigator.of(ctx).pop()),
-                button(ctx, 'Logout', Colors.redAccent, Colors.white, () {
-                  onDelete();
-                  Navigator.of(ctx).pop();
-                }),
+                button(ctx, 'Logout', Colors.redAccent, Colors.white, () {}),
               ],
             ),
           ],

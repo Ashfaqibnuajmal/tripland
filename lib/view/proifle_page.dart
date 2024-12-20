@@ -3,10 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:textcodetripland/controllers/user_controllers.dart';
+import 'package:textcodetripland/model/user.dart';
 import 'package:textcodetripland/view/about_us.dart';
 import 'package:textcodetripland/view/help_support.dart';
-import 'package:textcodetripland/view/logout_message.dart';
+import 'package:textcodetripland/view/login_page.dart';
 import 'package:textcodetripland/view/privacy_policy.dart';
 import 'package:textcodetripland/view/terms_condition.dart';
 
@@ -18,17 +19,29 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    loaduser();
+    super.initState();
+  }
+
+  User? userdata;
+  void loaduser() async {
+    userdata = await getUser();
+    setState(() {});
+  }
+
+  void _logout() async {
+    await logoutUser();
+    Navigator.pushReplacement(
+      // ignore: use_build_context_synchronously
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+    );
+  }
+
   File? _image;
   bool _isSwitched = false;
-  Future<void> _picImage() async {
-    final picker = ImagePicker();
-    final PickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (PickedFile != null) {
-      setState(() {
-        _image = File(PickedFile.path);
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +57,21 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         actions: [
           IconButton(
-            onPressed: () => showLogoutDialog(context, () {}),
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        title: const Text("logout"),
+                        content: Text("ssssssssssssssssssssssssssssssssssssss"),
+                        actions: [
+                          IconButton(
+                              onPressed: () {
+                                _logout();
+                              },
+                              icon: Icon(Icons.logout))
+                        ],
+                      ));
+            },
             icon: const Icon(Icons.logout_rounded),
           ),
         ],
@@ -59,25 +86,26 @@ class _ProfilePageState extends State<ProfilePage> {
                 Column(
                   children: [
                     GestureDetector(
-                      onTap: _picImage,
                       child: CircleAvatar(
                         radius: 60,
                         backgroundColor: Colors.black12,
-                        backgroundImage:
-                            _image != null ? FileImage(_image!) : null,
-                        child: _image == null
-                            ? const Icon(
-                                Icons.photo_camera_back_rounded,
-                                size: 40,
-                                color: Colors.grey,
-                              )
-                            : null,
+                        backgroundImage: userdata?.image != null
+                            ? FileImage(File(userdata!
+                                .image!)) // Convert string to File object
+                            : null, // Show a default image if userdata or image is null
                       ),
                     ),
                     const Gap(10),
-                    Text("ASHFAQ KV",
-                        style: GoogleFonts.nobile(
-                            fontWeight: FontWeight.bold, fontSize: 18)),
+                    Text(
+                      userdata?.name != null && userdata!.name!.isNotEmpty
+                          ? userdata!.name![0].toUpperCase() +
+                              userdata!.name!.substring(1)
+                          : "No username", // Fallback if userdata is null or empty
+                      style: GoogleFonts.nobile(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -105,44 +133,52 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   const Gap(15),
                   SettingsButton(
-                      icon: Icons.privacy_tip,
-                      label: "Privacy & Policy",
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const PrivacyPolicy()));
-                      }),
+                    icon: Icons.privacy_tip,
+                    label: "Privacy & Policy",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PrivacyPolicy()),
+                      );
+                    },
+                  ),
                   const Gap(15),
                   SettingsButton(
-                      icon: Icons.miscellaneous_services_rounded,
-                      label: "Terms of Service",
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const TermsCondition()));
-                      }),
+                    icon: Icons.miscellaneous_services_rounded,
+                    label: "Terms of Service",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const TermsCondition()),
+                      );
+                    },
+                  ),
                   const Gap(15),
                   SettingsButton(
-                      icon: Icons.help_center_rounded,
-                      label: "Help and Support",
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HelpSupport()));
-                      }),
+                    icon: Icons.help_center_rounded,
+                    label: "Help and Support",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HelpSupport()),
+                      );
+                    },
+                  ),
                   const Gap(15),
                   SettingsButton(
-                      icon: Icons.admin_panel_settings_rounded,
-                      label: "About Us",
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const AboutUs()));
-                      }),
+                    icon: Icons.admin_panel_settings_rounded,
+                    label: "About Us",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AboutUs()),
+                      );
+                    },
+                  ),
                   const Gap(15),
                   Container(
                     height: 50,

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:textcodetripland/controllers/user_controllers.dart';
+import 'package:textcodetripland/model/user.dart';
 import 'package:textcodetripland/view/bottom_navigation.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,7 +20,6 @@ class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-
   bool _isObscure = true; // Controls password visibility
   File? _pickedImage;
 
@@ -31,17 +33,39 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void _validateAndSubmit() {
-    if (_pickedImage == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please select an image.')),
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final bool isLoggedIn = prefs.getBool("isLoggedIn") ?? false;
+    if (isLoggedIn) {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => NotchBar()),
+        (Route<dynamic> route) => false,
       );
-      return;
     }
-    if (_formKey.currentState!.validate()) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => NotchBar()));
+  }
+
+  String? validateUserName(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Username is required";
+    } else if (!RegExp(r'^[a-zA-Z0-9]{5,}$').hasMatch(value)) {
+      return "Username must be letters and numbers";
     }
+    return null;
+  }
+
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Password is required";
+    } else if (value.length < 6) {
+      return "Password must be at least 6 characters long";
+    }
+    return null;
   }
 
   @override
@@ -145,12 +169,7 @@ class _LoginPageState extends State<LoginPage> {
                               color: Colors.black,
                             ),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your username';
-                            }
-                            return null;
-                          },
+                          validator: validateUserName,
                         ),
                       ),
                       const Gap(15),
@@ -187,12 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                               },
                             ),
                           ),
-                          validator: (value) {
-                            if (value == null || value.length < 6) {
-                              return 'Password must be at least 6 characters';
-                            }
-                            return null;
-                          },
+                          validator: validatePassword,
                         ),
                       ),
                       const Gap(15),
@@ -234,7 +248,28 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         child: Center(
                           child: TextButton(
-                            onPressed: _validateAndSubmit,
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                if (_pickedImage == null) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content:
+                                            Text('Please select an image.')),
+                                  );
+                                  return;
+                                }
+                                final userdata = User(
+                                    image: _pickedImage!.path,
+                                    name: _usernameController.text,
+                                    password: _passwordController.text);
+                                await addUser(userdata);
+                                Navigator.push(
+                                    // ignore: use_build_context_synchronously
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => NotchBar()));
+                              }
+                            },
                             child: Text(
                               "Login",
                               style: GoogleFonts.anton(

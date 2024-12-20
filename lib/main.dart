@@ -5,7 +5,9 @@ import 'package:textcodetripland/model/bucket.dart';
 import 'package:textcodetripland/model/expance.dart';
 import 'package:textcodetripland/model/journal.dart';
 import 'package:textcodetripland/model/trip.dart';
+import 'package:textcodetripland/model/user.dart';
 import 'package:textcodetripland/view/intro_screen_1.dart';
+import 'package:textcodetripland/view/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +27,9 @@ void main() async {
   if (!Hive.isAdapterRegistered(JournalAdapter().typeId)) {
     Hive.registerAdapter(JournalAdapter());
   }
+  if (!Hive.isAdapterRegistered(UserAdapter().typeId)) {
+    Hive.registerAdapter(UserAdapter());
+  }
   runApp(const MyApp());
 }
 
@@ -39,8 +44,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:
-          const IntroScreen1(), // or use BottomNavigation2() if you want it to be the first screen
+      home:const  SplashScreen(),
     );
   }
 }
