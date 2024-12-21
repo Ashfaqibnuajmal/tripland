@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
@@ -261,71 +262,112 @@ class _BucketlistState extends State<Bucketlist> {
                                               } else if (value == 'delete') {
                                                 showDialog(
                                                   context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return AlertDialog(
-                                                      backgroundColor:
-                                                          Colors.black54,
-                                                      title: const Center(
-                                                        child: Text(
-                                                            "Delete Confirmation",
-                                                            style: TextStyle(
-                                                                fontSize: 20,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                color: Colors
-                                                                    .white)),
-                                                      ),
-                                                      content: const Text(
-                                                        '''   Are you sure you want to delete
-                    this bucket?''',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      actions: [
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          children: [
-                                                            TextButton(
-                                                              onPressed: () {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                              },
-                                                              child: const Text(
-                                                                "Cancel",
-                                                                style:
-                                                                    TextStyle(
+                                                  builder: (ctx) => AlertDialog(
+                                                    backgroundColor:
+                                                        Colors.black87,
+                                                    contentPadding:
+                                                        EdgeInsets.zero,
+                                                    content: Container(
+                                                      width: 300,
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              16),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          const Icon(
+                                                              Icons
+                                                                  .report_gmailerrorred_outlined,
+                                                              size: 30,
+                                                              color: Colors
+                                                                  .redAccent),
+                                                          const Gap(10),
+                                                          const Text('Delete?',
+                                                              style: TextStyle(
+                                                                  fontSize: 20,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
                                                                   color: Colors
-                                                                      .white,
+                                                                      .white)),
+                                                          const Gap(10),
+                                                          const Text(
+                                                            "Are you sure you want to Delete?",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          const Gap(20),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
+                                                            children: [
+                                                              // Cancel button
+                                                              Container(
+                                                                height: 40,
+                                                                width: 90,
+                                                                decoration: BoxDecoration(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            5)),
+                                                                child:
+                                                                    TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.of(
+                                                                              ctx)
+                                                                          .pop(),
+                                                                  child:
+                                                                      const Text(
+                                                                    'Cancel',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            TextButton(
-                                                              onPressed:
-                                                                  () async {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                                await deleteBucket(
-                                                                    index);
-                                                              },
-                                                              child: const Text(
-                                                                "Delete",
-                                                                style: TextStyle(
+                                                              // Logout button
+                                                              Container(
+                                                                height: 40,
+                                                                width: 90,
+                                                                decoration: BoxDecoration(
                                                                     color: Colors
-                                                                        .red),
+                                                                        .redAccent,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            5)),
+                                                                child:
+                                                                    TextButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    deleteBucket(
+                                                                        index);
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  // You can link the function here
+                                                                  child:
+                                                                      const Text(
+                                                                    'Delete',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                  ),
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
                                                 );
                                               }
                                             });

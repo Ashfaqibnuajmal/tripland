@@ -162,19 +162,80 @@ class _ProfilePageState extends State<ProfilePage> {
                   GestureDetector(
                     onTap: () {
                       showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                title: const Text("logout"),
-                                content: const Text(
-                                    "ssssssssssssssssssssssssssssssssssssss"),
-                                actions: [
-                                  IconButton(
-                                      onPressed: () {
-                                        _logout();
-                                      },
-                                      icon: const Icon(Icons.logout))
-                                ],
-                              ));
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          backgroundColor: Colors.black87,
+                          contentPadding: EdgeInsets.zero,
+                          content: Container(
+                            width: 300,
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(Icons.report_gmailerrorred_outlined,
+                                    size: 30, color: Colors.redAccent),
+                                const Gap(10),
+                                const Text('Logout?',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white)),
+                                const Gap(10),
+                                const Text(
+                                  "Are you sure you want to logout?",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                const Gap(20),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    // Cancel button
+                                    Container(
+                                      height: 40,
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                          color: Colors.black,
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      child: TextButton(
+                                        onPressed: () =>
+                                            Navigator.of(ctx).pop(),
+                                        child: const Text(
+                                          'Cancel',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                    // Logout button
+                                    Container(
+                                      height: 40,
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                          color: Colors.redAccent,
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          _logout();
+                                        }, // You can link the function here
+                                        child: const Text(
+                                          'Logout',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
                     },
                     child: Container(
                       height: 50,

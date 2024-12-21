@@ -51,29 +51,43 @@ Future<void> showLogoutDialog(BuildContext context, VoidCallback onDelete) {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                button(ctx, 'Cancel', Colors.black, Colors.white,
-                    () => Navigator.of(ctx).pop()),
-                button(ctx, 'Logout', Colors.redAccent, Colors.white, () {}),
+                // Cancel button
+                Container(
+                  height: 40,
+                  width: 90,
+                  decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: TextButton(
+                    onPressed: () => Navigator.of(ctx).pop(),
+                    child: const Text(
+                      'Cancel',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                // Logout button
+                Container(
+                  height: 40,
+                  width: 90,
+                  decoration: BoxDecoration(
+                      color: Colors.redAccent,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: TextButton(
+                    onPressed: onDelete, // You can link the function here
+                    child: const Text(
+                      'Logout',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
               ],
             ),
           ],
         ),
       ),
-    ),
-  );
-}
-
-Widget button(BuildContext ctx, String text, Color bgColor, Color textColor,
-    VoidCallback onPressed) {
-  return Container(
-    height: 40,
-    width: 90,
-    decoration:
-        BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(5)),
-    child: TextButton(
-      onPressed: onPressed,
-      child: Text(text,
-          style: TextStyle(color: textColor, fontWeight: FontWeight.bold)),
     ),
   );
 }

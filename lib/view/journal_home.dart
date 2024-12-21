@@ -131,55 +131,84 @@ class _JournalHomeState extends State<JournalHome> {
                             } else if (value == 'delete') {
                               showDialog(
                                 context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    backgroundColor: Colors.black54,
-                                    title: const Center(
-                                      child: Text(
-                                        "Delete Confirmation",
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white,
+                                builder: (ctx) => AlertDialog(
+                                  backgroundColor: Colors.black87,
+                                  contentPadding: EdgeInsets.zero,
+                                  content: Container(
+                                    width: 300,
+                                    padding: const EdgeInsets.all(16),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Icon(
+                                            Icons.report_gmailerrorred_outlined,
+                                            size: 30,
+                                            color: Colors.redAccent),
+                                        const Gap(10),
+                                        const Text('Delete?',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white)),
+                                        const Gap(10),
+                                        const Text(
+                                          "Are you sure you want to Delete?",
+                                          style: TextStyle(color: Colors.white),
                                         ),
-                                      ),
-                                    ),
-                                    content: const Text(
-                                      '''Are you sure you want to delete this bucket?''',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    actions: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text(
-                                              "Cancel",
-                                              style: TextStyle(
-                                                color: Colors.white,
+                                        const Gap(20),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            // Cancel button
+                                            Container(
+                                              height: 40,
+                                              width: 90,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.black,
+                                                  borderRadius:
+                                                      BorderRadius.circular(5)),
+                                              child: TextButton(
+                                                onPressed: () =>
+                                                    Navigator.of(ctx).pop(),
+                                                child: const Text(
+                                                  'Cancel',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          TextButton(
-                                            onPressed: () async {
-                                              deleteJournal(index);
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text(
-                                              "Delete",
-                                              style:
-                                                  TextStyle(color: Colors.red),
+                                            // Logout button
+                                            Container(
+                                              height: 40,
+                                              width: 90,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.redAccent,
+                                                  borderRadius:
+                                                      BorderRadius.circular(5)),
+                                              child: TextButton(
+                                                onPressed: () {
+                                                  deleteJournal(index);
+                                                  Navigator.pop(context);
+                                                },
+                                                // You can link the function here
+                                                child: const Text(
+                                                  'Delete',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  );
-                                },
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               );
                             }
                           });
