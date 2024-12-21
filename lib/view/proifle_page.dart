@@ -12,7 +12,9 @@ import 'package:textcodetripland/view/privacy_policy.dart';
 import 'package:textcodetripland/view/terms_condition.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({
+    super.key,
+  });
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -40,9 +42,6 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  File? _image;
-  bool _isSwitched = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,26 +54,6 @@ class _ProfilePageState extends State<ProfilePage> {
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back_rounded, size: 25),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        title: const Text("logout"),
-                        content: Text("ssssssssssssssssssssssssssssssssssssss"),
-                        actions: [
-                          IconButton(
-                              onPressed: () {
-                                _logout();
-                              },
-                              icon: Icon(Icons.logout))
-                        ],
-                      ));
-            },
-            icon: const Icon(Icons.logout_rounded),
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 10),
@@ -179,33 +158,43 @@ class _ProfilePageState extends State<ProfilePage> {
                       );
                     },
                   ),
-                  const Gap(15),
-                  Container(
-                    height: 50,
-                    width: 300,
-                    decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: Text("Dark mode",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600)),
-                        ),
-                        Switch(
-                          value: _isSwitched,
-                          onChanged: (value) =>
-                              setState(() => _isSwitched = value),
-                          activeColor: Colors.black,
-                          activeTrackColor: Colors.white60,
-                          inactiveThumbColor: Colors.black,
-                          inactiveTrackColor: Colors.white,
-                        ),
-                      ],
+                  const Gap(30),
+                  GestureDetector(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: const Text("logout"),
+                                content: const Text(
+                                    "ssssssssssssssssssssssssssssssssssssss"),
+                                actions: [
+                                  IconButton(
+                                      onPressed: () {
+                                        _logout();
+                                      },
+                                      icon: const Icon(Icons.logout))
+                                ],
+                              ));
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 200,
+                      decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Text("LogOut",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -224,11 +213,10 @@ class SettingsButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const SettingsButton(
-      {Key? key,
+      {super.key,
       required this.icon,
       required this.label,
-      required this.onPressed})
-      : super(key: key);
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

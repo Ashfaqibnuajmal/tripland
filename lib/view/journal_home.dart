@@ -44,7 +44,9 @@ class _JournalHomeState extends State<JournalHome> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const ProfilePage()),
+              MaterialPageRoute(
+                builder: (context) => const ProfilePage(),
+              ),
             );
           },
           icon: const Icon(Icons.settings),

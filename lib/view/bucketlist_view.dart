@@ -10,7 +10,7 @@ import 'package:textcodetripland/view/proifle_page.dart';
 
 // ignore: must_be_immutable
 class Bucketlist extends StatefulWidget {
-  Bucketlist({
+  const Bucketlist({
     super.key,
   });
 
@@ -81,8 +81,12 @@ class _BucketlistState extends State<Bucketlist> {
           ),
           leading: IconButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const ProfilePage()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilePage(),
+                  ),
+                );
               },
               icon: const Icon(Icons.settings)),
           centerTitle: true,

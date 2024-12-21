@@ -28,7 +28,7 @@ class NotchBarState extends State<NotchBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       body: _pages[_controller.index],
       bottomNavigationBar: AnimatedNotchBottomBar(
         notchBottomBarController: _controller,

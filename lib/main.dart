@@ -6,7 +6,6 @@ import 'package:textcodetripland/model/expance.dart';
 import 'package:textcodetripland/model/journal.dart';
 import 'package:textcodetripland/model/trip.dart';
 import 'package:textcodetripland/model/user.dart';
-import 'package:textcodetripland/view/intro_screen_1.dart';
 import 'package:textcodetripland/view/splash_screen.dart';
 
 void main() async {
@@ -44,7 +43,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:const  SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

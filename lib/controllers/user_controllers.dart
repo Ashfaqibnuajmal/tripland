@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:hive/hive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/model/user.dart';
 
 Future<void> addUser(User value) async {
