@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/expance_controllers.dart';
 import 'package:textcodetripland/model/expance_model/expance.dart';
 
-import 'package:textcodetripland/view/expance_home.dart';
+import 'package:textcodetripland/view/expance/expance_home.dart';
 
 class ExpanceAdd extends StatefulWidget {
   ExpanceAdd({

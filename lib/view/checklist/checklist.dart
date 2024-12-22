@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/controllers/checkllist_controllers.dart';
-import 'package:textcodetripland/view/checklist_add.dart';
+import 'package:textcodetripland/view/checklist/checklist_add.dart';
 
 class Checklists extends StatefulWidget {
   const Checklists({super.key});

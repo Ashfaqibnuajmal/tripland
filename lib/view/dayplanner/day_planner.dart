@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:textcodetripland/view/day_activites.dart';
-import 'package:textcodetripland/view/dayplan_add.dart';
+import 'package:textcodetripland/view/dayplanner/day_activites.dart';
+import 'package:textcodetripland/view/dayplanner/dayplan_add.dart';
 
 class DayPlanner extends StatefulWidget {
   const DayPlanner({

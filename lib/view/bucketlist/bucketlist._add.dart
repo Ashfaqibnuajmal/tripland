@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,35 +6,27 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
 import 'package:textcodetripland/model/bucket_model/bucket.dart';
-import 'package:textcodetripland/view/bottom_navigation.dart';
+import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
-// ignore: must_be_immutable
-class BucketEdit extends StatefulWidget {
-  String? location;
-  String? description;
-  String? selectedTripType;
-  DateTime? date;
-  String? imageFile;
-  int index;
-  BucketEdit(
-      {super.key,
-      required this.date,
-      required this.description,
-      required this.imageFile,
-      required this.location,
-      required this.index,
-      required this.selectedTripType});
+class BucketlistAdd extends StatefulWidget {
+  const BucketlistAdd({super.key});
 
   @override
-  State<BucketEdit> createState() => _BucketEditState();
+  State<BucketlistAdd> createState() => _BucketlistAddState();
 }
 
-class _BucketEditState extends State<BucketEdit> {
-  TextEditingController _locationController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
-  String? _selectedTripType;
+class _BucketlistAddState extends State<BucketlistAdd> {
+  final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   DateTime? _date;
-  File? _imageFile;
+  String? _selectedTripType;
+  File? _selectedImage;
+  @override
+  void dispose() {
+    _locationController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
 
   Future<void> _pickDate(BuildContext context) async {
     final DateTime? selectDate = await showDatePicker(
@@ -51,15 +42,55 @@ class _BucketEditState extends State<BucketEdit> {
     }
   }
 
-  Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile =
-        await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _imageFile = File(pickedFile.path); // Store the image file
-      });
+  Future<void> onAddBucket() async {
+    final validations = {
+      "Please add a photo": _selectedImage == null,
+      "Please enter a date": _date == null,
+      "Please enter a location": _locationController.text.isEmpty,
+      "Please enter a trip type": _selectedTripType == null,
+      "Please enter description": _descriptionController.text.isEmpty
+    };
+    for (var msg in validations.entries) {
+      if (msg.value) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.black,
+          content: Text(msg.key),
+          duration: const Duration(seconds: 2),
+        ));
+        return;
+      }
     }
+    final bucket = Bucket(
+        date: _date,
+        location: _locationController.text,
+        description: _descriptionController.text,
+        imageFile: _selectedImage?.path,
+        selectedTripType: _selectedTripType);
+    addBucket(bucket);
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Icon(
+            Icons.airplane_ticket_rounded,
+            color: Colors.green,
+          ),
+          Text(
+            "Trip created! Start planning your journey.",
+            style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+      duration: Duration(seconds: 2),
+      backgroundColor: Colors.black87,
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+    ));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => NotchBar()),
+    );
   }
 
   String? selectedOption = "Beach Trip";
@@ -76,55 +107,15 @@ class _BucketEditState extends State<BucketEdit> {
     "Family Vacation",
     "Weekend Getaway"
   ];
-  Future<void> _updateBucket() async {
-    final location = _locationController.text;
-    final date = _date;
-    final description = _descriptionController.text;
-    final imageFile = _imageFile;
-    final tripType = _selectedTripType;
-    final update = Bucket(
-        date: date,
-        location: location,
-        description: description,
-        imageFile: imageFile?.path,
-        selectedTripType: tripType);
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Icon(
-              Icons.airplane_ticket_rounded,
-              color: Colors.green,
-            ),
-            Text(
-              "Update complete! Your trip is ready to go.",
-              style:
-                  TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        duration: Duration(seconds: 2),
-        backgroundColor: Colors.black87,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-      ),
-    );
-    editBucket(widget.index, update);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => NotchBar()));
-  }
 
-  @override
-  void initState() {
-    super.initState();
-    _locationController = TextEditingController(text: widget.location);
-    _descriptionController = TextEditingController(text: widget.description);
-    _selectedTripType = widget.selectedTripType!;
-    _date = widget.date;
-    if (widget.imageFile != null) {
-      _imageFile = File(widget.imageFile!);
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile =
+        await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = File(pickedFile.path); // Store the image file
+      });
     }
   }
 
@@ -156,7 +147,7 @@ class _BucketEditState extends State<BucketEdit> {
                       color: Colors.black87,
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: _imageFile == null
+                    child: _selectedImage == null
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -176,7 +167,7 @@ class _BucketEditState extends State<BucketEdit> {
                             borderRadius: BorderRadius.circular(20),
                             child: Image.file(
                               // Display the selected image
-                              _imageFile!,
+                              _selectedImage!,
                               fit: BoxFit.cover,
                               height: 300,
                               width: 300,
@@ -256,17 +247,15 @@ class _BucketEditState extends State<BucketEdit> {
                     value: option,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        option,
-                        style: const TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
-                      ),
+                      child: Text(option,
+                          style: const TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold)),
                     ),
                   );
                 }).toList(),
                 onChanged: (String? newValue) {
                   setState(() {
-                    _selectedTripType = newValue; // Update the selected value
+                    _selectedTripType = newValue; // Update _selectedTripType
                   });
                 },
               ),
@@ -295,7 +284,7 @@ class _BucketEditState extends State<BucketEdit> {
             ),
             const Gap(10),
             GestureDetector(
-              onTap: _updateBucket,
+              onTap: onAddBucket,
               child: Container(
                 height: 40,
                 width: 80,

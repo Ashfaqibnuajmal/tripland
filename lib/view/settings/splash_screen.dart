@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:textcodetripland/controllers/user_controllers.dart';
-import 'package:textcodetripland/view/bottom_navigation.dart';
-import 'package:textcodetripland/view/intro_screen_1.dart';
+import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
+import 'package:textcodetripland/view/introscreens/intro_screen_1.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
-import 'package:textcodetripland/view/bottom_navigation.dart';
+import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class TripAdd extends StatefulWidget {
   const TripAdd({super.key});

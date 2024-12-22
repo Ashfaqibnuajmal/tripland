@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
-import 'package:textcodetripland/view/checklist.dart';
-import 'package:textcodetripland/view/day_planner.dart';
-import 'package:textcodetripland/view/edit_trip.dart';
-import 'package:textcodetripland/view/expance_home.dart';
+import 'package:textcodetripland/view/checklist/checklist.dart';
+import 'package:textcodetripland/view/dayplanner/day_planner.dart';
+import 'package:textcodetripland/view/homepage/edit_trip.dart';
+import 'package:textcodetripland/view/expance/expance_home.dart';
 
 // ignore: must_be_immutable
 class TripHome extends StatefulWidget {

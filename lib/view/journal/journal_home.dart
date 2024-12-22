@@ -5,10 +5,10 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/journal_controllers.dart';
-import 'package:textcodetripland/view/journal_add.dart';
-import 'package:textcodetripland/view/journal_edit.dart';
-import 'package:textcodetripland/view/journal_view.dart';
-import 'package:textcodetripland/view/proifle_page.dart';
+import 'package:textcodetripland/view/journal/journal_add.dart';
+import 'package:textcodetripland/view/journal/journal_edit.dart';
+import 'package:textcodetripland/view/journal/journal_view.dart';
+import 'package:textcodetripland/view/settings/proifle_page.dart';
 
 class JournalHome extends StatefulWidget {
   const JournalHome({super.key});

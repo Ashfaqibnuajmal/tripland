@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:textcodetripland/view/login_page.dart';
+import 'package:textcodetripland/view/settings/login_page.dart';
 
 class IntroScreen3 extends StatelessWidget {
   const IntroScreen3({super.key});

@@ -64,9 +64,9 @@
 //   }
 // }
 import 'package:flutter/material.dart';
-import 'package:textcodetripland/view/bucketlist_view.dart';
-import 'package:textcodetripland/view/home_page.dart';
-import 'package:textcodetripland/view/journal_home.dart';
+import 'package:textcodetripland/view/bucketlist/bucketlist_view.dart';
+import 'package:textcodetripland/view/homepage/home_page.dart';
+import 'package:textcodetripland/view/journal/journal_home.dart';
 
 class NotchBar extends StatefulWidget {
   @override

@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/controllers/user_controllers.dart';
 import 'package:textcodetripland/model/user_model/user.dart';
-import 'package:textcodetripland/view/bottom_navigation.dart';
+import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/expance_controllers.dart';
-import 'package:textcodetripland/view/expance_add.dart';
+import 'package:textcodetripland/view/expance/expance_add.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 class ExpanceHome extends StatefulWidget {

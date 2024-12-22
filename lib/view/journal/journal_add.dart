@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/journal_controllers.dart';
 import 'package:textcodetripland/model/journal_model/journal.dart';
-import 'package:textcodetripland/view/bottom_navigation.dart';
+import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class JournalAdd extends StatefulWidget {
   const JournalAdd({super.key});

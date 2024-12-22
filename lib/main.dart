@@ -7,7 +7,7 @@ import 'package:textcodetripland/model/expance_model/expance.dart';
 import 'package:textcodetripland/model/journal_model/journal.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
 import 'package:textcodetripland/model/user_model/user.dart';
-import 'package:textcodetripland/view/splash_screen.dart';
+import 'package:textcodetripland/view/settings/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
