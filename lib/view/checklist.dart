@@ -1,23 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/controllers/checkllist_controllers.dart';
 import 'package:textcodetripland/view/checklist_add.dart';
 
 class Checklists extends StatefulWidget {
-  const Checklists({
-    super.key,
-  });
+  const Checklists({super.key});
 
   @override
   State<Checklists> createState() => _ChecklistsState();
 }
 
 class _ChecklistsState extends State<Checklists> {
+  Map<int, bool> checkboxStates = {};
+
   @override
   void initState() {
     super.initState();
     getAllChecklist();
+    loadCheckboxStates(); // Load states from SharedPreferences
+  }
+
+  String filterType = 'All'; // Default filter is "All"
+
+  /// Load checkbox states from SharedPreferences
+  Future<void> loadCheckboxStates() async {
+    final prefs = await SharedPreferences.getInstance();
+    final keys = prefs.getKeys();
+
+    setState(() {
+      checkboxStates = {
+        for (var key in keys) int.parse(key): prefs.getBool(key) ?? false
+      };
+    });
+  }
+
+  /// Save checkbox state to SharedPreferences
+  Future<void> saveCheckboxState(int index, bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(index.toString(), value);
   }
 
   @override
@@ -51,63 +73,9 @@ class _ChecklistsState extends State<Checklists> {
                         ),
                       ),
                       const Gap(10),
-                      Container(
-                        height: 50,
-                        width: 300,
-                        margin: const EdgeInsets.only(bottom: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.white38,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            "All",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 50,
-                        width: 300,
-                        margin: const EdgeInsets.only(bottom: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.white38,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            "Upcoming",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 50,
-                        width: 300,
-                        margin: const EdgeInsets.only(bottom: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.white38,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            "Completed",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
+                      buildFilterOption('All', context),
+                      buildFilterOption('Checked', context),
+                      buildFilterOption('Unchecked', context),
                       const Gap(30),
                     ],
                   ),
@@ -134,30 +102,187 @@ class _ChecklistsState extends State<Checklists> {
         child: ValueListenableBuilder(
           valueListenable: checklistNotifier,
           builder: (context, data, child) {
-            if (data.isEmpty) {
+            // Filter data based on the filter type
+            List filteredData = [];
+
+            if (filterType == 'All') {
+              filteredData = data;
+            } else if (filterType == 'Checked') {
+              filteredData = data.where((checklist) {
+                int index = data.indexOf(checklist);
+                return checkboxStates[index] ?? false; // Only checked items
+              }).toList();
+            } else if (filterType == 'Unchecked') {
+              filteredData = data.where((checklist) {
+                int index = data.indexOf(checklist);
+                return !(checkboxStates[index] ??
+                    false); // Only unchecked items
+              }).toList();
+            }
+
+            if (filteredData.isEmpty) {
               return const Center(
                 child: Text("No checklist found"),
               );
             }
+
             return ListView.builder(
-              itemCount: data.length,
+              itemCount: filteredData.length,
               itemBuilder: (context, index) {
-                final checklist = data[index];
+                final checklist = filteredData[index];
+                int originalIndex = data.indexOf(checklist);
                 return ListTile(
-                  title: Card(
-                    color: Colors.white,
-                    margin: const EdgeInsets.only(bottom: 16),
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Center(
-                      child: Text(checklist.name ?? "NA"),
+                  title: GestureDetector(
+                    onLongPress: () {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          backgroundColor: Colors.black87,
+                          contentPadding: EdgeInsets.zero,
+                          content: Container(
+                            width: 300,
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(Icons.report_gmailerrorred_outlined,
+                                    size: 30, color: Colors.redAccent),
+                                const Gap(10),
+                                const Text('Delete?',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white)),
+                                const Gap(10),
+                                const Text(
+                                  "Are you sure you want to Delete?",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                const Gap(20),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    // Cancel button
+                                    Container(
+                                      height: 40,
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                          color: Colors.black,
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      child: TextButton(
+                                        onPressed: () =>
+                                            Navigator.of(ctx).pop(),
+                                        child: const Text(
+                                          'Cancel',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                    // Logout button
+                                    Container(
+                                      height: 40,
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                          color: Colors.redAccent,
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          deleteChecklist(index);
+                                          Navigator.pop(context);
+                                        },
+                                        // You can link the function here
+                                        child: const Text(
+                                          'Delete',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      color: Colors.grey[50],
+                      margin: const EdgeInsets.only(bottom: 16),
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                checklist.name ?? "NA",
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black87,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Checkbox(
+                              checkColor: Colors.blueAccent,
+                              activeColor: Colors.grey[50],
+                              value: checkboxStates[originalIndex] ?? false,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  checkboxStates[originalIndex] =
+                                      value ?? false;
+                                  saveCheckboxState(
+                                      originalIndex, value ?? false);
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 );
               },
             );
           },
+        ),
+      ),
+    );
+  }
+
+  Widget buildFilterOption(String option, BuildContext context) {
+    return Container(
+      height: 50,
+      width: 300,
+      margin: const EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+        color: Colors.white38,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: TextButton(
+        onPressed: () {
+          setState(() {
+            filterType = option;
+          });
+          Navigator.pop(context); // Close bottom sheet
+        },
+        child: Text(
+          option,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
       ),
     );

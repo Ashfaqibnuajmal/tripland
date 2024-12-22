@@ -37,7 +37,7 @@ class _ChecklistAddState extends State<ChecklistAdd> {
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            height: 450,
+            height: 250,
             width: 300,
             decoration: BoxDecoration(
               color: Colors.black87,
@@ -52,7 +52,7 @@ class _ChecklistAddState extends State<ChecklistAdd> {
             ),
             padding: const EdgeInsets.all(20),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 20),
                 Text(
@@ -72,7 +72,7 @@ class _ChecklistAddState extends State<ChecklistAdd> {
                     textAlign: TextAlign.center,
                     decoration: const InputDecoration(
                       border: InputBorder.none,
-                      hintText: "Travel or stay",
+                      hintText: "Dress or id card",
                       hintStyle: TextStyle(fontSize: 12, color: Colors.black38),
                       contentPadding: EdgeInsets.symmetric(vertical: 15),
                     ),
@@ -125,26 +125,7 @@ class _ChecklistAddState extends State<ChecklistAdd> {
       name: _nameController.text,
     );
     addChecklist(checkedlist);
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Icon(
-            Icons.airplane_ticket_rounded,
-            color: Colors.green,
-          ),
-          Text(
-            "Trip created! Start planning your journey.",
-            style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-      duration: Duration(seconds: 2),
-      backgroundColor: Colors.black87,
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-    ));
+
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const Checklists()),
