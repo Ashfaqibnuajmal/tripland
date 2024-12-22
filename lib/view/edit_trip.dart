@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip.dart';
+import 'package:textcodetripland/view/bottom_navigation.dart';
 
 // ignore: must_be_immutable
 class TripEdit extends StatefulWidget {
@@ -131,8 +132,10 @@ class _TripEditState extends State<TripEdit> {
     return ElevatedButton(
       onPressed: () async {
         await _updateItinerary();
-        // ignore: use_build_context_synchronously
-        Navigator.pop(context);
+        Navigator.push(
+            // ignore: use_build_context_synchronously
+            context,
+            MaterialPageRoute(builder: (context) => NotchBar()));
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFFFCC300),

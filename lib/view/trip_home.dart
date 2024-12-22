@@ -212,6 +212,8 @@ class _TripHomeState extends State<TripHome> {
                                           '${widget.selectedNumberOfPeople} Person',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
+                                            color: Color(0xFFFCC300),
+
                                             fontSize: 12, // Smaller text size
                                           ),
                                         ),
@@ -232,6 +234,7 @@ class _TripHomeState extends State<TripHome> {
                                           widget.selectedTripType.toString(),
                                           style: const TextStyle(
                                               fontSize: 12,
+                                              color: Color(0xFFFCC300),
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ],
@@ -250,6 +253,7 @@ class _TripHomeState extends State<TripHome> {
                                           widget.expance.toString(),
                                           style: const TextStyle(
                                               fontSize: 12,
+                                              color: Color(0xFFFCC300),
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ],
@@ -306,7 +310,10 @@ class CategoryBox extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFFCC300),
+          ),
           textAlign: TextAlign.center,
         ),
       ),

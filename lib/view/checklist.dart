@@ -104,9 +104,88 @@ class _ChecklistsState extends State<Checklists> {
               itemCount: filteredData.length,
               itemBuilder: (context, index) {
                 final checklist = filteredData[index];
+                final actualIndex = data.indexOf(checklist); // Get actual index
                 return ListTile(
                   title: GestureDetector(
-                    onLongPress: () {},
+                    onLongPress: () {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          backgroundColor: Colors.black87,
+                          contentPadding: EdgeInsets.zero,
+                          content: Container(
+                            width: 300,
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(Icons.report_gmailerrorred_outlined,
+                                    size: 30, color: Colors.redAccent),
+                                const Gap(10),
+                                const Text('Delete?',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white)),
+                                const Gap(10),
+                                const Text(
+                                  "Are you sure you want to Delete?",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                const Gap(20),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    // Cancel button
+                                    Container(
+                                      height: 40,
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                          color: Colors.black,
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      child: TextButton(
+                                        onPressed: () =>
+                                            Navigator.of(ctx).pop(),
+                                        child: const Text(
+                                          'Cancel',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                    // Logout button
+                                    Container(
+                                      height: 40,
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                          color: Colors.redAccent,
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          deleteChecklist(index);
+                                          Navigator.pop(context);
+                                        },
+                                        // You can link the function here
+                                        child: const Text(
+                                          'Delete',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                     child: Card(
                       color: Colors.grey[50],
                       margin: const EdgeInsets.only(bottom: 16),
@@ -132,11 +211,12 @@ class _ChecklistsState extends State<Checklists> {
                             Checkbox(
                               checkColor: Colors.blueAccent,
                               activeColor: Colors.grey[50],
-                              value: checkboxStates[index] ?? false,
+                              value: checkboxStates[actualIndex] ?? false,
                               onChanged: (bool? value) {
                                 setState(() {
-                                  checkboxStates[index] = value ?? false;
-                                  saveCheckboxState(index, value ?? false);
+                                  checkboxStates[actualIndex] = value ?? false;
+                                  saveCheckboxState(
+                                      actualIndex, value ?? false);
                                 });
                               },
                             ),
@@ -176,27 +256,23 @@ class _ChecklistsState extends State<Checklists> {
     );
   }
 
+  // Filter checklist data based on the selected filter type
   List filterChecklistData(List data) {
     if (filterType == 'All') {
       return data;
     } else if (filterType == 'Checked') {
       return data
-          .asMap()
-          .entries
-          .where((entry) => checkboxStates[entry.key] ?? false)
-          .map((entry) => entry.value)
+          .where((item) => checkboxStates[data.indexOf(item)] ?? false)
           .toList();
     } else if (filterType == 'Unchecked') {
       return data
-          .asMap()
-          .entries
-          .where((entry) => !(checkboxStates[entry.key] ?? false))
-          .map((entry) => entry.value)
+          .where((item) => !(checkboxStates[data.indexOf(item)] ?? false))
           .toList();
     }
     return [];
   }
 
+  // Build filter options for the bottom sheet
   Widget buildFilterOption(String option, BuildContext context) {
     return Container(
       height: 50,
