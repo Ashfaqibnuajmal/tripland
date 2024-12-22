@@ -8,6 +8,7 @@ import 'package:textcodetripland/model/journal.dart';
 import 'package:textcodetripland/model/trip.dart';
 import 'package:textcodetripland/model/user.dart';
 import 'package:textcodetripland/view/splash_screen.dart';
+import 'package:textcodetripland/view/trip_home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,12 +44,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Tripland',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const SplashScreen(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Tripland',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const SplashScreen());
   }
 }

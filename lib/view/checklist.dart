@@ -50,50 +50,41 @@ class _ChecklistsState extends State<Checklists> {
         backgroundColor: Colors.white,
         title: Text("Checklist", style: GoogleFonts.anton(fontSize: 20)),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              backgroundColor: Colors.black87,
-              builder: (BuildContext context) {
-                return Container(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: IconButton(
-                          icon: const Icon(Icons.close_rounded,
-                              color: Colors.white),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                      const Gap(10),
-                      buildFilterOption('All', context),
-                      buildFilterOption('Checked', context),
-                      buildFilterOption('Unchecked', context),
-                      const Gap(30),
-                    ],
-                  ),
-                );
-              },
-            );
-          },
-          icon: const Icon(Icons.menu),
-        ),
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ChecklistAdd()));
+              showModalBottomSheet(
+                context: context,
+                backgroundColor: Colors.black87,
+                builder: (BuildContext context) {
+                  return Container(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            icon: const Icon(Icons.close_rounded,
+                                color: Colors.white),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                        const Gap(10),
+                        buildFilterOption('All', context),
+                        buildFilterOption('Checked', context),
+                        buildFilterOption('Unchecked', context),
+                        const Gap(30),
+                      ],
+                    ),
+                  );
+                },
+              );
             },
-            icon: const Icon(Icons.library_add_check_outlined),
+            icon: const Icon(Icons.menu),
           ),
         ],
       ),
@@ -256,6 +247,29 @@ class _ChecklistsState extends State<Checklists> {
               },
             );
           },
+        ),
+      ), // Replace your previous IconButton in the appBar actions with the following:
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(
+            bottom: 40.0), // Adjust the bottom padding as needed
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ChecklistAdd(),
+              ),
+            );
+          },
+          backgroundColor: const Color(0xFFFCC300),
+          elevation: 6.0,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          child: const Icon(
+            Icons.library_add_check_outlined,
+            color: Colors.black,
+            size: 30,
+          ),
         ),
       ),
     );

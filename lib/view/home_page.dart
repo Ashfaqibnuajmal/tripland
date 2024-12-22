@@ -6,8 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // Import shared_preferences package
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip.dart';
-import 'package:textcodetripland/view/bottom_navigation2.dart';
 import 'package:textcodetripland/view/trip_add.dart';
+import 'package:textcodetripland/view/trip_home.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -192,17 +192,16 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => NotchBar2(
-                                  index: index,
-                                  location: data.location,
-                                  startDate: data.startDate,
-                                  endDate: data.endDate,
-                                  selectedNumberOfPeople:
-                                      data.selectedNumberOfPeople,
-                                  selectedTripType: data.selectedTripType,
-                                  expance: data.expance,
-                                  imageFile: data.imageFile,
-                                )));
+                            builder: (context) => TripHome(
+                                index: index,
+                                location: data.location,
+                                startDate: data.startDate,
+                                endDate: data.endDate,
+                                selectedNumberOfPeople:
+                                    data.selectedNumberOfPeople,
+                                selectedTripType: data.selectedTripType,
+                                expance: data.expance,
+                                imageFile: data.imageFile)));
                   },
                   child: GestureDetector(
                     onLongPress: () {
