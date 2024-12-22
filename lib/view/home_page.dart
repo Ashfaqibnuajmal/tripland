@@ -5,7 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // Import shared_preferences package
 import 'package:textcodetripland/controllers/trip_controllers.dart';
-import 'package:textcodetripland/model/trip.dart';
+import 'package:textcodetripland/model/trip_model/trip.dart';
 import 'package:textcodetripland/view/trip_add.dart';
 import 'package:textcodetripland/view/trip_home.dart';
 

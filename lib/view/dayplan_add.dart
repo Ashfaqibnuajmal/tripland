@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/activities_controlers.dart';
-import 'package:textcodetripland/model/activities.dart';
+import 'package:textcodetripland/model/activities_model/activities.dart';
 import 'package:textcodetripland/view/day_planner.dart';
 
 class PlanYourDayAdd extends StatefulWidget {

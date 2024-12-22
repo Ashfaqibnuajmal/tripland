@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/checkllist_controllers.dart';
-import 'package:textcodetripland/model/checklist.dart';
+import 'package:textcodetripland/model/checklist_model/checklist.dart';
 import 'package:textcodetripland/view/checklist.dart';
 
 class ChecklistAdd extends StatefulWidget {

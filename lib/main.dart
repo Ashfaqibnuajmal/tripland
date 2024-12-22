@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:textcodetripland/model/activities.dart';
-import 'package:textcodetripland/model/bucket.dart';
-import 'package:textcodetripland/model/checklist.dart';
-import 'package:textcodetripland/model/expance.dart';
-import 'package:textcodetripland/model/journal.dart';
-import 'package:textcodetripland/model/trip.dart';
-import 'package:textcodetripland/model/user.dart';
+import 'package:textcodetripland/model/activities_model/activities.dart';
+import 'package:textcodetripland/model/bucket_model/bucket.dart';
+import 'package:textcodetripland/model/checklist_model/checklist.dart';
+import 'package:textcodetripland/model/expance_model/expance.dart';
+import 'package:textcodetripland/model/journal_model/journal.dart';
+import 'package:textcodetripland/model/trip_model/trip.dart';
+import 'package:textcodetripland/model/user_model/user.dart';
 import 'package:textcodetripland/view/splash_screen.dart';
 
 void main() async {

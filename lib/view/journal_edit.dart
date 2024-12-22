@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/journal_controllers.dart';
-import 'package:textcodetripland/model/journal.dart';
+import 'package:textcodetripland/model/journal_model/journal.dart';
 import 'package:textcodetripland/view/bottom_navigation.dart';
 
 // ignore: must_be_immutable

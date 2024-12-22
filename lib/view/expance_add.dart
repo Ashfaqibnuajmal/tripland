@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/expance_controllers.dart';
-import 'package:textcodetripland/model/expance.dart';
+import 'package:textcodetripland/model/expance_model/expance.dart';
 
 import 'package:textcodetripland/view/expance_home.dart';
 
