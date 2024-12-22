@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/view/checklist.dart';
 import 'package:textcodetripland/view/day_planner.dart';
+import 'package:textcodetripland/view/edit_trip.dart';
 import 'package:textcodetripland/view/expance_home.dart';
 
 // ignore: must_be_immutable
@@ -82,7 +83,6 @@ class _TripHomeState extends State<TripHome> {
                     }),
               ],
             ),
-            const Gap(20),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Card(
@@ -90,7 +90,52 @@ class _TripHomeState extends State<TripHome> {
                 color: Colors.white,
                 child: Column(
                   children: [
-                    const Gap(20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              showMenu(
+                                  color: Colors.white,
+                                  context: context,
+                                  position: const RelativeRect.fromLTRB(
+                                      100, 100, 0, 0),
+                                  items: [
+                                    const PopupMenuItem(
+                                        value: "edit",
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.edit_calendar_rounded,
+                                            ),
+                                            SizedBox(width: 8),
+                                            Text("Edit"),
+                                          ],
+                                        )),
+                                  ]).then((value) {
+                                if (value == 'edit') {
+                                  Navigator.push(
+                                      // ignore: use_build_context_synchronously
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => TripEdit(
+                                                index: widget.index,
+                                                location: widget.location,
+                                                selectedNumberOfPeople: widget
+                                                    .selectedNumberOfPeople,
+                                                selectedTripType:
+                                                    widget.selectedTripType,
+                                                expance: widget.expance,
+                                                imageFile: widget.imageFile,
+                                                startDate: widget.startDate,
+                                                endDate: widget.endDate,
+                                              )));
+                                }
+                              });
+                            },
+                            icon: const Icon(Icons.more_vert_rounded))
+                      ],
+                    ),
                     ValueListenableBuilder(
                       valueListenable: tripListNotifier,
                       builder: (context, date, child) {
@@ -156,11 +201,6 @@ class _TripHomeState extends State<TripHome> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   SizedBox(
-                                    height:
-                                        60, // Reduced height for a more compact look
-                                    width:
-                                        90, // Reduced width to make it smaller
-
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,

@@ -8,7 +8,6 @@ import 'package:textcodetripland/model/journal.dart';
 import 'package:textcodetripland/model/trip.dart';
 import 'package:textcodetripland/model/user.dart';
 import 'package:textcodetripland/view/splash_screen.dart';
-import 'package:textcodetripland/view/trip_home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

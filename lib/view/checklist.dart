@@ -13,21 +13,20 @@ class Checklists extends StatefulWidget {
 }
 
 class _ChecklistsState extends State<Checklists> {
-  Map<int, bool> checkboxStates = {};
+  Map<int, bool> checkboxStates = {}; // Store checkbox states by index
+  String filterType = 'All'; // Default filter is "All"
 
   @override
   void initState() {
     super.initState();
     getAllChecklist();
-    loadCheckboxStates(); // Load states from SharedPreferences
+    loadCheckboxStates(); // Load saved checkbox states
   }
 
-  String filterType = 'All'; // Default filter is "All"
-
-  /// Load checkbox states from SharedPreferences
+  // Load checkbox states from SharedPreferences
   Future<void> loadCheckboxStates() async {
     final prefs = await SharedPreferences.getInstance();
-    final keys = prefs.getKeys();
+    final keys = prefs.getKeys().where((key) => int.tryParse(key) != null);
 
     setState(() {
       checkboxStates = {
@@ -36,7 +35,7 @@ class _ChecklistsState extends State<Checklists> {
     });
   }
 
-  /// Save checkbox state to SharedPreferences
+  // Save checkbox state to SharedPreferences
   Future<void> saveCheckboxState(int index, bool value) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(index.toString(), value);
@@ -93,23 +92,7 @@ class _ChecklistsState extends State<Checklists> {
         child: ValueListenableBuilder(
           valueListenable: checklistNotifier,
           builder: (context, data, child) {
-            // Filter data based on the filter type
-            List filteredData = [];
-
-            if (filterType == 'All') {
-              filteredData = data;
-            } else if (filterType == 'Checked') {
-              filteredData = data.where((checklist) {
-                int index = data.indexOf(checklist);
-                return checkboxStates[index] ?? false; // Only checked items
-              }).toList();
-            } else if (filterType == 'Unchecked') {
-              filteredData = data.where((checklist) {
-                int index = data.indexOf(checklist);
-                return !(checkboxStates[index] ??
-                    false); // Only unchecked items
-              }).toList();
-            }
+            List filteredData = filterChecklistData(data);
 
             if (filteredData.isEmpty) {
               return const Center(
@@ -121,88 +104,9 @@ class _ChecklistsState extends State<Checklists> {
               itemCount: filteredData.length,
               itemBuilder: (context, index) {
                 final checklist = filteredData[index];
-                int originalIndex = data.indexOf(checklist);
                 return ListTile(
                   title: GestureDetector(
-                    onLongPress: () {
-                      showDialog(
-                        context: context,
-                        builder: (ctx) => AlertDialog(
-                          backgroundColor: Colors.black87,
-                          contentPadding: EdgeInsets.zero,
-                          content: Container(
-                            width: 300,
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(Icons.report_gmailerrorred_outlined,
-                                    size: 30, color: Colors.redAccent),
-                                const Gap(10),
-                                const Text('Delete?',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white)),
-                                const Gap(10),
-                                const Text(
-                                  "Are you sure you want to Delete?",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                const Gap(20),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    // Cancel button
-                                    Container(
-                                      height: 40,
-                                      width: 90,
-                                      decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      child: TextButton(
-                                        onPressed: () =>
-                                            Navigator.of(ctx).pop(),
-                                        child: const Text(
-                                          'Cancel',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                    // Logout button
-                                    Container(
-                                      height: 40,
-                                      width: 90,
-                                      decoration: BoxDecoration(
-                                          color: Colors.redAccent,
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      child: TextButton(
-                                        onPressed: () {
-                                          deleteChecklist(index);
-                                          Navigator.pop(context);
-                                        },
-                                        // You can link the function here
-                                        child: const Text(
-                                          'Delete',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
+                    onLongPress: () {},
                     child: Card(
                       color: Colors.grey[50],
                       margin: const EdgeInsets.only(bottom: 16),
@@ -228,13 +132,11 @@ class _ChecklistsState extends State<Checklists> {
                             Checkbox(
                               checkColor: Colors.blueAccent,
                               activeColor: Colors.grey[50],
-                              value: checkboxStates[originalIndex] ?? false,
+                              value: checkboxStates[index] ?? false,
                               onChanged: (bool? value) {
                                 setState(() {
-                                  checkboxStates[originalIndex] =
-                                      value ?? false;
-                                  saveCheckboxState(
-                                      originalIndex, value ?? false);
+                                  checkboxStates[index] = value ?? false;
+                                  saveCheckboxState(index, value ?? false);
                                 });
                               },
                             ),
@@ -248,10 +150,9 @@ class _ChecklistsState extends State<Checklists> {
             );
           },
         ),
-      ), // Replace your previous IconButton in the appBar actions with the following:
+      ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(
-            bottom: 40.0), // Adjust the bottom padding as needed
+        padding: const EdgeInsets.only(bottom: 40.0),
         child: FloatingActionButton(
           onPressed: () {
             Navigator.push(
@@ -275,6 +176,27 @@ class _ChecklistsState extends State<Checklists> {
     );
   }
 
+  List filterChecklistData(List data) {
+    if (filterType == 'All') {
+      return data;
+    } else if (filterType == 'Checked') {
+      return data
+          .asMap()
+          .entries
+          .where((entry) => checkboxStates[entry.key] ?? false)
+          .map((entry) => entry.value)
+          .toList();
+    } else if (filterType == 'Unchecked') {
+      return data
+          .asMap()
+          .entries
+          .where((entry) => !(checkboxStates[entry.key] ?? false))
+          .map((entry) => entry.value)
+          .toList();
+    }
+    return [];
+  }
+
   Widget buildFilterOption(String option, BuildContext context) {
     return Container(
       height: 50,
@@ -289,7 +211,7 @@ class _ChecklistsState extends State<Checklists> {
           setState(() {
             filterType = option;
           });
-          Navigator.pop(context); // Close bottom sheet
+          Navigator.pop(context); // Close the bottom sheet
         },
         child: Text(
           option,
