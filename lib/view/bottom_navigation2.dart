@@ -43,7 +43,7 @@ class NotchBarState extends State<NotchBar2> {
   void initState() {
     super.initState();
     _pages = [
-      const Checklist(),
+      const Checklists(),
       const DayPlanner(),
       TripHome(
         location: widget.location,

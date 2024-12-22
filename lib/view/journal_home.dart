@@ -117,6 +117,7 @@ class _JournalHomeState extends State<JournalHome> {
                           ).then((value) {
                             if (value == 'edit') {
                               Navigator.push(
+                                  // ignore: use_build_context_synchronously
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => JournalEdit(
@@ -130,6 +131,7 @@ class _JournalHomeState extends State<JournalHome> {
                                               data.selectedTripType)));
                             } else if (value == 'delete') {
                               showDialog(
+                                // ignore: use_build_context_synchronously
                                 context: context,
                                 builder: (ctx) => AlertDialog(
                                   backgroundColor: Colors.black87,

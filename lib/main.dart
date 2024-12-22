@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:textcodetripland/model/activities.dart';
 import 'package:textcodetripland/model/bucket.dart';
+import 'package:textcodetripland/model/checklist.dart';
 import 'package:textcodetripland/model/expance.dart';
 import 'package:textcodetripland/model/journal.dart';
 import 'package:textcodetripland/model/trip.dart';
@@ -29,6 +30,10 @@ void main() async {
   if (!Hive.isAdapterRegistered(UserAdapter().typeId)) {
     Hive.registerAdapter(UserAdapter());
   }
+  if (!Hive.isAdapterRegistered(ChecklistAdapter().typeId)) {
+    Hive.registerAdapter(ChecklistAdapter());
+  }
+
   runApp(const MyApp());
 }
 

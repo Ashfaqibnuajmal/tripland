@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:textcodetripland/model/checklist.dart';
 part 'trip.g.dart';
 
 @HiveType(typeId: 0)
@@ -17,6 +18,8 @@ class Trip {
   String? expance;
   @HiveField(6)
   String? imageFile;
+  @HiveField(7)
+  List<Checklist>? checklist;
 
   Trip({
     required this.location,
@@ -28,5 +31,6 @@ class Trip {
     required this.imageFile,
     String? numberOfPeople,
     String? tripType,
+    this.checklist, // You can initialize this as an empty list if needed
   });
 }
