@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/view/checklist/checklist.dart';
 import 'package:textcodetripland/view/dayplanner/day_planner.dart';
+import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 import 'package:textcodetripland/view/homepage/edit_trip.dart';
 import 'package:textcodetripland/view/expance/expance_home.dart';
 
@@ -50,11 +51,11 @@ class _TripHomeState extends State<TripHome> {
         title: Text(widget.location.toString()),
         centerTitle: true,
         leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_rounded, size: 25),
-        ),
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => NotchBar()));
+            },
+            icon: const Icon(Icons.arrow_back)),
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:textcodetripland/view/dayplanner/day_activites.dart';
 import 'package:textcodetripland/view/dayplanner/dayplan_add.dart';
+import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class DayPlanner extends StatefulWidget {
   const DayPlanner({
@@ -60,6 +61,12 @@ class _DayPlannerState extends State<DayPlanner> {
           style: GoogleFonts.anton(color: Colors.black, fontSize: 20),
         ),
         centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => NotchBar()));
+            },
+            icon: const Icon(Icons.arrow_back)),
       ),
       body: Column(
         children: [

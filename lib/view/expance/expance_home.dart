@@ -5,6 +5,7 @@ import 'package:textcodetripland/controllers/expance_controllers.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/expance/expance_add.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class ExpanceHome extends StatefulWidget {
   ExpanceHome({
@@ -27,6 +28,7 @@ class _ExpanceHomeState extends State<ExpanceHome> {
     getAllExpance();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -37,12 +39,18 @@ class _ExpanceHomeState extends State<ExpanceHome> {
           style: GoogleFonts.anton(color: Colors.black, fontSize: 20),
         ),
         centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => NotchBar()));
+            },
+            icon: const Icon(Icons.arrow_back)),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ExpanceAdd()),
+                MaterialPageRoute(builder: (context) => const ExpanceAdd()),
               );
             },
             icon: const Icon(
@@ -115,7 +123,7 @@ class _ExpanceHomeState extends State<ExpanceHome> {
             ),
             const Gap(10),
             SizedBox(
-              height: 200,
+              height: 250,
               child: Expanded(
                 child: ValueListenableBuilder(
                     valueListenable: expanceNotifier,

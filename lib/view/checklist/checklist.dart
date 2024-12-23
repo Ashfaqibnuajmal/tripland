@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/controllers/checkllist_controllers.dart';
 import 'package:textcodetripland/view/checklist/checklist_add.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
+import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class Checklists extends StatefulWidget {
   const Checklists({super.key});
@@ -50,6 +51,12 @@ class _ChecklistsState extends State<Checklists> {
         backgroundColor: Colors.white,
         title: Text("Checklist", style: GoogleFonts.anton(fontSize: 20)),
         centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => NotchBar()));
+            },
+            icon: const Icon(Icons.arrow_back)),
         actions: [
           IconButton(
             onPressed: () {

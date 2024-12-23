@@ -51,11 +51,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   String? validateUserName(String? value) {
+    value = value?.trim();
     if (value == null || value.isEmpty) {
       return "Username is required";
-    } else if (!RegExp(r'^[a-zA-Z0-9]{5,}$').hasMatch(value)) {
-      return "Username must be letters and numbers";
     }
+    if (!RegExp(r'^[a-zA-Z0-9]{5,}$').hasMatch(value)) {
+      return "Username must be at least 5 characters long and contain only letters and numbers";
+    }
+
     return null;
   }
 
