@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
 import 'package:textcodetripland/model/bucket_model/bucket.dart';
+import 'package:textcodetripland/view/constants/custombutton.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 // ignore: must_be_immutable
@@ -94,11 +95,11 @@ class _BucketEditState extends State<BucketEdit> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Icon(
-              Icons.airplane_ticket_rounded,
+              Icons.check_circle,
               color: Colors.green,
             ),
             Text(
-              "Update complete! Your trip is ready to go.",
+              "Trip edit to your bucket list successfully!",
               style:
                   TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
             ),
@@ -294,22 +295,7 @@ class _BucketEditState extends State<BucketEdit> {
               ),
             ),
             const Gap(10),
-            GestureDetector(
-              onTap: _updateBucket,
-              child: Container(
-                height: 40,
-                width: 80,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFCC300),
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Center(
-                  child: Text("Post",
-                      style:
-                          GoogleFonts.anton(color: Colors.black, fontSize: 20)),
-                ),
-              ),
-            ),
+            Custombutton(text: "UPDATE BUCKET", onPressed: _updateBucket)
           ],
         ),
       ),

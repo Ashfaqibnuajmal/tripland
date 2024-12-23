@@ -6,6 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
 import 'package:textcodetripland/model/bucket_model/bucket.dart';
+import 'package:textcodetripland/view/constants/custombutton.dart';
+import 'package:textcodetripland/view/constants/customsnackbar.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class BucketlistAdd extends StatefulWidget {
@@ -67,26 +69,10 @@ class _BucketlistAddState extends State<BucketlistAdd> {
         imageFile: _selectedImage?.path,
         selectedTripType: _selectedTripType);
     addBucket(bucket);
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Icon(
-            Icons.airplane_ticket_rounded,
-            color: Colors.green,
-          ),
-          Text(
-            "Trip created! Start planning your journey.",
-            style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-      duration: Duration(seconds: 2),
-      backgroundColor: Colors.black87,
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-    ));
+    CustomSnackBar.show(
+        context: context,
+        message: "Bucket list trip added! Adventure awaits!",
+        textColor: Colors.green);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => NotchBar()),
@@ -283,22 +269,7 @@ class _BucketlistAddState extends State<BucketlistAdd> {
               ),
             ),
             const Gap(10),
-            GestureDetector(
-              onTap: onAddBucket,
-              child: Container(
-                height: 40,
-                width: 80,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFCC300),
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Center(
-                  child: Text("Post",
-                      style:
-                          GoogleFonts.anton(color: Colors.black, fontSize: 20)),
-                ),
-              ),
-            ),
+            Custombutton(text: "ADD BUCKET", onPressed: onAddBucket)
           ],
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/expance_controllers.dart';
+import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/expance/expance_add.dart';
 import 'package:fl_chart/fl_chart.dart';
 
@@ -160,53 +161,14 @@ class _ExpanceHomeState extends State<ExpanceHome> {
                               onLongPress: () {
                                 showDialog(
                                   context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      backgroundColor: Colors.black54,
-                                      title: const Center(
-                                        child: Text("Delete Confirmation",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.white)),
-                                      ),
-                                      content: const Text(
-                                        '''   Are you sure you want to delete
-                    this expance?''',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      actions: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: const Text(
-                                                "Cancel",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                            TextButton(
-                                              onPressed: () async {
-                                                Navigator.of(context).pop();
-                                                await deleteExpance(index);
-                                              },
-                                              child: const Text(
-                                                "Delete",
-                                                style: TextStyle(
-                                                    color: Colors.red),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    );
-                                  },
+                                  builder: (ctx) => CustomDeleteDialog(
+                                      onDelete: () {
+                                        // Add your logic for deleting the trip here
+                                        deleteExpance(index);
+                                      },
+                                      title: 'Delete Expance?',
+                                      message:
+                                          "Are you sure you want to delete this expense?"),
                                 );
                               });
                         },

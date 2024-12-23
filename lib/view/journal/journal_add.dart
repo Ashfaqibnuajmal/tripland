@@ -6,6 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/journal_controllers.dart';
 import 'package:textcodetripland/model/journal_model/journal.dart';
+import 'package:textcodetripland/view/constants/custombutton.dart';
+import 'package:textcodetripland/view/constants/customsnackbar.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class JournalAdd extends StatefulWidget {
@@ -98,26 +100,12 @@ class _JournalAddState extends State<JournalAdd> {
         selectedTripType: _selectedTripType,
         time: time);
     addJournal(journal);
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Icon(
-            Icons.airplane_ticket_rounded,
-            color: Colors.green,
-          ),
-          Text(
-            "Trip created! Start planning your journey.",
-            style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-      duration: Duration(seconds: 2),
-      backgroundColor: Colors.black87,
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-    ));
+    CustomSnackBar.show(
+      context: context,
+      message: "Journal added! Ready to go.",
+      textColor: Colors.green,
+    );
+
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => NotchBar()));
   }
@@ -321,23 +309,7 @@ class _JournalAddState extends State<JournalAdd> {
             ),
           ),
           const Gap(10),
-          GestureDetector(
-            onTap: onAddJournal,
-            child: Container(
-              height: 40,
-              width: 80,
-              decoration: BoxDecoration(
-                color: const Color(0xFFFCC300),
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: Center(
-                child: Text(
-                  "POST",
-                  style: GoogleFonts.anton(color: Colors.black, fontSize: 20),
-                ),
-              ),
-            ),
-          ),
+          Custombutton(text: "ADD JOURNAL", onPressed: onAddJournal)
         ]),
       ),
     );

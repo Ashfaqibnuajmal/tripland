@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/controllers/checkllist_controllers.dart';
 import 'package:textcodetripland/view/checklist/checklist_add.dart';
+import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 
 class Checklists extends StatefulWidget {
   const Checklists({super.key});
@@ -110,79 +111,13 @@ class _ChecklistsState extends State<Checklists> {
                     onLongPress: () {
                       showDialog(
                         context: context,
-                        builder: (ctx) => AlertDialog(
-                          backgroundColor: Colors.black87,
-                          contentPadding: EdgeInsets.zero,
-                          content: Container(
-                            width: 300,
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(Icons.report_gmailerrorred_outlined,
-                                    size: 30, color: Colors.redAccent),
-                                const Gap(10),
-                                const Text('Delete?',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white)),
-                                const Gap(10),
-                                const Text(
-                                  "Are you sure you want to Delete?",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                const Gap(20),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    // Cancel button
-                                    Container(
-                                      height: 40,
-                                      width: 90,
-                                      decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      child: TextButton(
-                                        onPressed: () =>
-                                            Navigator.of(ctx).pop(),
-                                        child: const Text(
-                                          'Cancel',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                    // Logout button
-                                    Container(
-                                      height: 40,
-                                      width: 90,
-                                      decoration: BoxDecoration(
-                                          color: Colors.redAccent,
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      child: TextButton(
-                                        onPressed: () {
-                                          deleteChecklist(index);
-                                          Navigator.pop(context);
-                                        },
-                                        // You can link the function here
-                                        child: const Text(
-                                          'Delete',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                        builder: (ctx) => CustomDeleteDialog(
+                          onDelete: () {
+                            deleteChecklist(index);
+                          },
+                          title: 'Delete checklist?',
+                          message:
+                              "Are you sure you want to delete this checklist item?",
                         ),
                       );
                     },

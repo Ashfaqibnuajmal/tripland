@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/activities_controlers.dart';
 import 'package:textcodetripland/model/activities_model/activities.dart';
+import 'package:textcodetripland/view/constants/custombutton.dart';
 import 'package:textcodetripland/view/dayplanner/day_planner.dart';
 
 class PlanYourDayAdd extends StatefulWidget {
@@ -191,28 +192,12 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
                   ),
                   const Gap(20),
                   Center(
-                    child: GestureDetector(
-                      onTap: onAddActivities,
-                      child: Container(
-                        height: 40,
-                        width: 180,
-                        margin: const EdgeInsets.only(top: 10),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFFCC300),
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "SAVE",
-                            style: GoogleFonts.anton(
-                              color: Colors.black,
-                              fontSize: 13,
-                            ),
-                          ),
-                        ),
-                      ),
+                    child: Custombutton(
+                      text: "ADD ACTIVITIES",
+                      onPressed: onAddActivities,
+                      horizontalPadding: 10, // Custom horizontal padding
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
@@ -251,27 +236,6 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
     );
 
     addActivities(activities);
-
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Icon(
-            Icons.airplane_ticket_rounded,
-            color: Colors.green,
-          ),
-          Text(
-            "Trip created! Start planning your journey.",
-            style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-      duration: Duration(seconds: 2),
-      backgroundColor: Colors.black87,
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-    ));
 
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const DayPlanner()));

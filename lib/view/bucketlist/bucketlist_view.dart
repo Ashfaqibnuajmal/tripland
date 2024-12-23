@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
 import 'package:textcodetripland/view/bucketlist/bucket_edit.dart';
 import 'package:textcodetripland/view/bucketlist/bucketlist._add.dart';
+import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/settings/proifle_page.dart';
 
 // ignore: must_be_immutable
@@ -246,6 +246,7 @@ class _BucketlistState extends State<Bucketlist> {
                                                 ]).then((value) {
                                               if (value == 'edit') {
                                                 Navigator.push(
+                                                    // ignore: use_build_context_synchronously
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) => BucketEdit(
@@ -261,113 +262,18 @@ class _BucketlistState extends State<Bucketlist> {
                                                                 .selectedTripType)));
                                               } else if (value == 'delete') {
                                                 showDialog(
+                                                  // ignore: use_build_context_synchronously
                                                   context: context,
-                                                  builder: (ctx) => AlertDialog(
-                                                    backgroundColor:
-                                                        Colors.black87,
-                                                    contentPadding:
-                                                        EdgeInsets.zero,
-                                                    content: Container(
-                                                      width: 300,
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              16),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: [
-                                                          const Icon(
-                                                              Icons
-                                                                  .report_gmailerrorred_outlined,
-                                                              size: 30,
-                                                              color: Colors
-                                                                  .redAccent),
-                                                          const Gap(10),
-                                                          const Text('Delete?',
-                                                              style: TextStyle(
-                                                                  fontSize: 20,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  color: Colors
-                                                                      .white)),
-                                                          const Gap(10),
-                                                          const Text(
-                                                            "Are you sure you want to Delete?",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                          const Gap(20),
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceEvenly,
-                                                            children: [
-                                                              // Cancel button
-                                                              Container(
-                                                                height: 40,
-                                                                width: 90,
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .black,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            5)),
-                                                                child:
-                                                                    TextButton(
-                                                                  onPressed: () =>
-                                                                      Navigator.of(
-                                                                              ctx)
-                                                                          .pop(),
-                                                                  child:
-                                                                      const Text(
-                                                                    'Cancel',
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontWeight:
-                                                                            FontWeight.bold),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              // Logout button
-                                                              Container(
-                                                                height: 40,
-                                                                width: 90,
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .redAccent,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            5)),
-                                                                child:
-                                                                    TextButton(
-                                                                  onPressed:
-                                                                      () {
-                                                                    deleteBucket(
-                                                                        index);
-                                                                    Navigator.pop(
-                                                                        context);
-                                                                  },
-                                                                  // You can link the function here
-                                                                  child:
-                                                                      const Text(
-                                                                    'Delete',
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontWeight:
-                                                                            FontWeight.bold),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
+                                                  builder: (ctx) =>
+                                                      CustomDeleteDialog(
+                                                          onDelete: () {
+                                                            // Add your logic for deleting the trip here
+                                                            deleteBucket(index);
+                                                          },
+                                                          title:
+                                                              'Delete Bucket?',
+                                                          message:
+                                                              "Do you really want to remove this trip from your bucket list?"),
                                                 );
                                               }
                                             });

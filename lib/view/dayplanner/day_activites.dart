@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/activities_controlers.dart';
+import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 
 class DayActivities extends StatefulWidget {
   final int index;
@@ -148,55 +149,13 @@ class _DayActivitiesState extends State<DayActivities> {
                                   onPressed: () {
                                     showDialog(
                                       context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          backgroundColor: Colors.black54,
-                                          title: const Center(
-                                            child: Text("Delete Confirmation",
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Colors.white)),
-                                          ),
-                                          content: const Text(
-                                            '''   Are you sure you want to delete
-                    this activity?''',
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          actions: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: const Text(
-                                                    "Cancel",
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                ),
-                                                TextButton(
-                                                  onPressed: () async {
-                                                    Navigator.of(context).pop();
-                                                    await deleteActivities(
-                                                        index);
-                                                  },
-                                                  child: const Text(
-                                                    "Delete",
-                                                    style: TextStyle(
-                                                        color: Colors.red),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        );
-                                      },
+                                      builder: (ctx) => CustomDeleteDialog(
+                                          onDelete: () {
+                                            deleteActivities(index);
+                                          },
+                                          title: 'Delete activities?',
+                                          message:
+                                              "Are you sure you want to delete this activity entry?"),
                                     );
                                   },
                                   icon:

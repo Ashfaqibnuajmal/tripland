@@ -7,6 +7,8 @@ import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
+import 'package:textcodetripland/view/constants/custombutton.dart';
+import 'package:textcodetripland/view/constants/customsnackbar.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 // ignore: must_be_immutable
@@ -121,39 +123,8 @@ class _TripEditState extends State<TripEdit> {
             const SizedBox(height: 20),
             imagePickerButton(),
             const SizedBox(height: 20),
-            updatedButton()
+            Custombutton(text: "UPDATE ITITNERARY", onPressed: _updateItinerary)
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget updatedButton() {
-    return ElevatedButton(
-      onPressed: () async {
-        await _updateItinerary();
-        Navigator.push(
-            // ignore: use_build_context_synchronously
-            context,
-            MaterialPageRoute(builder: (context) => NotchBar()));
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFFFCC300),
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(
-          vertical: 5,
-          horizontal: 120,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-      child: const Text(
-        'UPDATE ITINERARY',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-          letterSpacing: -1,
         ),
       ),
     );
@@ -178,31 +149,15 @@ class _TripEditState extends State<TripEdit> {
       imageFile: imageFile?.path,
     );
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Icon(
-              Icons.airplane_ticket_rounded,
-              color: Colors.green,
-            ),
-            Text(
-              "Update complete! Your trip is ready to go.",
-              style:
-                  TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        duration: Duration(seconds: 2),
-        backgroundColor: Colors.black87,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-      ),
-    );
-
+    CustomSnackBar.show(
+        context: context,
+        message: "Trip updated successfully. You're good to go!",
+        textColor: Colors.green);
     editTrip(widget.index, update);
+    Navigator.push(
+        // ignore: use_build_context_synchronously
+        context,
+        MaterialPageRoute(builder: (context) => NotchBar()));
   }
 
   AppBar appBar() {

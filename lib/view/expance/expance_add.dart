@@ -3,11 +3,12 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/expance_controllers.dart';
 import 'package:textcodetripland/model/expance_model/expance.dart';
+import 'package:textcodetripland/view/constants/custombutton.dart';
 
 import 'package:textcodetripland/view/expance/expance_home.dart';
 
 class ExpanceAdd extends StatefulWidget {
-  ExpanceAdd({
+  const ExpanceAdd({
     super.key,
   });
 
@@ -154,25 +155,12 @@ class _ExpanceAddState extends State<ExpanceAdd> {
 
                 const SizedBox(height: 30),
                 Center(
-                  child: GestureDetector(
-                    onTap: onAddExpance,
-                    child: Container(
-                      height: 40,
-                      width: 80,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFCC300),
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "SAVE",
-                          style: GoogleFonts.anton(
-                              color: Colors.black, fontSize: 13),
-                        ),
-                      ),
-                    ),
+                  child: Custombutton(
+                    text: "ADD EXPANCE",
+                    onPressed: onAddExpance,
+                    horizontalPadding: 10,
                   ),
-                ),
+                )
               ],
             ),
           ),
@@ -207,26 +195,6 @@ class _ExpanceAddState extends State<ExpanceAdd> {
           : '', // Formatting the date as string
     );
     addExpance(expance);
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Icon(
-            Icons.airplane_ticket_rounded,
-            color: Colors.green,
-          ),
-          Text(
-            "Trip created! Start planning your journey.",
-            style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-      duration: Duration(seconds: 2),
-      backgroundColor: Colors.black87,
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-    ));
 
     Navigator.pushReplacement(
       context,

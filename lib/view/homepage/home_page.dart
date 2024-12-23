@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // Import shared_preferences package
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
+import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/homepage/trip_add.dart';
 import 'package:textcodetripland/view/homepage/trip_home.dart';
 
@@ -207,52 +208,14 @@ class _HomePageState extends State<HomePage> {
                     onLongPress: () {
                       showDialog(
                         context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            backgroundColor: Colors.black54,
-                            title: const Center(
-                              child: Text("Delete Confirmation",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white)),
-                            ),
-                            content: const Text(
-                              '''   Are you sure you want to delete
-                    this Trip?''',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            actions: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text(
-                                      "Cancel",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () async {
-                                      Navigator.of(context).pop();
-                                      await deleteTrip(index);
-                                    },
-                                    child: const Text(
-                                      "Delete",
-                                      style: TextStyle(color: Colors.red),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          );
-                        },
+                        builder: (ctx) => CustomDeleteDialog(
+                            onDelete: () {
+                              // Call your delete function here
+                              deleteTrip(index); // Example
+                            },
+                            title: 'Delete Itinerary?',
+                            message:
+                                "Do you want to delete this trip permanently?"),
                       );
                     },
                     child: Container(

@@ -7,6 +7,8 @@ import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
+import 'package:textcodetripland/view/constants/custombutton.dart';
+import 'package:textcodetripland/view/constants/customsnackbar.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class TripAdd extends StatefulWidget {
@@ -92,27 +94,10 @@ class _TripAddState extends State<TripAdd> {
     );
 
     addTrip(trip);
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Icon(
-            Icons.airplane_ticket_rounded,
-            color: Colors.green,
-          ),
-          Text(
-            "Trip created! Start planning your journey.",
-            style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-      duration: Duration(seconds: 2),
-      backgroundColor: Colors.black87,
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-    ));
-
+    CustomSnackBar.show(
+        context: context,
+        message: "Trip added! Ready for adventure.",
+        textColor: Colors.green);
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => NotchBar()),
@@ -141,7 +126,7 @@ class _TripAddState extends State<TripAdd> {
               const SizedBox(height: 20),
               imagePickerButton(),
               const SizedBox(height: 20),
-              saveButton(),
+              Custombutton(text: 'SAVE ITINERARY', onPressed: onAddTrip)
             ],
           ),
         ),
@@ -442,28 +427,6 @@ class _TripAddState extends State<TripAdd> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget saveButton() {
-    return ElevatedButton(
-      onPressed: onAddTrip,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFFFCC300),
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 120),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-      child: const Text(
-        'SAVE ITINERARY',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-          letterSpacing: -1,
-        ),
-      ),
     );
   }
 

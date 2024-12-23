@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/checkllist_controllers.dart';
 import 'package:textcodetripland/model/checklist_model/checklist.dart';
 import 'package:textcodetripland/view/checklist/checklist.dart';
+import 'package:textcodetripland/view/constants/custombutton.dart';
 
 class ChecklistAdd extends StatefulWidget {
   const ChecklistAdd({
@@ -79,26 +80,11 @@ class _ChecklistAddState extends State<ChecklistAdd> {
                   ),
                 ),
                 const SizedBox(height: 30),
-                Center(
-                  child: GestureDetector(
-                    onTap: onAddChecklist,
-                    child: Container(
-                      height: 40,
-                      width: 80,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFCC300),
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "SAVE",
-                          style: GoogleFonts.anton(
-                              color: Colors.black, fontSize: 13),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                Custombutton(
+                  text: "ADD CHECKLIST",
+                  onPressed: onAddChecklist,
+                  horizontalPadding: 10,
+                )
               ],
             ),
           ),

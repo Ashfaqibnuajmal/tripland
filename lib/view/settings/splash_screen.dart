@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen>
   Future<void> _navigateToNextscreen() async {
     bool isLoggedIn = await isUserLoggedIn();
     await Future.delayed(
-        const Duration(seconds: 3)); // Wait for animation to complete
+        const Duration(seconds: 2)); // Wait for animation to complete
 
     if (isLoggedIn) {
       Navigator.pushReplacement(

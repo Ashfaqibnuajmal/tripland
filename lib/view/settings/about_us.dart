@@ -9,17 +9,16 @@ class AboutUs extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         title: Text("About us",
-            style: GoogleFonts.anton(color: Colors.white, fontSize: 20)),
+            style: GoogleFonts.anton(color: Colors.black, fontSize: 20)),
         centerTitle: true,
         elevation: 4,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: Colors.white, size: 25),
+          icon: const Icon(Icons.arrow_back_rounded, size: 25),
         ),
       ),
       body: const Padding(

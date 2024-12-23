@@ -7,6 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/journal_controllers.dart';
 import 'package:textcodetripland/model/journal_model/journal.dart';
+import 'package:textcodetripland/view/constants/custombutton.dart';
+import 'package:textcodetripland/view/constants/customsnackbar.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 // ignore: must_be_immutable
@@ -119,32 +121,10 @@ class _JournalEditState extends State<JournalEdit> {
       time: selectedTime, // Include the time in the updated journal
     );
 
-    // Show the Snackbar
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Icon(
-              Icons.airplane_ticket_rounded,
-              color: Colors.green,
-            ),
-            Text(
-              "Update complete! Your trip is ready to go.",
-              style:
-                  TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        duration: Duration(seconds: 2),
-        backgroundColor: Colors.black87,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-      ),
-    );
-
-    // Use editJournal function to update the journal
+    CustomSnackBar.show(
+        context: context,
+        message: "Journal updated! Your changes are saved.",
+        textColor: Colors.green);
     editJournal(widget.index, updatedJournal);
 
     // Navigate to NotchBar screen
@@ -351,23 +331,7 @@ class _JournalEditState extends State<JournalEdit> {
             ),
           ),
           const Gap(10),
-          GestureDetector(
-            onTap: _updateJournal,
-            child: Container(
-              height: 40,
-              width: 80,
-              decoration: BoxDecoration(
-                color: const Color(0xFFFCC300),
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: Center(
-                child: Text(
-                  "POST",
-                  style: GoogleFonts.anton(color: Colors.black, fontSize: 20),
-                ),
-              ),
-            ),
-          ),
+          Custombutton(text: "UPDATE JOURNAL", onPressed: _updateJournal)
         ]),
       ),
     );
