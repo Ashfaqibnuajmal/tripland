@@ -66,17 +66,69 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: appBar(context),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          "Tripland",
+          style: GoogleFonts.anton(fontSize: 20),
+        ),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () => _showBottomSheetHome(context),
+          icon: const Icon(Icons.menu),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TripAdd()),
+              );
+            },
+            icon: const Icon(Icons.note_add_rounded),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           const Gap(20),
-          searchBar(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Container(
+              height: 45,
+              width: 340,
+              decoration: BoxDecoration(
+                border: Border.all(color: const Color(0xFFFCC300), width: 1),
+                color: Colors.white12,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  hintText: "Search",
+                  hintStyle: const TextStyle(color: Colors.black54),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      _searchController.clear();
+                    },
+                    icon: const Icon(
+                      Icons.cancel_rounded,
+                      size: 20,
+                      color: Colors.black,
+                    ),
+                  ),
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.only(left: 10, top: 10),
+                ),
+              ),
+            ),
+          ),
           const Gap(20),
           Expanded(
             child: ValueListenableBuilder<List<Trip>>(
               valueListenable: tripListNotifier,
               builder: (context, tripList, child) {
-                final filteredTrips = tripList
+                final filteredTrip = tripList
                     .where((trip) =>
                         (_selectedTripType == null ||
                             _selectedTripType == "All" ||
@@ -85,199 +137,142 @@ class _HomePageState extends State<HomePage> {
                                 _searchController.text.trim().toLowerCase()) ??
                             false))
                     .toList();
-                return tripCard(filteredTrips);
+                final filteredTrips =
+                    filteredTrip.toSet().toList().reversed.toList();
+                return ListView.builder(
+                  itemCount: filteredTrips.length,
+                  itemBuilder: (context, index) {
+                    final data = filteredTrips[index];
+                    String tripKey =
+                        "rating_${data.location}"; // Unique key for each trip based on location
+                    return FutureBuilder<double>(
+                      future: getRatingForTrip(
+                          tripKey), // Fetch rating for each trip
+                      builder: (context, snapshot) {
+                        double rating = snapshot.data ?? 3.0;
+                        return Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.location_on_outlined,
+                                  color: Colors.black,
+                                  size: 20,
+                                ),
+                                Text(
+                                  data.location?.isNotEmpty ?? false
+                                      ? data.location![0].toUpperCase() +
+                                          data.location!.substring(1)
+                                      : '',
+                                  style: GoogleFonts.anton(
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    letterSpacing: 0.8,
+                                  ),
+                                )
+                              ],
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TripHome(
+                                            index: index,
+                                            location: data.location,
+                                            startDate: data.startDate,
+                                            endDate: data.endDate,
+                                            selectedNumberOfPeople:
+                                                data.selectedNumberOfPeople,
+                                            selectedTripType:
+                                                data.selectedTripType,
+                                            expance: data.expance,
+                                            imageFile: data.imageFile)));
+                              },
+                              child: GestureDetector(
+                                onLongPress: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (ctx) => CustomDeleteDialog(
+                                        onDelete: () {
+                                          // Call your delete function here
+                                          deleteTrip(index); // Example
+                                        },
+                                        title: 'Delete Itinerary?',
+                                        message:
+                                            "Do you want to delete this trip permanently?"),
+                                  );
+                                },
+                                child: Container(
+                                  height: 250,
+                                  width: 350,
+                                  margin: const EdgeInsets.only(bottom: 20),
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.3),
+                                        spreadRadius: 2,
+                                        blurRadius: 8,
+                                        offset: const Offset(4, 4),
+                                      ),
+                                    ],
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.file(
+                                      File(data.imageFile ?? "NA"),
+                                      fit: BoxFit.fill,
+                                      width: double.infinity,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  RatingBar.builder(
+                                    initialRating:
+                                        rating, // Set the initial rating here
+                                    minRating: 1,
+                                    maxRating: 5,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemSize: 30,
+                                    itemBuilder: (context, _) => const Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    onRatingUpdate: (newRating) {
+                                      setState(() {
+                                        saveRatingForTrip(tripKey,
+                                            newRating); // Save rating when changed
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 40),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                );
               },
             ),
           ),
         ],
       ),
-    );
-  }
-
-  AppBar appBar(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.white,
-      title: Text(
-        "Tripland",
-        style: GoogleFonts.anton(fontSize: 20),
-      ),
-      centerTitle: true,
-      leading: IconButton(
-        onPressed: () => _showBottomSheetHome(context),
-        icon: const Icon(Icons.menu),
-      ),
-      actions: [
-        IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const TripAdd()),
-            );
-          },
-          icon: const Icon(Icons.note_add_rounded),
-        ),
-      ],
-    );
-  }
-
-  Widget searchBar() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Container(
-        height: 45,
-        width: 340,
-        decoration: BoxDecoration(
-          border: Border.all(color: const Color(0xFFFCC300), width: 1),
-          color: Colors.white12,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: TextField(
-          controller: _searchController,
-          decoration: InputDecoration(
-            hintText: "Search",
-            hintStyle: const TextStyle(color: Colors.black54),
-            suffixIcon: IconButton(
-              onPressed: () {
-                _searchController.clear();
-              },
-              icon: const Icon(
-                Icons.cancel_rounded,
-                size: 20,
-                color: Colors.black,
-              ),
-            ),
-            border: InputBorder.none,
-            contentPadding: const EdgeInsets.only(left: 10, top: 10),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget tripCard(List<Trip> filteredTrips) {
-    return ListView.builder(
-      itemCount: filteredTrips.length,
-      itemBuilder: (context, index) {
-        final data = filteredTrips[index];
-        String tripKey =
-            "rating_${data.location}"; // Unique key for each trip based on location
-        return FutureBuilder<double>(
-          future: getRatingForTrip(tripKey), // Fetch rating for each trip
-          builder: (context, snapshot) {
-            double rating = snapshot.data ?? 3.0;
-            return Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.location_on_outlined,
-                      color: Colors.black,
-                      size: 20,
-                    ),
-                    Text(
-                      data.location?.isNotEmpty ?? false
-                          ? data.location![0].toUpperCase() +
-                              data.location!.substring(1)
-                          : '',
-                      style: GoogleFonts.anton(
-                        fontSize: 20,
-                        color: Colors.black,
-                        letterSpacing: 0.8,
-                      ),
-                    )
-                  ],
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TripHome(
-                                index: index,
-                                location: data.location,
-                                startDate: data.startDate,
-                                endDate: data.endDate,
-                                selectedNumberOfPeople:
-                                    data.selectedNumberOfPeople,
-                                selectedTripType: data.selectedTripType,
-                                expance: data.expance,
-                                imageFile: data.imageFile)));
-                  },
-                  child: GestureDetector(
-                    onLongPress: () {
-                      showDialog(
-                        context: context,
-                        builder: (ctx) => CustomDeleteDialog(
-                            onDelete: () {
-                              // Call your delete function here
-                              deleteTrip(index); // Example
-                            },
-                            title: 'Delete Itinerary?',
-                            message:
-                                "Do you want to delete this trip permanently?"),
-                      );
-                    },
-                    child: Container(
-                      height: 250,
-                      width: 350,
-                      margin: const EdgeInsets.only(bottom: 20),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.3),
-                            spreadRadius: 2,
-                            blurRadius: 8,
-                            offset: const Offset(4, 4),
-                          ),
-                        ],
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.file(
-                          File(data.imageFile ?? "NA"),
-                          fit: BoxFit.fill,
-                          width: double.infinity,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      RatingBar.builder(
-                        initialRating: rating, // Set the initial rating here
-                        minRating: 1,
-                        maxRating: 5,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemSize: 30,
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        onRatingUpdate: (newRating) {
-                          setState(() {
-                            saveRatingForTrip(
-                                tripKey, newRating); // Save rating when changed
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 40),
-              ],
-            );
-          },
-        );
-      },
     );
   }
 

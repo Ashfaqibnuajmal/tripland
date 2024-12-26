@@ -35,47 +35,63 @@ class TermsCondition extends StatelessWidget {
 Terms and Conditions
 Effective Date: [Insert Date]
 
-Welcome to TravelMate! By using our app, you agree to the following terms:
+Welcome to TravelMate! By accessing or using our app, you agree to abide by these Terms and Conditions. If you do not agree, please discontinue use immediately.
 
-1. **Acceptance of Terms**
-By accessing TravelMate, you accept these Terms. Discontinue use if you disagree.
 
-2. **Use of the App**
-- Purpose: For personal travel planning and journaling.
-- User Responsibilities:
-  - Provide accurate data when using the app.
-  - Secure your account and device.
-  - Avoid illegal or harmful activities.
+1. Acceptance of Terms
 
-3. **Intellectual Property**
-All app content is owned by TravelMate or its licensors. Do not copy, modify, or distribute without permission.
+By using TravelMate, you confirm your acceptance of these Terms. This agreement applies to all users of the app.
 
-4. **Privacy**
-Usage is subject to our Privacy Policy, outlining how we manage your data.
 
-5. **Account Termination**
-We may suspend accounts for:
-- Violating Terms.
-- Misusing the app.
+2. Use of the App
 
-6. **Limitation of Liability**
-- TravelMate is provided "as is."
-- We are not liable for loss or damage during usage.
+Purpose: TravelMate is designed for personal travel planning and journaling.
+User Responsibilities:
+Provide accurate and truthful information when using the app.
+Ensure the security of your account, including login credentials.
+Use the app in compliance with applicable laws and avoid harmful activities.
 
-7. **Updates and Modifications**
-Terms and app features may change. Check periodically for updates.
 
-8. **Third-Party Services**
-We are not responsible for third-party content linked to or integrated with the app.
+3. Intellectual Property
 
-9. **Governing Law**
-These Terms follow the laws of [Insert Country/Region]. Disputes will be settled in its courts.
+All content within the app, including designs, logos, and features, is the property of TravelMate or its licensors. You may not copy, distribute, or modify app content without prior written permission.
 
-10. **Contact Us**
-- Email: support@travelmate.com
-- Address: [Insert Address]
 
-Thank you for using TravelMate!
+4. Privacy
+
+Your use of TravelMate is governed by our Privacy Policy. The Privacy Policy explains how your data is collected, stored, and used.
+
+
+5. Account Termination
+
+We reserve the right to suspend or terminate your account if:
+You violate these Terms.
+Your actions misuse the app or harm other users.
+
+
+6. Limitation of Liability
+
+TravelMate is provided on an "as is" basis without warranties of any kind.
+We are not responsible for any losses or damages incurred during the use of the app.
+
+
+7. Updates and Modifications
+
+We may update these Terms or modify app features from time to time. Please review the Terms periodically for changes. Continued use of the app signifies your acceptance of updates.
+
+8. Third-Party Services
+
+TravelMate may include third-party content or services. We are not responsible for the accuracy, legality, or functionality of these external tools or content.
+
+9. Governing Law
+
+These Terms are governed by the laws of [Insert Country/Region]. Any disputes will be resolved in the courts of the same jurisdiction. 
+
+10. Contact Us
+If you have any questions about these Terms, please contact us:
+
+Email: support@travelmate.com
+Address: [Insert Address]
             ''',
             textAlign: TextAlign.justify,
             style: TextStyle(fontSize: 16, height: 1.5),

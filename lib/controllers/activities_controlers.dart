@@ -25,14 +25,6 @@ Future<void> getAllActivities() async {
   activitiesNotifier.notifyListeners();
 }
 
-// Edits an activity in the database
-Future<void> editActivites(int index, Activities value) async {
-  final activitiesDb = await Hive.openBox<Activities>("activities_db");
-  await activitiesDb.deleteAt(index);
-  activitiesNotifier.notifyListeners();
-  await getAllActivities();
-}
-
 // Deletes an activity from the database
 Future<void> deleteActivities(int index) async {
   log("Deleting activity...");

@@ -28,20 +28,31 @@ class AboutUs extends StatelessWidget {
         child: SingleChildScrollView(
           child: Center(
             child: Text(
-              "About Us\n\n"
-              "Welcome to TravelMate, your ultimate companion for planning, tracking, and cherishing every journey you take. "
-              "Whether you're dreaming of future adventures, organizing your current trips, or reliving past experiences, our app is designed to make travel planning and documentation seamless and enjoyable.\n\n"
-              "With TravelMate, you can:\n"
-              "- Create and manage detailed trip plans, including budgets, guides, and activities.\n"
-              "- Keep track of your travel expenses and stay within budget effortlessly.\n"
-              "- Use our checklist feature to ensure you never forget essentials for your journey.\n"
-              "- Document your adventures through journals with photos, dates, and descriptions.\n"
-              "- Plan your bucket list trips and keep your future dreams organized.\n"
-              "- Explore filters to sort your trips by categories like upcoming, completed, or top-rated.\n"
-              "- Customize your profile and settings, including dark mode for comfortable usage.\n\n"
-              "Our mission is to help you stay organized, inspired, and stress-free as you explore the world, one trip at a time. "
-              "We aim to simplify travel management so you can focus on creating memories that last a lifetime.\n\n"
-              "Start your journey with TravelMate – where every adventure begins with a plan!",
+              '''
+       About Us
+
+Welcome to TravelMate – your ultimate travel companion, thoughtfully crafted to make every aspect of your journeys effortless and enjoyable. Whether you're dreaming of adventures yet to come, organizing your current travels, or cherishing memories of trips past, TravelMate is here to support you every step of the way.
+
+What TravelMate Offers:
+With TravelMate, you can:
+
+Plan with Precision: Create and manage detailed itineraries, including budgets, activities, and travel guides.
+
+Track Expenses: Monitor your travel spending and stick to your budget with ease.
+
+Stay Organized: Use our checklist feature to ensure you pack everything you need.
+
+Capture Memories: Document your adventures through personalized journals with photos, dates, and descriptions.
+
+Dream Big: Plan your bucket list trips and keep your travel goals organized.
+
+Effortless Navigation: Explore and sort your trips by categories such as upcoming, completed, or top-rated.
+
+Personalized Experience: Customize your profile, adjust settings, and enjoy dark mode for a comfortable and user-friendly experience.
+Our Mission
+
+At TravelMate, our mission is simple:
+We aim to make travel planning and management stress-free, inspiring you to explore the world and focus on what truly matters—creating lasting memories.''',
               textAlign: TextAlign.justify,
               style: TextStyle(fontSize: 16, height: 1.5),
             ),

@@ -30,38 +30,50 @@ class PrivacyPolicy extends StatelessWidget {
 Privacy Policy
 Effective Date: [Insert Date]
 
-Welcome to TravelMate! Your privacy is important to us. Here's how we handle your data:
+Welcome to TravelMate! We value your trust and are committed to safeguarding your privacy. Here’s how we handle your information:
 
-1. **Information We Collect**
-- Personal Info: Name, email, profile picture.
-- Trip Details: Names, locations, budgets, etc.
-- Journals: Photos and descriptions.
-- Usage Data: App navigation and preferences.
 
-2. **How We Use Your Data**
-- Enhance app features and personalize experiences.
-- Store and display trips and journals.
-- Provide support and send updates.
+1. Information We Collect
 
-3. **Data Sharing & Security**
-- **Sharing:** No third-party sharing unless required by law.
-- **Security:** Your data is protected from unauthorized access.
+Personal Information: Name, email, and profile picture for account creation and authentication.
+Trip Details: Information like trip names, locations, dates, budgets, guides, and photos.
+Journals: Photos, dates, locations, and descriptions added to your journal entries.
+Usage Data: App navigation, preferences, and filters to improve your experience.
 
-4. **Your Rights**
-- Access, update, or delete your data.
-- Opt out of notifications or withdraw consent.
 
-5. **Third-Party Tools**
-Integrated tools (e.g., analytics) are governed by their privacy policies.
+2. How We Use Your Data
 
-6. **Policy Updates**
-Changes will be posted here. Please review periodically.
+To personalize and enhance app features like trip and journal management.
+To store and display your trips, bucket lists, and journal entries.
+To send updates, respond to inquiries, and provide support.
 
-7. **Contact Us**
-- Email: support@travelmate.com
-- Address: [Insert Address]
 
-Thank you for trusting TravelMate!
+3. Data Sharing & Security
+
+Sharing: We don’t share your information with third parties unless legally required.
+Security: We use encryption and secure servers to protect your data from unauthorized access.
+
+
+4. Your Rights
+
+Access, update, or delete your personal data through the app’s settings.
+Opt out of notifications or withdraw consent for data collection anytime.
+
+
+5. Third-Party Services
+
+Integrated tools like analytics are governed by their own privacy policies. We recommend reviewing them to understand how they handle your data.
+
+6. Policy Updates
+
+We may update this policy periodically. Any changes will be posted here, so please check back regularly.
+
+7. Contact Us
+
+Have questions or concerns? Reach out to us:
+
+Email: support@travelmate.com
+
             ''',
             textAlign: TextAlign.justify,
             style: TextStyle(fontSize: 16, height: 1.5),

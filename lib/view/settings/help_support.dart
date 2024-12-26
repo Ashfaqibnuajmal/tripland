@@ -29,29 +29,49 @@ class HelpSupport extends StatelessWidget {
             '''
 Help and Support
 
-At TravelMate, we’re here to make your travel experience smooth. If you encounter issues or have questions, we’re ready to help!
+1. Frequently Asked Questions (FAQ)
 
-1. FAQ
-- **How do I create a new trip?** Go to "Add Trip" on the home page, fill in details, and save.
-- **How do I delete a trip?** Open the trip, tap Delete, and confirm.
-- **Switch views?** Use the toggle button on the home page.
+How do I create a new trip?
+Navigate to the "Add Trip" button on the home page, enter the required details, and save.
+
+How do I delete a trip?
+Open the trip you want to delete, tap the "Delete" button, and confirm the action.
+How do I switch between list and grid views?
+Use the toggle button on the home page to switch between views.
+
 
 2. Contact Us
-- **Email:** support@travelmate.com
-- **Phone:** +1-234-567-8900 (Mon-Fri, 9 AM - 5 PM)
-- **Live Chat:** On our website.
 
+If you need further assistance, reach out to us through the following channels:
+
+Email: support@travelmate.com
+Phone: +1-234-567-8900 (Available Mon-Fri, 9:00 AM - 5:00 PM)
+Live Chat: Accessible through our website or app.
 3. Technical Support
-- Restart the app, update to the latest version, or clear cache.
-- Email us with issue details, screenshots, and your app version if problems persist.
+For technical issues, try the following steps:
+
+
+Restart the app.
+Update to the latest version from your app store.
+Clear the app cache.
+If the issue persists, email us with the following details:
+
+A description of the problem.
+Screenshots (if applicable).
+Your device and app version.
+
 
 4. Feedback
-We’d love to hear from you! Use the app’s Feedback option or email feedback@travelmate.com.
 
-5. Resources
-Visit our website for guides and tutorials or check out our YouTube channel.
+We value your feedback to improve TravelMate! Share your suggestions, ideas, or concerns using the Feedback option in the app or email us at feedback@travelmate.com.
 
-We’re committed to supporting you. Happy travels!
+
+5. Additional Resources
+
+Explore our guides, tutorials, and tips to get the most out of TravelMate:
+
+Visit our website: [Insert Website URL]
+Check out our YouTube channel for video walkthroughs and updates.
             ''',
             textAlign: TextAlign.justify,
             style: TextStyle(fontSize: 16, height: 1.5),

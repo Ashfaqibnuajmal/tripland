@@ -64,13 +64,17 @@ class _DayActivitiesState extends State<DayActivities> {
           builder: (context, activities, child) {
             if (activities.isEmpty) {
               return const Center(
-                child: Text("No activities found try to add one"),
+                child: Text("No activities found, try to add one"),
               );
             }
+
+            // Reverse the activities list to show the last added item first
+            final reversedActivities = activities.reversed.toSet().toList();
+
             return ListView.builder(
-              itemCount: activities.length,
+              itemCount: reversedActivities.length,
               itemBuilder: (context, index) {
-                final activity = activities[index];
+                final activity = reversedActivities[index];
                 bool switchState = _switchStates[index] ?? false;
 
                 return ListTile(
@@ -91,7 +95,7 @@ class _DayActivitiesState extends State<DayActivities> {
                             children: [
                               // Activity Name
                               Text(
-                                activity.activity ?? "Ddddd",
+                                activity.activity ?? "Unnamed Activity",
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
@@ -121,7 +125,7 @@ class _DayActivitiesState extends State<DayActivities> {
                                 children: [
                                   const Icon(Icons.location_on, size: 16),
                                   const SizedBox(width: 8),
-                                  Text(activity.place ?? "DDd",
+                                  Text(activity.place ?? "No Location",
                                       style: const TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold)),
@@ -133,7 +137,7 @@ class _DayActivitiesState extends State<DayActivities> {
                                 children: [
                                   const Icon(Icons.directions_car, size: 16),
                                   const SizedBox(width: 8),
-                                  Text(activity.vehicle ?? "DD",
+                                  Text(activity.vehicle ?? "No Vehicle",
                                       style: const TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold)),

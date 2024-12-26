@@ -100,7 +100,8 @@ class _ChecklistsState extends State<Checklists> {
         child: ValueListenableBuilder(
           valueListenable: checklistNotifier,
           builder: (context, data, child) {
-            List filteredData = filterChecklistData(data);
+            List filteredData =
+                filterChecklistData(data).toSet().toList().reversed.toList();
 
             if (filteredData.isEmpty) {
               return const Center(

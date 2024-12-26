@@ -135,7 +135,8 @@ class _BucketEditState extends State<BucketEdit> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text("Add Bucketlist", style: GoogleFonts.anton(fontSize: 20)),
+        title: Text("Add Bucketlist",
+            style: GoogleFonts.lato(fontSize: 20, fontWeight: FontWeight.w600)),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {

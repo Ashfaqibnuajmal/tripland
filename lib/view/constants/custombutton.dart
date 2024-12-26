@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class Custombutton extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
-  final double horizontalPadding; // Added parameter for horizontal padding
+  final double horizontalPadding;
 
   const Custombutton({
     super.key,
     required this.text,
     required this.onPressed,
-    this.horizontalPadding = 100.0, // Default value set to 100
+    this.horizontalPadding = 100.0,
   });
 
   @override
