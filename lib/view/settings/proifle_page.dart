@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:textcodetripland/controllers/user_controllers.dart';
 import 'package:textcodetripland/model/user_model/user.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
+import 'package:textcodetripland/view/constants/custom_settings.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/settings/about_us.dart';
 import 'package:textcodetripland/view/settings/help_support.dart';
@@ -245,39 +246,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SettingsButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onPressed;
-
-  const SettingsButton(
-      {super.key,
-      required this.icon,
-      required this.label,
-      required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      width: 300,
-      decoration: BoxDecoration(
-          color: Colors.grey, borderRadius: BorderRadius.circular(20)),
-      child: TextButton(
-        onPressed: onPressed,
-        child: Row(
-          children: [
-            Icon(icon, color: Colors.black),
-            const Spacer(),
-            Text(label, style: CustomTextStyle.textStyle5),
-            const Spacer(),
           ],
         ),
       ),

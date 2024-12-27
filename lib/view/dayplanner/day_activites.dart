@@ -3,6 +3,7 @@ import 'package:textcodetripland/controllers/activities_controlers.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
+import 'package:textcodetripland/view/dayplanner/dayplan_edit.dart';
 
 class DayActivities extends StatefulWidget {
   final int index;
@@ -131,21 +132,77 @@ class _DayActivitiesState extends State<DayActivities> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               IconButton(
-                                  color: Colors.red,
                                   onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (ctx) => CustomDeleteDialog(
-                                          onDelete: () {
-                                            deleteActivities(index);
-                                          },
-                                          title: 'Delete activities?',
-                                          message:
-                                              "Are you sure you want to delete this activity entry?"),
-                                    );
+                                    // showDialog(
+                                    //   context: context,
+                                    //   builder: (ctx) => CustomDeleteDialog(
+                                    //       onDelete: () {
+                                    //         deleteActivities(index);
+                                    //       },
+                                    //       title: 'Delete activities?',
+                                    //       message:
+                                    //           "Are you sure you want to delete this activity entry?"),
+                                    // );
+                                    showMenu(
+                                        color: Colors.white,
+                                        context: context,
+                                        position: const RelativeRect.fromLTRB(
+                                            100, 100, 0, 0),
+                                        items: [
+                                          const PopupMenuItem(
+                                              value: "edit",
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.edit_calendar_rounded,
+                                                  ),
+                                                  SizedBox(width: 8),
+                                                  Text("Edit"),
+                                                ],
+                                              )),
+                                          const PopupMenuItem(
+                                              value: 'delete',
+                                              child: Row(
+                                                children: [
+                                                  Icon(Icons
+                                                      .delete_outline_rounded),
+                                                  SizedBox(width: 9),
+                                                  Text("Delete"),
+                                                ],
+                                              ))
+                                        ]).then((value) {
+                                      if (value == 'edit') {
+                                        Navigator.push(
+                                            // ignore: use_build_context_synchronously
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DayplanEdit(
+                                                        activity:
+                                                            activity.activity,
+                                                        fromTime:
+                                                            activity.fromTime,
+                                                        index: index,
+                                                        place: activity.place,
+                                                        toTime: activity.toTime,
+                                                        vehicle:
+                                                            activity.vehicle)));
+                                      } else if (value == 'delete') {
+                                        showDialog(
+                                          // ignore: use_build_context_synchronously
+                                          context: context,
+                                          builder: (ctx) => CustomDeleteDialog(
+                                              onDelete: () {
+                                                deleteActivities(index);
+                                              },
+                                              title: 'Delete Bucket?',
+                                              message:
+                                                  "Do you really want to remove this trip from your bucket list?"),
+                                        );
+                                      }
+                                    });
                                   },
-                                  icon:
-                                      const Icon(Icons.delete_outline_rounded)),
+                                  icon: const Icon(Icons.more_vert_rounded)),
                               const SizedBox(height: 30),
                               Switch(
                                 activeColor: Colors.white,

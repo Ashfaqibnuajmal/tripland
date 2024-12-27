@@ -98,13 +98,6 @@ class _BucketEditState extends State<BucketEdit> {
         description: description,
         imageFile: imageFile?.path,
         selectedTripType: tripType);
-    CustomSnackBar.show(
-        context: context,
-        message: "Bucket list trip editted! Adcenture awaits",
-        textColor: Colors.green);
-    editBucket(widget.index, update);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => NotchBar()));
   }
 
   @override

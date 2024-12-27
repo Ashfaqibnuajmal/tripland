@@ -33,6 +33,13 @@ Future<void> deleteActivities(int index) async {
   await getAllActivities();
 }
 
+Future<void> editActivities(int index, Activities value) async {
+  final activitiesDb = await Hive.openBox<Activities>("activities_db");
+  await activitiesDb.putAt(index, value);
+  activitiesNotifier.notifyListeners();
+  await getAllActivities();
+}
+
 // Handles switch state operations using SharedPreferences
 class SharedPreferencesHelper {
   // Saves switch state by key
