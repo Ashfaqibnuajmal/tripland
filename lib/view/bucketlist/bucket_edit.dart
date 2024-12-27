@@ -6,7 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
 import 'package:textcodetripland/model/bucket_model/bucket.dart';
-import 'package:textcodetripland/view/constants/custom_appbar.dart';
+import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
+import 'package:textcodetripland/view/constants/custom_container.dart';
 import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
@@ -98,6 +99,13 @@ class _BucketEditState extends State<BucketEdit> {
         description: description,
         imageFile: imageFile?.path,
         selectedTripType: tripType);
+    CustomSnackBar.show(
+        context: context,
+        message: "Bucket list trip editted! Adcenture awaits",
+        textColor: Colors.green);
+    editBucket(widget.index, update);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => NotchBar()));
   }
 
   @override
@@ -118,9 +126,11 @@ class _BucketEditState extends State<BucketEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBar(
-        title: "Edit Bucketlist",
-        ctx: context,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text("Edit Bucketlist", style: CustomTextStyle.headings),
+        centerTitle: true,
+        leading: CustomBackButton(ctx: context),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -128,85 +138,63 @@ class _BucketEditState extends State<BucketEdit> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Center(
-                child: Container(
-                    height: 300,
-                    width: 300,
-                    decoration: BoxDecoration(
+                  child: CustomContainer(
+                      height: 300,
+                      width: 300,
                       color: Colors.black87,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: _imageFile == null
-                        ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                onPressed: _pickImage, // Pick image when tapped
-                                icon: const Icon(
-                                  Icons.camera_alt_rounded,
-                                  color: Color(0xFFFCC300),
-                                  size: 70,
+                      child: _imageFile == null
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  onPressed:
+                                      _pickImage, // Pick image when tapped
+                                  icon: const Icon(
+                                    Icons.camera_alt_rounded,
+                                    color: Color(0xFFFCC300),
+                                    size: 70,
+                                  ),
                                 ),
+                                const Text("ADD PHOTO",
+                                    style: TextStyle(color: Colors.white)),
+                              ],
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.file(
+                                // Display the selected image
+                                _imageFile!,
+                                fit: BoxFit.cover,
+                                height: 300,
+                                width: 300,
                               ),
-                              const Text("ADD PHOTO",
-                                  style: TextStyle(color: Colors.white)),
-                            ],
-                          )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.file(
-                              // Display the selected image
-                              _imageFile!,
-                              fit: BoxFit.cover,
-                              height: 300,
-                              width: 300,
-                            ),
-                          )),
-              ),
+                            ))),
             ),
             GestureDetector(
-              onTap: () => _pickDate(context),
-              child: Container(
-                  height: 50,
-                  width: 300,
-                  decoration: BoxDecoration(
-                    color: Colors.black12,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                              _date == null
-                                  ? "Select a date"
-                                  : DateFormat('dd/MM/yyyy')
-                                      .format(_date!), // Format the date
-                              style: CustomTextStyle.textstyle2),
-                          const Icon(Icons.calendar_month_rounded)
-                        ],
-                      ))),
-            ),
+                onTap: () => _pickDate(context),
+                child: CustomContainer(
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                                _date == null
+                                    ? "Select a date"
+                                    : DateFormat('dd/MM/yyyy')
+                                        .format(_date!), // Format the date
+                                style: CustomTextStyle.textstyle2),
+                            const Icon(Icons.calendar_month_rounded)
+                          ],
+                        )))),
             const Gap(10),
-            Container(
-                height: 50,
-                width: 300,
-                decoration: BoxDecoration(
-                  color: Colors.black12,
-                  borderRadius: BorderRadius.circular(10),
-                ),
+            CustomContainer(
                 child: CustomTextFormField(
                     controller: _locationController,
                     hintText: "Paris or France",
                     suffixIcon: const Icon(Icons.location_on_outlined))),
             const Gap(10),
-            Container(
-              height: 50,
-              width: 300,
-              decoration: BoxDecoration(
-                color: Colors.black12,
-                borderRadius: BorderRadius.circular(10),
-              ),
+            CustomContainer(
               child: CustomTextFormField(
                 controller: _budgetController,
                 hintText: "₹19999",
@@ -214,13 +202,7 @@ class _BucketEditState extends State<BucketEdit> {
               ),
             ),
             const Gap(10),
-            Container(
-              height: 50,
-              width: 300,
-              decoration: BoxDecoration(
-                color: Colors.black12,
-                borderRadius: BorderRadius.circular(10),
-              ),
+            CustomContainer(
               child: DropdownButton<String>(
                 value:
                     _selectedTripType, // Use _selectedTripType instead of selectedOption
@@ -246,13 +228,8 @@ class _BucketEditState extends State<BucketEdit> {
               ),
             ),
             const Gap(10),
-            Container(
+            CustomContainer(
               height: 100,
-              width: 300,
-              decoration: BoxDecoration(
-                color: Colors.black12,
-                borderRadius: BorderRadius.circular(10),
-              ),
               child: CustomTextFormField(
                 controller: _descriptionController,
                 hintText: "Description",

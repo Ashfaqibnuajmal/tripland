@@ -1,13 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
-import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
+import 'package:textcodetripland/view/constants/custom_container.dart';
 import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
@@ -95,44 +93,6 @@ class _TripEditState extends State<TripEdit> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title:
-            Text("Let me edi my trip", style: GoogleFonts.anton(fontSize: 20)),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_rounded, size: 25),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            locationField(),
-            const SizedBox(height: 20),
-            datePickers(),
-            const SizedBox(height: 20),
-            nummberOfPeopleField(),
-            const SizedBox(height: 20),
-            tripTypeDropdown(),
-            const Gap(20),
-            budgetField(),
-            const SizedBox(height: 20),
-            imagePickerButton(),
-            const SizedBox(height: 20),
-            Custombutton(text: "UPDATE ITITNERARY", onPressed: _updateItinerary)
-          ],
-        ),
-      ),
-    );
-  }
-
   Future<void> _updateItinerary() async {
     final location = _locationController.text;
     final startDate = _startDate;
@@ -158,281 +118,246 @@ class _TripEditState extends State<TripEdit> {
         textColor: Colors.green);
     editTrip(widget.index, update);
     Navigator.push(
-        // ignore: use_build_context_synchronously
-        context,
-        MaterialPageRoute(builder: (context) => NotchBar()));
+        context, MaterialPageRoute(builder: (context) => NotchBar()));
   }
 
-  AppBar appBar() {
-    return AppBar(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
       backgroundColor: Colors.white,
-      title: Text("Let me plan my trip", style: CustomTextStyle.headings),
-      centerTitle: true,
-      leading: CustomBackButton(ctx: context),
-    );
-  }
-
-  Widget locationField() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30),
-          child: Row(
-            children: [
-              Icon(Icons.location_pin),
-              Text("Itinerary Location", style: CustomTextStyle.textStyle5),
-            ],
-          ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text("Let me edit my trip", style: CustomTextStyle.headings),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_rounded, size: 25),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Container(
-            height: 60,
-            width: 330,
-            decoration: BoxDecoration(
-              color: Colors.black12,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: CustomTextFormField(
-              controller: _locationController,
-              hintText: "Paris or France",
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget datePickers() {
-    return Column(
-      children: [
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
           children: [
-            Row(
+            // Location Field
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(Icons.date_range_rounded),
-                Text("Start date", style: CustomTextStyle.textStyle6)
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 35),
+                  child: Row(
+                    children: [
+                      Icon(Icons.location_pin),
+                      Text("Itinerary Location",
+                          style: CustomTextStyle.textStyle5),
+                    ],
+                  ),
+                ),
+                CustomContainer(
+                  child: CustomTextFormField(
+                    controller: _locationController,
+                    hintText: "Paris or France",
+                  ),
+                )
               ],
             ),
-            Row(
+            const SizedBox(height: 20),
+
+            // Date Pickers
+            Column(
               children: [
-                Icon(Icons.date_range_rounded),
-                Text("End date", style: CustomTextStyle.textStyle6)
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.date_range_rounded),
+                        Text("Start date", style: CustomTextStyle.textStyle6)
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.date_range_rounded),
+                        Text("End date", style: CustomTextStyle.textStyle6)
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () => _pickDate(context, true),
+                      child: CustomContainer(
+                          width: 130,
+                          child: Center(
+                              child: Text(
+                                  _startDate != null
+                                      ? DateFormat('dd/MM/yyyy')
+                                          .format(_startDate!)
+                                      : "Select Date",
+                                  style: CustomTextStyle.textStyle5))),
+                    ),
+                    GestureDetector(
+                      onTap: () => _pickDate(context, false),
+                      child: CustomContainer(
+                          width: 130,
+                          child: Center(
+                              child: Text(
+                                  _endDate != null
+                                      ? DateFormat('dd/MM/yyyy')
+                                          .format(_endDate!)
+                                      : "Select Date",
+                                  style: CustomTextStyle.textStyle5))),
+                    ),
+                  ],
+                ),
               ],
             ),
+            const SizedBox(height: 20),
+
+            // Number of People Field
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 35),
+                  child: Row(
+                    children: [
+                      Icon(Icons.people_outline_sharp),
+                      Text("Number of People",
+                          style: CustomTextStyle.textStyle5),
+                    ],
+                  ),
+                ),
+                CustomContainer(
+                  child: CustomTextFormField(
+                    controller: _selectedNumberOfPeople,
+                    keyboardType: TextInputType.number,
+                    hintText: "7 Persons",
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+
+            // Trip Type Dropdown
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 35),
+                  child: Row(
+                    children: [
+                      Icon(Icons.transfer_within_a_station_sharp),
+                      Text("Trip Guides", style: CustomTextStyle.textStyle5),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: CustomContainer(
+                    child: DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 15),
+                      ),
+                      hint: const Text("Select trip type",
+                          style: CustomTextStyle.hintText),
+                      items: [
+                        "Solo",
+                        "Adventure",
+                        "Family",
+                        "Romantic",
+                        "Honeymoon",
+                        "Cultural",
+                        "Road Trip",
+                        "Luxury",
+                        "Backpacking",
+                        "Nature Exploration",
+                      ]
+                          .map(
+                              (e) => DropdownMenuItem(value: e, child: Text(e)))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedTripType = value;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const Gap(20),
+
+            // Budget Field
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 35),
+                  child: Row(
+                    children: [
+                      Icon(Icons.attach_money_rounded),
+                      Text("Budget", style: CustomTextStyle.textStyle5),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: CustomContainer(
+                    child: CustomTextFormField(
+                      controller: _expanceController,
+                      keyboardType: TextInputType.number,
+                      hintText: "₹ 29999",
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+
+            // Image Section
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: Row(
+                    children: [
+                      Icon(Icons.image),
+                      Text("Trip Image", style: CustomTextStyle.textStyle5),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: GestureDetector(
+                    onTap: _pickImage,
+                    child: Container(
+                      height: 200,
+                      width: 330,
+                      decoration: BoxDecoration(
+                        color: Colors.black12,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: _selectedImage != null
+                          ? Image.file(_selectedImage!)
+                          : const Icon(Icons.camera_alt_outlined),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 30),
+            Custombutton(text: 'UPDATE ITINERARY', onPressed: _updateItinerary)
           ],
         ),
-        const SizedBox(height: 5),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            dateContainer(
-              label: _startDate != null
-                  ? DateFormat('dd/MM/yyyy').format(_startDate!)
-                  : "Select Date",
-              onTap: () => _pickDate(context, true),
-            ),
-            dateContainer(
-              label: _endDate != null
-                  ? DateFormat('dd/MM/yyyy').format(_endDate!)
-                  : "Select Date",
-              onTap: () => _pickDate(context, false),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget dateContainer({required String label, required VoidCallback onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-          height: 60,
-          width: 150,
-          decoration: BoxDecoration(
-            color: Colors.black12,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          alignment: Alignment.center,
-          child: Text(label, style: CustomTextStyle.textStyle5)),
-    );
-  }
-
-  Widget nummberOfPeopleField() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30),
-          child: Row(
-            children: [
-              Icon(Icons.people_outline_sharp),
-              Text("Number of People", style: CustomTextStyle.textStyle5),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Container(
-            height: 60,
-            width: 330,
-            decoration: BoxDecoration(
-              color: Colors.black12,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: CustomTextFormField(
-              controller: _selectedNumberOfPeople,
-              keyboardType: TextInputType.number,
-              hintText: "7 Persons",
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget tripTypeDropdown() {
-    return dropdown(
-      icon: Icons.transfer_within_a_station_sharp,
-      label: "Trip Guides",
-      hint: "Select trip type",
-      items: [
-        "Solo",
-        "Adventure",
-        "Family",
-        "Romantic",
-        "Honeymoon",
-        "Cultural",
-        "Road Trip",
-        "Luxury",
-        "Backpacking",
-        "Nature Exploration",
-      ].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
-      onChanged: (value) {
-        setState(() {
-          _selectedTripType = value;
-        });
-      },
-    );
-  }
-
-  Widget dropdown({
-    required IconData icon,
-    required String label,
-    required String hint,
-    required List<DropdownMenuItem<String>> items,
-    required ValueChanged<String?> onChanged,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Row(
-            children: [
-              Icon(icon),
-              Text(label, style: CustomTextStyle.textStyle5),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Container(
-            height: 60,
-            width: 330,
-            decoration: BoxDecoration(
-              color: Colors.black12,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: DropdownButtonFormField<String>(
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(horizontal: 15),
-              ),
-              hint: Text(hint, style: CustomTextStyle.hintText),
-              items: items,
-              onChanged: onChanged,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget budgetField() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30),
-          child: Row(
-            children: [
-              Icon(Icons.attach_money_rounded),
-              Text("Budget", style: CustomTextStyle.textStyle5),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Container(
-            height: 60,
-            width: 330,
-            decoration: BoxDecoration(
-              color: Colors.black12,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: CustomTextFormField(
-              controller: _expanceController,
-              keyboardType: TextInputType.number,
-              hintText: "₹ 29999",
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget imagePickerButton() {
-    return GestureDetector(
-      onTap: _pickImage,
-      child: _selectedImage != null
-          ? Container(
-              height: 200,
-              width: 200,
-              decoration: BoxDecoration(
-                border: Border.all(width: 1),
-                color: Colors.grey.shade300,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.file(
-                  _selectedImage!,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            )
-          : ElevatedButton(
-              onPressed: _pickImage,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white38,
-                foregroundColor: Colors.white,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              child: const Column(
-                children: [
-                  Icon(Icons.camera_alt_outlined),
-                  Text('Add Photo'),
-                ],
-              ),
-            ),
+      ),
     );
   }
 }
+
+class CustomButton {}

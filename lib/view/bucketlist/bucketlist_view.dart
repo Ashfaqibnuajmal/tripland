@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
 import 'package:textcodetripland/view/bucketlist/bucket_edit.dart';
 import 'package:textcodetripland/view/bucketlist/bucketlist._add.dart';
+import 'package:textcodetripland/view/constants/custom_action.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
@@ -77,22 +78,8 @@ class _BucketlistState extends State<Bucketlist> {
         appBar: CustomAppBar(
           title: "BucketList",
           ctx: context,
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const BucketlistAdd(),
-                  ),
-                );
-              },
-              icon: const Icon(
-                Icons.note_add_rounded,
-                size: 25,
-                color: Colors.black,
-              ),
-            ),
+          actions: const [
+            CustomAction(destinationPage: BucketlistAdd()),
           ],
           leading: IconButton(
             onPressed: () {

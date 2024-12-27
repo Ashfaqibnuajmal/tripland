@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/expance_controllers.dart';
 import 'package:textcodetripland/model/expance_model/expance.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
+import 'package:textcodetripland/view/constants/custom_container.dart';
 import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
@@ -74,23 +75,17 @@ class _ExpanceAddState extends State<ExpanceAdd> {
                 ),
                 const Gap(10),
                 GestureDetector(
-                  onTap: () => _pickDate(context),
-                  child: Container(
-                    height: 50,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
+                    onTap: () => _pickDate(context),
+                    child: CustomContainer(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Text(
-                          _date == null
-                              ? "21/12/2024"
-                              : "${_date!.day}/${_date!.month}/${_date!.year}",
-                          style: CustomTextStyle.textStyle5),
-                    ),
-                  ),
-                ),
+                      child: Center(
+                        child: Text(
+                            _date == null
+                                ? "21/12/2024"
+                                : "${_date!.day}/${_date!.month}/${_date!.year}",
+                            style: CustomTextStyle.textStyle5),
+                      ),
+                    )),
 
                 // Name Section
                 const SizedBox(height: 20),
@@ -99,39 +94,28 @@ class _ExpanceAddState extends State<ExpanceAdd> {
                   style: GoogleFonts.anton(color: Colors.white),
                 ),
                 const Gap(10),
-                Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                CustomContainer(
+                  color: Colors.white,
                   child: CustomTextFormField(
                     controller: _nameController,
                     hintText: "Travel or stay",
                   ),
                 ),
-
                 const SizedBox(height: 20),
                 Text(
                   "Price",
                   style: GoogleFonts.roboto(color: Colors.white),
                 ),
                 const Gap(10),
-                Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+
+                CustomContainer(
+                  color: Colors.white,
                   child: CustomTextFormField(
                     controller: _priceController,
                     hintText: "₹10000",
                     keyboardType: TextInputType.number,
                   ),
                 ),
-
                 const SizedBox(height: 30),
                 Center(
                   child: Custombutton(

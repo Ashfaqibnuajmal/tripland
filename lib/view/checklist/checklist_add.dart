@@ -4,6 +4,7 @@ import 'package:textcodetripland/controllers/checkllist_controllers.dart';
 import 'package:textcodetripland/model/checklist_model/checklist.dart';
 import 'package:textcodetripland/view/checklist/checklist.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
+import 'package:textcodetripland/view/constants/custom_container.dart';
 import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
@@ -50,13 +51,9 @@ class _ChecklistAddState extends State<ChecklistAdd> {
                 const SizedBox(height: 20),
                 const Text("Name", style: CustomTextStyle.textstyle1),
                 const Gap(10),
-                Container(
+                CustomContainer(
                   height: 50,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                  color: Colors.white,
                   child: CustomTextFormField(
                     controller: _nameController,
                     hintText: "Dress or ID card",

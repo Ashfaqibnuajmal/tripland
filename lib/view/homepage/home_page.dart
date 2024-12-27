@@ -5,7 +5,9 @@ import 'package:gap/gap.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // Import shared_preferences package
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
+import 'package:textcodetripland/view/constants/custom_action.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
+import 'package:textcodetripland/view/constants/custom_bottomsheet.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/homepage/trip_add.dart';
@@ -74,16 +76,8 @@ class _HomePageState extends State<HomePage> {
           onPressed: () => _showBottomSheetHome(context),
           icon: const Icon(Icons.menu),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const TripAdd()),
-              );
-            },
-            icon: const Icon(Icons.note_add_rounded),
-          ),
+        actions: const [
+          CustomAction(destinationPage: TripAdd()),
         ],
       ),
       body: Column(
@@ -268,55 +262,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _showBottomSheetHome(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.black.withOpacity(0.7),
-      builder: (context) {
-        return SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    icon: const Icon(Icons.close_rounded, color: Colors.white),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ),
-                const Gap(10),
-                Wrap(
-                  alignment: WrapAlignment.spaceAround,
-                  spacing: 10,
-                  runSpacing: 10,
-                  children: tripType.map((category) {
-                    return ChoiceChip(
-                      label: Text(
-                        category,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      selected: _selectedTripType == category,
-                      onSelected: (isSelected) {
-                        setState(() {
-                          _selectedTripType = isSelected ? category : null;
-                        });
-                        Navigator.pop(context);
-                      },
-                      selectedColor: const Color(0xFFFCC300),
-                      backgroundColor: Colors.white38,
-                    );
-                  }).toList(),
-                ),
-                const Gap(30),
-              ],
-            ),
-          ),
-        );
+    BottomSheetWidget.showBottomSheetHome(
+      context,
+      tripType: tripType,
+      selectedTripType: _selectedTripType,
+      onTripTypeSelected: (selectedType) {
+        setState(() {
+          _selectedTripType = selectedType;
+        });
       },
     );
   }

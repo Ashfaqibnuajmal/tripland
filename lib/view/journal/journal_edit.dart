@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/journal_controllers.dart';
 import 'package:textcodetripland/model/journal_model/journal.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
+import 'package:textcodetripland/view/constants/custom_container.dart';
 import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
 import 'package:textcodetripland/view/constants/customsnackbar.dart';
@@ -186,83 +187,59 @@ class _JournalEditState extends State<JournalEdit> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(
-                  onTap: () => _pickDate(context),
-                  child: Container(
-                      height: 50,
-                      width: 140,
-                      decoration: BoxDecoration(
-                        color: Colors.black12,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                _date == null
-                                    ? "Select a date"
-                                    : DateFormat('dd/MM/yyyy')
-                                        .format(_date!), // Format the date
-                                style: const TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const Icon(Icons.calendar_month_rounded)
-                            ],
-                          ))),
-                ),
+                    onTap: () => _pickDate(context),
+                    child: CustomContainer(
+                        width: 150,
+                        child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  _date == null
+                                      ? "Select a date"
+                                      : DateFormat('dd/MM/yyyy')
+                                          .format(_date!), // Format the date
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const Icon(Icons.calendar_month_rounded)
+                              ],
+                            )))),
                 GestureDetector(
-                  onTap: selectedTime,
-                  child: Container(
-                    height: 50,
-                    width: 140,
-                    decoration: BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            time,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: Colors.black87,
+                    onTap: selectedTime,
+                    child: CustomContainer(
+                      width: 150,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              time,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.black87,
+                              ),
                             ),
-                          ),
-                          const Icon(Icons.timelapse_rounded)
-                        ],
+                            const Icon(Icons.timelapse_rounded)
+                          ],
+                        ),
                       ),
-                    ),
-                  ),
-                ),
+                    ))
               ],
             ),
           ),
           const Gap(10),
-          Container(
-              height: 50,
-              width: 300,
-              decoration: BoxDecoration(
-                color: Colors.black12,
-                borderRadius: BorderRadius.circular(10),
-              ),
+          CustomContainer(
               child: CustomTextFormField(
-                controller: _locationController,
-                hintText: "Paris or France",
-                suffixIcon: const Icon(Icons.location_on_outlined),
-              )),
+            controller: _locationController,
+            hintText: "Paris or France",
+            suffixIcon: const Icon(Icons.location_on_outlined),
+          )),
           const Gap(10),
-          Container(
-            height: 50,
-            width: 300,
-            decoration: BoxDecoration(
-              color: Colors.black12,
-              borderRadius: BorderRadius.circular(10),
-            ),
+          CustomContainer(
             child: DropdownButton<String>(
               value: _selectedTripType,
               hint: const Padding(
@@ -296,13 +273,9 @@ class _JournalEditState extends State<JournalEdit> {
             ),
           ),
           const Gap(10),
-          Container(
+          CustomContainer(
               height: 100,
               width: 300,
-              decoration: BoxDecoration(
-                color: Colors.black12,
-                borderRadius: BorderRadius.circular(10),
-              ),
               child: CustomTextFormField(
                 controller: _journalController,
                 hintText: "Journal text",

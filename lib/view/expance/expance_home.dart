@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:textcodetripland/controllers/expance_controllers.dart';
+import 'package:textcodetripland/view/constants/custom_action.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
@@ -38,20 +39,8 @@ class _ExpanceHomeState extends State<ExpanceHome> {
         ctx: context,
         shouldNavigate: true,
         targetPage: NotchBar(),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ExpanceAdd()),
-              );
-            },
-            icon: const Icon(
-              Icons.add_circle_outline_rounded,
-              color: Colors.black,
-              size: 30,
-            ),
-          ),
+        actions: const [
+          CustomAction(destinationPage: ExpanceAdd()),
         ],
       ),
       body: Center(

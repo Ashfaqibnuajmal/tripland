@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/activities_controlers.dart';
 import 'package:textcodetripland/model/activities_model/activities.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
+import 'package:textcodetripland/view/constants/custom_container.dart';
 import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
@@ -58,19 +59,15 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const Gap(40),
-                  Text("Enter Activity",
-                      style: GoogleFonts.anton(color: Colors.white)),
-                  Container(
-                    height: 50,
-                    width: 330,
-                    margin: const EdgeInsets.symmetric(vertical: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
+                  const Text(
+                    "Enter Activity",
+                    style: CustomTextStyle.textStyle7,
+                  ),
+                  CustomContainer(
+                    color: Colors.white,
                     child: CustomTextFormField(
                       controller: _activitiesController,
                       hintText: "Breakfast at hotel",
@@ -78,9 +75,9 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
                   ),
                   const Gap(10),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text("From Time",
                             style: GoogleFonts.roboto(color: Colors.white)),
@@ -91,17 +88,13 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
                   ),
                   const Gap(5),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       GestureDetector(
                         onTap: () => selectedTime("From Time"),
-                        child: Container(
-                          height: 50,
+                        child: CustomContainer(
                           width: 150,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
+                          color: Colors.white,
                           child: Center(
                             child: Text(fromTime,
                                 textAlign: TextAlign.center,
@@ -109,51 +102,39 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
                           ),
                         ),
                       ),
+                      const Gap(20),
                       GestureDetector(
-                        onTap: () => selectedTime("To Time"),
-                        child: Container(
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
+                          onTap: () => selectedTime("To Time"),
+                          child: CustomContainer(
+                            width: 150,
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Center(
-                            child: Text(toTime,
-                                textAlign: TextAlign.center,
-                                style: CustomTextStyle.textStyle6),
-                          ),
-                        ),
-                      ),
+                            child: Center(
+                              child: Text(toTime,
+                                  textAlign: TextAlign.center,
+                                  style: CustomTextStyle.textStyle6),
+                            ),
+                          )),
                     ],
                   ),
                   const Gap(10),
-                  Text("Locations",
-                      style: GoogleFonts.anton(color: Colors.white)),
-                  Container(
-                    height: 50,
-                    width: 330,
-                    margin: const EdgeInsets.symmetric(vertical: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
+                  const Text(
+                    "Locations",
+                    style: CustomTextStyle.textStyle7,
+                  ),
+                  CustomContainer(
+                    color: Colors.white,
                     child: CustomTextFormField(
                       controller: _placeController,
                       hintText: "Delhi",
                     ),
                   ),
                   const Gap(5),
-                  Text("Transportation",
-                      style: GoogleFonts.anton(color: Colors.white)),
-                  Container(
-                    height: 50,
-                    width: 330,
-                    margin: const EdgeInsets.symmetric(vertical: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
+                  const Text(
+                    "Transportation",
+                    style: CustomTextStyle.textStyle7,
+                  ),
+                  CustomContainer(
+                    color: Colors.white,
                     child: CustomTextFormField(
                       controller: _vehicleController,
                       hintText: "Car or Flight",

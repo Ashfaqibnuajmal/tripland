@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:gap/gap.dart';
 import 'package:textcodetripland/controllers/journal_controllers.dart';
+import 'package:textcodetripland/view/constants/custom_action.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/journal/journal_add.dart';
@@ -31,22 +32,8 @@ class _JournalHomeState extends State<JournalHome> {
       appBar: CustomAppBar(
         title: "Journal",
         ctx: context,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const JournalAdd(),
-                ),
-              );
-            },
-            icon: const Icon(
-              Icons.note_add_rounded,
-              size: 25,
-              color: Colors.black,
-            ),
-          ),
+        actions: const [
+          CustomAction(destinationPage: JournalAdd()),
         ],
         leading: IconButton(
           onPressed: () {
