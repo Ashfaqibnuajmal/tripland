@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 class PrivacyPolicy extends StatelessWidget {
@@ -17,12 +17,9 @@ class PrivacyPolicy extends StatelessWidget {
         ),
         centerTitle: true,
         elevation: 4,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: Colors.white, size: 25),
+        leading: CustomBackButton(
+          ctx: context,
+          color: Colors.white,
         ),
       ),
       body: const Padding(
@@ -30,14 +27,14 @@ class PrivacyPolicy extends StatelessWidget {
         child: SingleChildScrollView(
           child: Text('''
 Privacy Policy
-Effective Date: [Insert Date]
+Effective Date: [31/12/2024]
 
-Welcome to TravelMate! We value your trust and are committed to safeguarding your privacy. Here’s how we handle your information:
+Welcome to Trippy! We value your trust and are committed to safeguarding your privacy. Here’s how we handle your information:
 
 
 1. Information We Collect
 
-Personal Information: Name, email, and profile picture for account creation and authentication.
+Personal Information: Name,  and profile picture for account creation and authentication.
 Trip Details: Information like trip names, locations, dates, budgets, guides, and photos.
 Journals: Photos, dates, locations, and descriptions added to your journal entries.
 Usage Data: App navigation, preferences, and filters to improve your experience.
@@ -74,7 +71,7 @@ We may update this policy periodically. Any changes will be posted here, so plea
 
 Have questions or concerns? Reach out to us:
 
-Email: support@travelmate.com
+Email: ashfaqkv2107@gmail.com
 
             ''',
               textAlign: TextAlign.justify,

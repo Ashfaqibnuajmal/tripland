@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 class TermsCondition extends StatelessWidget {
@@ -17,12 +17,9 @@ class TermsCondition extends StatelessWidget {
         ),
         centerTitle: true,
         elevation: 4,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: Colors.white, size: 25),
+        leading: CustomBackButton(
+          ctx: context,
+          color: Colors.white,
         ),
       ),
       body: const Padding(
@@ -30,7 +27,7 @@ class TermsCondition extends StatelessWidget {
         child: SingleChildScrollView(
           child: Text('''
 Terms and Conditions
-Effective Date: [Insert Date]
+Effective Date: [31/12/2024]
 
 Welcome to TravelMate! By accessing or using our app, you agree to abide by these Terms and Conditions. If you do not agree, please discontinue use immediately.
 
@@ -82,13 +79,12 @@ TravelMate may include third-party content or services. We are not responsible f
 
 9. Governing Law
 
-These Terms are governed by the laws of [Insert Country/Region]. Any disputes will be resolved in the courts of the same jurisdiction. 
+These Terms are governed by the laws of Kerala. Any disputes will be resolved in the courts of the same jurisdiction. 
 
 10. Contact Us
 If you have any questions about these Terms, please contact us:
-
-Email: support@travelmate.com
-Address: [Insert Address]
+Number:9846100721
+Email: ashfaqkv2107@gmail.com
             ''',
               textAlign: TextAlign.justify,
               style: CustomTextStyle.settingsText),

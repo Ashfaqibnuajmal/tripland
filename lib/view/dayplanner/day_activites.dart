@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:textcodetripland/controllers/activities_controlers.dart';
+import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
@@ -47,12 +48,7 @@ class _DayActivitiesState extends State<DayActivities> {
         backgroundColor: Colors.white,
         title: Text("Day Activities", style: CustomTextStyle.headings),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_rounded, size: 25),
-        ),
+        leading: CustomBackButton(ctx: context),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

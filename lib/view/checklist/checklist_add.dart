@@ -3,6 +3,8 @@ import 'package:gap/gap.dart';
 import 'package:textcodetripland/controllers/checkllist_controllers.dart';
 import 'package:textcodetripland/model/checklist_model/checklist.dart';
 import 'package:textcodetripland/view/checklist/checklist.dart';
+import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
+import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
 
@@ -28,12 +30,7 @@ class _ChecklistAddState extends State<ChecklistAdd> {
           style: CustomTextStyle.headings,
         ),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_rounded, size: 25),
-        ),
+        leading: CustomBackButton(ctx: context),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -65,15 +62,9 @@ class _ChecklistAddState extends State<ChecklistAdd> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: TextFormField(
+                  child: CustomTextFormField(
                     controller: _nameController,
-                    textAlign: TextAlign.center,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Dress or id card",
-                      hintStyle: CustomTextStyle.hintText,
-                      contentPadding: EdgeInsets.symmetric(vertical: 15),
-                    ),
+                    hintText: "Dress or ID card",
                   ),
                 ),
                 const SizedBox(height: 30),

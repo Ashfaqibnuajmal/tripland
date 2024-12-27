@@ -3,6 +3,8 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/expance_controllers.dart';
 import 'package:textcodetripland/model/expance_model/expance.dart';
+import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
+import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
 
@@ -44,12 +46,7 @@ class _ExpanceAddState extends State<ExpanceAdd> {
         backgroundColor: Colors.white,
         title: Text("Add Expenses", style: CustomTextStyle.headings),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_rounded, size: 25),
-        ),
+        leading: CustomBackButton(ctx: context),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -111,15 +108,9 @@ class _ExpanceAddState extends State<ExpanceAdd> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: TextFormField(
+                  child: CustomTextFormField(
                     controller: _nameController,
-                    textAlign: TextAlign.center,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Travel or stay",
-                      hintStyle: CustomTextStyle.hintText,
-                      contentPadding: EdgeInsets.symmetric(vertical: 15),
-                    ),
+                    hintText: "Travel or stay",
                   ),
                 ),
 
@@ -136,16 +127,10 @@ class _ExpanceAddState extends State<ExpanceAdd> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: TextFormField(
+                  child: CustomTextFormField(
                     controller: _priceController,
-                    textAlign: TextAlign.center,
+                    hintText: "₹10000",
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "₹10000",
-                      hintStyle: CustomTextStyle.hintText,
-                      contentPadding: EdgeInsets.symmetric(vertical: 15),
-                    ),
                   ),
                 ),
 

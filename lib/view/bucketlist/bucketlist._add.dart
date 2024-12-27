@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
 import 'package:textcodetripland/model/bucket_model/bucket.dart';
+import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
+import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
 import 'package:textcodetripland/view/constants/customsnackbar.dart';
@@ -117,12 +119,7 @@ class _BucketlistAddState extends State<BucketlistAdd> {
         backgroundColor: Colors.white,
         title: Text("Add Bucketlist", style: CustomTextStyle.headings),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_rounded, size: 25),
-        ),
+        leading: CustomBackButton(ctx: context),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -191,23 +188,16 @@ class _BucketlistAddState extends State<BucketlistAdd> {
             ),
             const Gap(10),
             Container(
-              height: 50,
-              width: 300,
-              decoration: BoxDecoration(
-                color: Colors.black12,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: TextFormField(
-                controller: _locationController,
-                textAlign: TextAlign.center,
-                decoration: const InputDecoration(
-                    border: InputBorder.none,
+                height: 50,
+                width: 300,
+                decoration: BoxDecoration(
+                  color: Colors.black12,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: CustomTextFormField(
+                    controller: _locationController,
                     hintText: "Paris or France",
-                    contentPadding: EdgeInsets.all(10),
-                    hintStyle: CustomTextStyle.hintText,
-                    suffixIcon: Icon(Icons.location_on_outlined)),
-              ),
-            ),
+                    suffixIcon: const Icon(Icons.location_on_outlined))),
             const Gap(10),
             Container(
               height: 50,
@@ -216,16 +206,10 @@ class _BucketlistAddState extends State<BucketlistAdd> {
                 color: Colors.black12,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: TextFormField(
-                keyboardType: TextInputType.number,
+              child: CustomTextFormField(
                 controller: _budgetController,
-                textAlign: TextAlign.center,
-                decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "₹19999",
-                    contentPadding: EdgeInsets.all(10),
-                    hintStyle: CustomTextStyle.hintText,
-                    suffixIcon: Icon(Icons.currency_rupee_rounded)),
+                hintText: "₹19999",
+                suffixIcon: const Icon(Icons.currency_rupee_rounded),
               ),
             ),
             const Gap(10),
@@ -268,18 +252,10 @@ class _BucketlistAddState extends State<BucketlistAdd> {
                 color: Colors.black12,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: TextFormField(
+              child: CustomTextFormField(
                 controller: _descriptionController,
-                textAlign: TextAlign.center,
-                maxLines:
-                    null, // This allows the text to wrap and take multiple lines
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  hintText: "Description",
-                  contentPadding: EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 20), // Reduced padding
-                  hintStyle: CustomTextStyle.hintText,
-                ),
+                hintText: "Description",
+                maxLines: null, // Allows the field to grow dynamically
               ),
             ),
             const Gap(10),

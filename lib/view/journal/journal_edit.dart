@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/journal_controllers.dart';
 import 'package:textcodetripland/model/journal_model/journal.dart';
+import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
 import 'package:textcodetripland/view/constants/customsnackbar.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
@@ -250,27 +251,17 @@ class _JournalEditState extends State<JournalEdit> {
           ),
           const Gap(10),
           Container(
-            height: 50,
-            width: 300,
-            decoration: BoxDecoration(
-              color: Colors.black12,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: TextFormField(
-              controller: _locationController,
-              maxLines: 1,
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: "Paris or France",
-                contentPadding: const EdgeInsets.all(10),
-                hintStyle: const TextStyle(fontSize: 12, color: Colors.black38),
-                suffixIcon: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.location_on_outlined)),
+              height: 50,
+              width: 300,
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                borderRadius: BorderRadius.circular(10),
               ),
-            ),
-          ),
+              child: CustomTextFormField(
+                controller: _locationController,
+                hintText: "Paris or France",
+                suffixIcon: const Icon(Icons.location_on_outlined),
+              )),
           const Gap(10),
           Container(
             height: 50,
@@ -313,23 +304,17 @@ class _JournalEditState extends State<JournalEdit> {
           ),
           const Gap(10),
           Container(
-            height: 100,
-            width: 300,
-            decoration: BoxDecoration(
-              color: Colors.black12,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: TextFormField(
-              controller: _journalController,
-              textAlign: TextAlign.center,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText: "Journal text",
-                contentPadding: EdgeInsets.all(50),
-                hintStyle: TextStyle(fontSize: 12, color: Colors.black38),
+              height: 100,
+              width: 300,
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                borderRadius: BorderRadius.circular(10),
               ),
-            ),
-          ),
+              child: CustomTextFormField(
+                controller: _journalController,
+                hintText: "Journal text",
+                maxLines: null,
+              )),
           const Gap(10),
           Custombutton(text: "UPDATE JOURNAL", onPressed: _updateJournal)
         ]),

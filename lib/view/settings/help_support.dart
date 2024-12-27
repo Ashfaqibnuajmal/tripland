@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 class HelpSupport extends StatelessWidget {
@@ -17,12 +17,9 @@ class HelpSupport extends StatelessWidget {
         ),
         centerTitle: true,
         elevation: 4,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: Colors.white, size: 25),
+        leading: CustomBackButton(
+          ctx: context,
+          color: Colors.white,
         ),
       ),
       body: const Padding(
@@ -46,8 +43,8 @@ Use the toggle button on the home page to switch between views.
 
 If you need further assistance, reach out to us through the following channels:
 
-Email: support@travelmate.com
-Phone: +1-234-567-8900 (Available Mon-Fri, 9:00 AM - 5:00 PM)
+Email: ashfaqkv2107@gmail.com
+Phone: 9846100721(Available Mon-Fri, 9:00 AM - 5:00 PM)
 Live Chat: Accessible through our website or app.
 3. Technical Support
 For technical issues, try the following steps:
@@ -65,14 +62,13 @@ Your device and app version.
 
 4. Feedback
 
-We value your feedback to improve TravelMate! Share your suggestions, ideas, or concerns using the Feedback option in the app or email us at feedback@travelmate.com.
+We value your feedback to improve Trippy! Share your suggestions, ideas, or concerns using the Feedback option in the app or email us at ashfaqkv2107@gmail.com.
 
 
 5. Additional Resources
 
 Explore our guides, tutorials, and tips to get the most out of TravelMate:
 
-Visit our website: [Insert Website URL]
 Check out our YouTube channel for video walkthroughs and updates.
             ''',
               textAlign: TextAlign.justify,

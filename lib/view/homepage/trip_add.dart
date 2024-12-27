@@ -7,6 +7,8 @@ import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
+import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
+import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
 import 'package:textcodetripland/view/constants/customsnackbar.dart';
@@ -142,10 +144,7 @@ class _TripAddState extends State<TripAdd> {
       title:
           Text("Let me plan my trip", style: GoogleFonts.anton(fontSize: 20)),
       centerTitle: true,
-      leading: IconButton(
-        onPressed: () => Navigator.pop(context),
-        icon: const Icon(Icons.arrow_back_rounded, size: 25),
-      ),
+      leading: CustomBackButton(ctx: context),
     );
   }
 
@@ -171,17 +170,9 @@ class _TripAddState extends State<TripAdd> {
               color: Colors.black12,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: TextFormField(
+            child: CustomTextFormField(
               controller: _locationController,
-              textAlign: TextAlign.center,
-              validator: (value) =>
-                  value?.isEmpty ?? true ? "Please enter the location" : null,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText: "Paris or France",
-                contentPadding: EdgeInsets.all(15),
-                hintStyle: CustomTextStyle.hintText,
-              ),
+              hintText: "Paris or France",
             ),
           ),
         ),
@@ -268,19 +259,10 @@ class _TripAddState extends State<TripAdd> {
               color: Colors.black12,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: TextFormField(
+            child: CustomTextFormField(
               controller: _selectedNumberOfPeople,
               keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-              validator: (value) => value?.isEmpty ?? true
-                  ? "Please enter the number of people"
-                  : null,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText: "7 Persons",
-                contentPadding: EdgeInsets.all(15),
-                hintStyle: CustomTextStyle.hintText,
-              ),
+              hintText: "7 Persons",
             ),
           ),
         ),
@@ -378,18 +360,10 @@ class _TripAddState extends State<TripAdd> {
               color: Colors.black12,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: TextFormField(
+            child: CustomTextFormField(
               controller: _expanceController,
               keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-              validator: (value) =>
-                  value?.isEmpty ?? true ? "Please enter the expense" : null,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText: "₹ 29999",
-                contentPadding: EdgeInsets.all(15),
-                hintStyle: CustomTextStyle.hintText,
-              ),
+              hintText: "₹ 29999",
             ),
           ),
         ),

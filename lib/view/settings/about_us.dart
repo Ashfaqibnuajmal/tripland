@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 class AboutUs extends StatelessWidget {
@@ -9,17 +9,16 @@ class AboutUs extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black,
         title: const Text(
           "About us",
           style: CustomTextStyle.settings,
         ),
         centerTitle: true,
         elevation: 4,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_rounded, size: 25),
+        leading: CustomBackButton(
+          ctx: context,
+          color: Colors.white,
         ),
       ),
       body: const Padding(
@@ -29,7 +28,9 @@ class AboutUs extends StatelessWidget {
             child: Text('''
        About Us
 
-Welcome to TravelMate – your ultimate travel companion, thoughtfully crafted to make every aspect of your journeys effortless and enjoyable. Whether you're dreaming of adventures yet to come, organizing your current travels, or cherishing memories of trips past, TravelMate is here to support you every step of the way.
+Welcome to Trippy – your ultimate travel companion, thoughtfully crafted to make every aspect of your journeys effortless and enjoyable.
+ Whether you're dreaming of adventures yet to come, organizing your current travels, or cherishing memories of trips past, 
+ TravelMate is here to support you every step of the way.
 
 What TravelMate Offers:
 With TravelMate, you can:

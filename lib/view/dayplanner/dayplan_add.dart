@@ -3,6 +3,8 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/activities_controlers.dart';
 import 'package:textcodetripland/model/activities_model/activities.dart';
+import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
+import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
 import 'package:textcodetripland/view/dayplanner/day_planner.dart';
@@ -44,12 +46,7 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
         backgroundColor: Colors.white,
         title: Text("Plan Your Day", style: CustomTextStyle.headings),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_rounded, size: 25),
-        ),
+        leading: CustomBackButton(ctx: context),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -76,14 +73,9 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: TextFormField(
+                    child: CustomTextFormField(
                       controller: _activitiesController,
-                      textAlign: TextAlign.center,
-                      decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Breakfast at hotel",
-                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                          hintStyle: CustomTextStyle.hintText),
+                      hintText: "Breakfast at hotel",
                     ),
                   ),
                   const Gap(10),
@@ -148,14 +140,9 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: TextFormField(
+                    child: CustomTextFormField(
                       controller: _placeController,
-                      textAlign: TextAlign.center,
-                      decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Delhi",
-                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                          hintStyle: CustomTextStyle.hintText),
+                      hintText: "Delhi",
                     ),
                   ),
                   const Gap(5),
@@ -169,14 +156,9 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: TextFormField(
+                    child: CustomTextFormField(
                       controller: _vehicleController,
-                      textAlign: TextAlign.center,
-                      decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Car or Flight",
-                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                          hintStyle: CustomTextStyle.hintText),
+                      hintText: "Car or Flight",
                     ),
                   ),
                   const Gap(20),
