@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/activities_controlers.dart';
 import 'package:textcodetripland/model/activities_model/activities.dart';
-import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
@@ -42,11 +42,9 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("Plan Your Day", style: CustomTextStyle.headings),
-        centerTitle: true,
-        leading: CustomBackButton(ctx: context),
+      appBar: CustomAppBar(
+        title: "Plan Your Day",
+        ctx: context,
       ),
       body: Center(
         child: SingleChildScrollView(

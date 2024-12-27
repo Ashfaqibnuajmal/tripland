@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:textcodetripland/controllers/checkllist_controllers.dart';
 import 'package:textcodetripland/model/checklist_model/checklist.dart';
 import 'package:textcodetripland/view/checklist/checklist.dart';
-import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
@@ -23,14 +23,9 @@ class _ChecklistAddState extends State<ChecklistAdd> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          "Add Expenses",
-          style: CustomTextStyle.headings,
-        ),
-        centerTitle: true,
-        leading: CustomBackButton(ctx: context),
+      appBar: CustomAppBar(
+        title: "Add Expenses",
+        ctx: context,
       ),
       body: Center(
         child: SingleChildScrollView(

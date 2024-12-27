@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/view/checklist/checklist.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/dayplanner/day_planner.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
@@ -47,19 +48,11 @@ class _TripHomeState extends State<TripHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          widget.location.toString(),
-          style: CustomTextStyle.headings,
-        ),
-        centerTitle: true,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => NotchBar()));
-            },
-            icon: const Icon(Icons.arrow_back)),
+      appBar: CustomAppBar(
+        title: widget.location.toString(),
+        ctx: context,
+        shouldNavigate: true,
+        targetPage: NotchBar(),
       ),
       body: SingleChildScrollView(
         child: Column(

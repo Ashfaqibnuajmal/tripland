@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:textcodetripland/controllers/activities_controlers.dart';
-import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
@@ -44,11 +44,9 @@ class _DayActivitiesState extends State<DayActivities> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("Day Activities", style: CustomTextStyle.headings),
-        centerTitle: true,
-        leading: CustomBackButton(ctx: context),
+      appBar: CustomAppBar(
+        title: "Day Activities",
+        ctx: context,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

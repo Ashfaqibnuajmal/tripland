@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
 import 'package:textcodetripland/view/bucketlist/bucket_edit.dart';
 import 'package:textcodetripland/view/bucketlist/bucketlist._add.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/settings/proifle_page.dart';
@@ -73,27 +74,18 @@ class _BucketlistState extends State<Bucketlist> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Text("BucketList", style: CustomTextStyle.headings),
-          leading: IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ProfilePage(),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.settings)),
-          centerTitle: true,
+        appBar: CustomAppBar(
+          title: "BucketList",
+          ctx: context,
           actions: [
             IconButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const BucketlistAdd()));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const BucketlistAdd(),
+                  ),
+                );
               },
               icon: const Icon(
                 Icons.note_add_rounded,
@@ -102,6 +94,17 @@ class _BucketlistState extends State<Bucketlist> {
               ),
             ),
           ],
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfilePage(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.settings),
+          ),
         ),
         body: Column(children: [
           Padding(

@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // Import shared_preferences package
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/homepage/trip_add.dart';
@@ -66,10 +67,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("Trippy", style: CustomTextStyle.headings),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        title: "Trippy",
+        ctx: context,
         leading: IconButton(
           onPressed: () => _showBottomSheetHome(context),
           icon: const Icon(Icons.menu),

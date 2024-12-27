@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
 import 'package:textcodetripland/model/bucket_model/bucket.dart';
-import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
@@ -115,11 +115,9 @@ class _BucketlistAddState extends State<BucketlistAdd> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("Add Bucketlist", style: CustomTextStyle.headings),
-        centerTitle: true,
-        leading: CustomBackButton(ctx: context),
+      appBar: CustomAppBar(
+        title: "Add Bucketlist",
+        ctx: context,
       ),
       body: SingleChildScrollView(
         child: Column(

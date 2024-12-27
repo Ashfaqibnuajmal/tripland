@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 import 'package:textcodetripland/view/dayplanner/day_activites.dart';
@@ -54,16 +55,11 @@ class _DayPlannerState extends State<DayPlanner> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("Day Planner", style: CustomTextStyle.headings),
-        centerTitle: true,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => NotchBar()));
-            },
-            icon: const Icon(Icons.arrow_back)),
+      appBar: CustomAppBar(
+        title: "Day Planner",
+        ctx: context,
+        shouldNavigate: true,
+        targetPage: NotchBar(),
       ),
       body: Column(
         children: [

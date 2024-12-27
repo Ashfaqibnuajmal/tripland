@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:textcodetripland/controllers/user_controllers.dart';
 import 'package:textcodetripland/model/user_model/user.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/settings/about_us.dart';
 import 'package:textcodetripland/view/settings/help_support.dart';
@@ -46,14 +47,9 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("Profile", style: CustomTextStyle.headings),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_rounded, size: 25),
-        ),
+      appBar: CustomAppBar(
+        title: "Profile ",
+        ctx: context,
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 10),

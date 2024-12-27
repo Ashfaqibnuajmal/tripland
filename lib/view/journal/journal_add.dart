@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/journal_controllers.dart';
 import 'package:textcodetripland/model/journal_model/journal.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
 import 'package:textcodetripland/view/constants/customsnackbar.dart';
@@ -115,16 +115,9 @@ class _JournalAddState extends State<JournalAdd> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("Add Journal", style: GoogleFonts.anton(fontSize: 20)),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_rounded, size: 25),
-        ),
+      appBar: CustomAppBar(
+        title: "Journal Add",
+        ctx: context,
       ),
       body: SingleChildScrollView(
         child: Column(children: [

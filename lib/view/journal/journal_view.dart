@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/journal_controllers.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 
 class JournalView extends StatefulWidget {
   final String? location;
@@ -40,24 +40,9 @@ class _JournalViewState extends State<JournalView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          widget.location.toString(),
-          style: GoogleFonts.anton(
-            fontSize: 20,
-            shadows: const [
-              Shadow(color: Colors.black12, offset: Offset(2, 2))
-            ],
-          ),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_rounded, size: 25),
-        ),
+      appBar: CustomAppBar(
+        title: widget.location.toString(),
+        ctx: context,
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -1,10 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/journal_controllers.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/journal/journal_add.dart';
 import 'package:textcodetripland/view/journal/journal_edit.dart';
@@ -29,18 +28,26 @@ class _JournalHomeState extends State<JournalHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          "Moments Capture",
-          style: GoogleFonts.anton(
-            fontSize: 20,
-            shadows: const [
-              Shadow(color: Colors.black12, offset: Offset(4, 4)),
-            ],
+      appBar: CustomAppBar(
+        title: "Journal",
+        ctx: context,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const JournalAdd(),
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.note_add_rounded,
+              size: 25,
+              color: Colors.black,
+            ),
           ),
-        ),
-        centerTitle: true,
+        ],
         leading: IconButton(
           onPressed: () {
             Navigator.push(
@@ -52,17 +59,6 @@ class _JournalHomeState extends State<JournalHome> {
           },
           icon: const Icon(Icons.settings),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const JournalAdd()),
-              );
-            },
-            icon: const Icon(Icons.note_add_rounded),
-          ),
-        ],
       ),
       body: Column(
         children: [

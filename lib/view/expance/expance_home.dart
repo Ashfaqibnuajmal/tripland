@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:textcodetripland/controllers/expance_controllers.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/expance/expance_add.dart';
@@ -32,16 +33,11 @@ class _ExpanceHomeState extends State<ExpanceHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("Expance", style: CustomTextStyle.headings),
-        centerTitle: true,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => NotchBar()));
-            },
-            icon: const Icon(Icons.arrow_back)),
+      appBar: CustomAppBar(
+        title: "Expance",
+        ctx: context,
+        shouldNavigate: true,
+        targetPage: NotchBar(),
         actions: [
           IconButton(
             onPressed: () {

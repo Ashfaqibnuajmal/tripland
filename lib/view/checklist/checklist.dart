@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/controllers/checkllist_controllers.dart';
 import 'package:textcodetripland/view/checklist/checklist_add.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
@@ -47,16 +48,11 @@ class _ChecklistsState extends State<Checklists> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("Checklist", style: CustomTextStyle.headings),
-        centerTitle: true,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => NotchBar()));
-            },
-            icon: const Icon(Icons.arrow_back)),
+      appBar: CustomAppBar(
+        title: "Checklist",
+        ctx: context,
+        shouldNavigate: true,
+        targetPage: NotchBar(),
         actions: [
           IconButton(
             onPressed: () {
