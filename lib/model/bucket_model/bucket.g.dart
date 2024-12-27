@@ -20,6 +20,7 @@ class BucketAdapter extends TypeAdapter<Bucket> {
       date: fields[1] as DateTime?,
       location: fields[5] as String?,
       description: fields[4] as String?,
+      budget: fields[6] as String?,
       imageFile: fields[0] as String?,
       selectedTripType: fields[2] as String?,
     );
@@ -28,7 +29,7 @@ class BucketAdapter extends TypeAdapter<Bucket> {
   @override
   void write(BinaryWriter writer, Bucket obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.imageFile)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class BucketAdapter extends TypeAdapter<Bucket> {
       ..writeByte(4)
       ..write(obj.description)
       ..writeByte(5)
-      ..write(obj.location);
+      ..write(obj.location)
+      ..writeByte(6)
+      ..write(obj.budget);
   }
 
   @override

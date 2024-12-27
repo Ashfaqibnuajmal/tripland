@@ -2,11 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // Import shared_preferences package
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/homepage/trip_add.dart';
 import 'package:textcodetripland/view/homepage/trip_home.dart';
 
@@ -68,10 +68,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
-          "Tripland",
-          style: GoogleFonts.anton(fontSize: 20),
-        ),
+        title: Text("Trippy", style: CustomTextStyle.headings),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => _showBottomSheetHome(context),
@@ -105,8 +102,8 @@ class _HomePageState extends State<HomePage> {
               child: TextField(
                 controller: _searchController,
                 decoration: InputDecoration(
-                  hintText: "Search",
-                  hintStyle: const TextStyle(color: Colors.black54),
+                  hintText: "Search by location",
+                  hintStyle: CustomTextStyle.search,
                   suffixIcon: IconButton(
                     onPressed: () {
                       _searchController.clear();
@@ -137,8 +134,7 @@ class _HomePageState extends State<HomePage> {
                                 _searchController.text.trim().toLowerCase()) ??
                             false))
                     .toList();
-                final filteredTrips =
-                    filteredTrip.toSet().toList().reversed.toList();
+                final filteredTrips = filteredTrip.toSet().toList();
                 return ListView.builder(
                   itemCount: filteredTrips.length,
                   itemBuilder: (context, index) {
@@ -161,16 +157,11 @@ class _HomePageState extends State<HomePage> {
                                   size: 20,
                                 ),
                                 Text(
-                                  data.location?.isNotEmpty ?? false
-                                      ? data.location![0].toUpperCase() +
-                                          data.location!.substring(1)
-                                      : '',
-                                  style: GoogleFonts.anton(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    letterSpacing: 0.8,
-                                  ),
-                                )
+                                    data.location?.isNotEmpty ?? false
+                                        ? data.location![0].toUpperCase() +
+                                            data.location!.substring(1)
+                                        : 'NA',
+                                    style: CustomTextStyle.location)
                               ],
                             ),
                             GestureDetector(

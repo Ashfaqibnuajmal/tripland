@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/activities_controlers.dart';
 import 'package:textcodetripland/model/activities_model/activities.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
 import 'package:textcodetripland/view/dayplanner/day_planner.dart';
 
@@ -41,7 +42,7 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text("Plan Your Day", style: GoogleFonts.anton(fontSize: 20)),
+        title: Text("Plan Your Day", style: CustomTextStyle.headings),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -79,12 +80,10 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
                       controller: _activitiesController,
                       textAlign: TextAlign.center,
                       decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Breakfast at hotel",
-                        contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                        hintStyle:
-                            TextStyle(fontSize: 12, color: Colors.black38),
-                      ),
+                          border: InputBorder.none,
+                          hintText: "Breakfast at hotel",
+                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                          hintStyle: CustomTextStyle.hintText),
                     ),
                   ),
                   const Gap(10),
@@ -94,9 +93,9 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("From Time",
-                            style: GoogleFonts.anton(color: Colors.white)),
+                            style: GoogleFonts.roboto(color: Colors.white)),
                         Text("To Time",
-                            style: GoogleFonts.anton(color: Colors.white)),
+                            style: GoogleFonts.roboto(color: Colors.white)),
                       ],
                     ),
                   ),
@@ -114,12 +113,9 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: Center(
-                            child: Text(
-                              fromTime,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  fontSize: 12, color: Colors.black),
-                            ),
+                            child: Text(fromTime,
+                                textAlign: TextAlign.center,
+                                style: CustomTextStyle.textStyle6),
                           ),
                         ),
                       ),
@@ -133,12 +129,9 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: Center(
-                            child: Text(
-                              toTime,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  fontSize: 12, color: Colors.black),
-                            ),
+                            child: Text(toTime,
+                                textAlign: TextAlign.center,
+                                style: CustomTextStyle.textStyle6),
                           ),
                         ),
                       ),
@@ -159,12 +152,10 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
                       controller: _placeController,
                       textAlign: TextAlign.center,
                       decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Delhi",
-                        contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                        hintStyle:
-                            TextStyle(fontSize: 12, color: Colors.black38),
-                      ),
+                          border: InputBorder.none,
+                          hintText: "Delhi",
+                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                          hintStyle: CustomTextStyle.hintText),
                     ),
                   ),
                   const Gap(5),
@@ -182,12 +173,10 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
                       controller: _vehicleController,
                       textAlign: TextAlign.center,
                       decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Car or Flight",
-                        contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                        hintStyle:
-                            TextStyle(fontSize: 12, color: Colors.black38),
-                      ),
+                          border: InputBorder.none,
+                          hintText: "Car or Flight",
+                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                          hintStyle: CustomTextStyle.hintText),
                     ),
                   ),
                   const Gap(20),

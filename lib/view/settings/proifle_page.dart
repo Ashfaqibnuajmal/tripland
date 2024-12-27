@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/user_controllers.dart';
 import 'package:textcodetripland/model/user_model/user.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/settings/about_us.dart';
 import 'package:textcodetripland/view/settings/help_support.dart';
 import 'package:textcodetripland/view/settings/login_page.dart';
@@ -48,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text("Profile", style: GoogleFonts.anton(fontSize: 20)),
+        title: Text("Profile", style: CustomTextStyle.headings),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
@@ -76,28 +77,22 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     const Gap(10),
                     Text(
-                      userdata?.name != null && userdata!.name!.isNotEmpty
-                          ? userdata!.name![0].toUpperCase() +
-                              userdata!.name!.substring(1)
-                          : "No username", // Fallback if userdata is null or empty
-                      style: GoogleFonts.nobile(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
+                        userdata?.name != null && userdata!.name!.isNotEmpty
+                            ? userdata!.name![0].toUpperCase() +
+                                userdata!.name!.substring(1)
+                            : "No username", // Fallback if userdata is null or empty
+                        style: CustomTextStyle.headings),
                   ],
                 ),
               ],
             ),
             const Divider(thickness: 2),
             const Gap(30),
-            Align(
+            const Align(
               alignment: Alignment.topLeft,
               child: Padding(
-                padding: const EdgeInsets.only(left: 40),
-                child: Text("Settings",
-                    style: GoogleFonts.nobile(
-                        fontWeight: FontWeight.bold, fontSize: 20)),
+                padding: EdgeInsets.only(left: 40),
+                child: Text("Settings", style: CustomTextStyle.textStyle3),
               ),
             ),
             const Gap(10),
@@ -176,10 +171,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     size: 30, color: Colors.redAccent),
                                 const Gap(10),
                                 const Text('Logout?',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white)),
+                                    style: CustomTextStyle.settings),
                                 const Gap(10),
                                 const Text(
                                   "Are you sure you want to logout?",
@@ -248,11 +240,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           Padding(
                             padding: EdgeInsets.only(left: 10),
-                            child: Text("LogOut",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
+                            child:
+                                Text("LogOut", style: CustomTextStyle.settings),
                           ),
                         ],
                       ),
@@ -292,7 +281,7 @@ class SettingsButton extends StatelessWidget {
           children: [
             Icon(icon, color: Colors.black),
             const Spacer(),
-            Text(label, style: const TextStyle(color: Colors.black)),
+            Text(label, style: CustomTextStyle.textStyle5),
             const Spacer(),
           ],
         ),

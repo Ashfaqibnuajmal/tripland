@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/controllers/checkllist_controllers.dart';
 import 'package:textcodetripland/view/checklist/checklist_add.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class Checklists extends StatefulWidget {
@@ -49,7 +49,7 @@ class _ChecklistsState extends State<Checklists> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text("Checklist", style: GoogleFonts.anton(fontSize: 20)),
+        title: Text("Checklist", style: CustomTextStyle.headings),
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
@@ -100,12 +100,14 @@ class _ChecklistsState extends State<Checklists> {
         child: ValueListenableBuilder(
           valueListenable: checklistNotifier,
           builder: (context, data, child) {
-            List filteredData =
-                filterChecklistData(data).toSet().toList().reversed.toList();
+            List filteredData = filterChecklistData(data).toSet().toList();
 
             if (filteredData.isEmpty) {
               return const Center(
-                child: Text("No checklist found"),
+                child: Text(
+                  "No checklist found",
+                  style: CustomTextStyle.empty,
+                ),
               );
             }
 
@@ -143,13 +145,8 @@ class _ChecklistsState extends State<Checklists> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              child: Text(
-                                checklist.name ?? "NA",
-                                style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black87,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                              child: Text(checklist.name ?? "NA",
+                                  style: CustomTextStyle.textStyle4),
                             ),
                             Checkbox(
                               checkColor: Colors.blueAccent,
@@ -232,13 +229,7 @@ class _ChecklistsState extends State<Checklists> {
           });
           Navigator.pop(context); // Close the bottom sheet
         },
-        child: Text(
-          option,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        child: Text(option, style: CustomTextStyle.textstyle1),
       ),
     );
   }

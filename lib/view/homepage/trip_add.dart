@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
 import 'package:textcodetripland/view/constants/customsnackbar.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
@@ -138,10 +139,8 @@ class _TripAddState extends State<TripAdd> {
   AppBar appBar() {
     return AppBar(
       backgroundColor: Colors.white,
-      title: Text(
-        "Let me plan my trip",
-        style: GoogleFonts.anton(fontSize: 20),
-      ),
+      title:
+          Text("Let me plan my trip", style: GoogleFonts.anton(fontSize: 20)),
       centerTitle: true,
       leading: IconButton(
         onPressed: () => Navigator.pop(context),
@@ -159,11 +158,7 @@ class _TripAddState extends State<TripAdd> {
           child: Row(
             children: [
               Icon(Icons.location_pin),
-              Text(
-                "Itinerary Location",
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-              ),
+              Text("Itinerary Location", style: CustomTextStyle.textStyle5),
             ],
           ),
         ),
@@ -185,7 +180,7 @@ class _TripAddState extends State<TripAdd> {
                 border: InputBorder.none,
                 hintText: "Paris or France",
                 contentPadding: EdgeInsets.all(15),
-                hintStyle: TextStyle(fontSize: 12, color: Colors.black38),
+                hintStyle: CustomTextStyle.hintText,
               ),
             ),
           ),
@@ -203,21 +198,13 @@ class _TripAddState extends State<TripAdd> {
             Row(
               children: [
                 Icon(Icons.date_range_rounded),
-                Text(
-                  "Start date",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.black),
-                )
+                Text("Start date", style: CustomTextStyle.textStyle6)
               ],
             ),
             Row(
               children: [
                 Icon(Icons.date_range_rounded),
-                Text(
-                  "End date",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.black),
-                )
+                Text("End date", style: CustomTextStyle.textStyle6)
               ],
             ),
           ],
@@ -248,19 +235,14 @@ class _TripAddState extends State<TripAdd> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 60,
-        width: 150,
-        decoration: BoxDecoration(
-          color: Colors.black12,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          label,
-          style: const TextStyle(
-              fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-      ),
+          height: 60,
+          width: 150,
+          decoration: BoxDecoration(
+            color: Colors.black12,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          alignment: Alignment.center,
+          child: Text(label, style: CustomTextStyle.textStyle5)),
     );
   }
 
@@ -273,11 +255,7 @@ class _TripAddState extends State<TripAdd> {
           child: Row(
             children: [
               Icon(Icons.people_outline_sharp),
-              Text(
-                "Number of People",
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-              ),
+              Text("Number of People", style: CustomTextStyle.textStyle5),
             ],
           ),
         ),
@@ -301,7 +279,7 @@ class _TripAddState extends State<TripAdd> {
                 border: InputBorder.none,
                 hintText: "7 Persons",
                 contentPadding: EdgeInsets.all(15),
-                hintStyle: TextStyle(fontSize: 12, color: Colors.black38),
+                hintStyle: CustomTextStyle.hintText,
               ),
             ),
           ),
@@ -350,11 +328,7 @@ class _TripAddState extends State<TripAdd> {
           child: Row(
             children: [
               Icon(icon),
-              Text(
-                label,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold, color: Colors.black),
-              ),
+              Text(label, style: CustomTextStyle.textStyle5),
             ],
           ),
         ),
@@ -372,10 +346,7 @@ class _TripAddState extends State<TripAdd> {
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.symmetric(horizontal: 15),
               ),
-              hint: Text(
-                hint,
-                style: const TextStyle(fontSize: 12, color: Colors.black38),
-              ),
+              hint: Text(hint, style: CustomTextStyle.hintText),
               items: items,
               onChanged: onChanged,
             ),
@@ -394,11 +365,7 @@ class _TripAddState extends State<TripAdd> {
           child: Row(
             children: [
               Icon(Icons.attach_money_rounded),
-              Text(
-                "Budget",
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-              ),
+              Text("Budget", style: CustomTextStyle.textStyle5),
             ],
           ),
         ),
@@ -421,7 +388,7 @@ class _TripAddState extends State<TripAdd> {
                 border: InputBorder.none,
                 hintText: "₹ 29999",
                 contentPadding: EdgeInsets.all(15),
-                hintStyle: TextStyle(fontSize: 12, color: Colors.black38),
+                hintStyle: CustomTextStyle.hintText,
               ),
             ),
           ),

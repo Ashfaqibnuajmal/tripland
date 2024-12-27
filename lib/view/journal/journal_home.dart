@@ -71,7 +71,7 @@ class _JournalHomeState extends State<JournalHome> {
             child: ValueListenableBuilder(
               valueListenable: journalNotifier,
               builder: (context, journal, child) {
-                final journals = journal.toSet().toList().reversed.toList();
+                final journals = journal.toSet().toList();
                 if (journals.isEmpty) {
                   return const Center(
                     child: Text("No activities found, try to add one"),

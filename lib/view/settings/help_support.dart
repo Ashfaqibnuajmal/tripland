@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 class HelpSupport extends StatelessWidget {
   const HelpSupport({super.key});
@@ -10,8 +11,10 @@ class HelpSupport extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text("Help & Support",
-            style: GoogleFonts.anton(color: Colors.white, fontSize: 20)),
+        title: const Text(
+          "Help & Support",
+          style: CustomTextStyle.settings,
+        ),
         centerTitle: true,
         elevation: 4,
         leading: IconButton(
@@ -25,8 +28,7 @@ class HelpSupport extends StatelessWidget {
       body: const Padding(
         padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(
-          child: Text(
-            '''
+          child: Text('''
 Help and Support
 
 1. Frequently Asked Questions (FAQ)
@@ -73,9 +75,8 @@ Explore our guides, tutorials, and tips to get the most out of TravelMate:
 Visit our website: [Insert Website URL]
 Check out our YouTube channel for video walkthroughs and updates.
             ''',
-            textAlign: TextAlign.justify,
-            style: TextStyle(fontSize: 16, height: 1.5),
-          ),
+              textAlign: TextAlign.justify,
+              style: CustomTextStyle.settingsText),
         ),
       ),
     );

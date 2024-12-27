@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 class CustomDeleteDialog extends StatelessWidget {
   final VoidCallback onDelete;
@@ -29,14 +30,7 @@ class CustomDeleteDialog extends StatelessWidget {
               color: Colors.redAccent,
             ),
             const Gap(10),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-            ),
+            Text(title, style: CustomTextStyle.textstyle8),
             const Gap(10),
             Center(
               child: Text(
@@ -58,13 +52,8 @@ class CustomDeleteDialog extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5)),
                   child: TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text(
-                      'Cancel',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child:
+                        const Text('Cancel', style: CustomTextStyle.textStyle7),
                   ),
                 ),
                 // Delete button
@@ -79,13 +68,8 @@ class CustomDeleteDialog extends StatelessWidget {
                       onDelete();
                       Navigator.pop(context);
                     },
-                    child: const Text(
-                      'Delete',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child:
+                        const Text('Delete', style: CustomTextStyle.textStyle7),
                   ),
                 ),
               ],

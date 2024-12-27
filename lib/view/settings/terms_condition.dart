@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 class TermsCondition extends StatelessWidget {
   const TermsCondition({super.key});
@@ -10,12 +11,9 @@ class TermsCondition extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text(
+        title: const Text(
           "Terms & Condition",
-          style: GoogleFonts.anton(
-            color: Colors.white,
-            fontSize: 20,
-          ),
+          style: CustomTextStyle.settings,
         ),
         centerTitle: true,
         elevation: 4,
@@ -30,8 +28,7 @@ class TermsCondition extends StatelessWidget {
       body: const Padding(
         padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(
-          child: Text(
-            '''
+          child: Text('''
 Terms and Conditions
 Effective Date: [Insert Date]
 
@@ -93,9 +90,8 @@ If you have any questions about these Terms, please contact us:
 Email: support@travelmate.com
 Address: [Insert Address]
             ''',
-            textAlign: TextAlign.justify,
-            style: TextStyle(fontSize: 16, height: 1.5),
-          ),
+              textAlign: TextAlign.justify,
+              style: CustomTextStyle.settingsText),
         ),
       ),
     );

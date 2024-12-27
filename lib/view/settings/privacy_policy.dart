@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 class PrivacyPolicy extends StatelessWidget {
   const PrivacyPolicy({super.key});
@@ -10,8 +11,10 @@ class PrivacyPolicy extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text("Privacy & Policy",
-            style: GoogleFonts.anton(color: Colors.white, fontSize: 20)),
+        title: const Text(
+          "Privacy & Policy",
+          style: CustomTextStyle.settings,
+        ),
         centerTitle: true,
         elevation: 4,
         leading: IconButton(
@@ -25,8 +28,7 @@ class PrivacyPolicy extends StatelessWidget {
       body: const Padding(
         padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(
-          child: Text(
-            '''
+          child: Text('''
 Privacy Policy
 Effective Date: [Insert Date]
 
@@ -75,9 +77,8 @@ Have questions or concerns? Reach out to us:
 Email: support@travelmate.com
 
             ''',
-            textAlign: TextAlign.justify,
-            style: TextStyle(fontSize: 16, height: 1.5),
-          ),
+              textAlign: TextAlign.justify,
+              style: CustomTextStyle.settingsText),
         ),
       ),
     );

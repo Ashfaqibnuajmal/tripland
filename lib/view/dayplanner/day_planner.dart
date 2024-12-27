@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 import 'package:textcodetripland/view/dayplanner/day_activites.dart';
 import 'package:textcodetripland/view/dayplanner/dayplan_add.dart';
@@ -56,10 +56,7 @@ class _DayPlannerState extends State<DayPlanner> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
-          "Day Planner",
-          style: GoogleFonts.anton(color: Colors.black, fontSize: 20),
-        ),
+        title: Text("Day Planner", style: CustomTextStyle.headings),
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
@@ -85,14 +82,9 @@ class _DayPlannerState extends State<DayPlanner> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    qoutes[currentIndex],
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
+                  child: Text(qoutes[currentIndex],
+                      textAlign: TextAlign.center,
+                      style: CustomTextStyle.textStyle4),
                 ),
               ],
             ),
@@ -132,14 +124,8 @@ class _DayPlannerState extends State<DayPlanner> {
                                   ),
                                 );
                               },
-                              child: Text(
-                                "Day $dayNumber Plan",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                ),
-                              ),
+                              child: Text("Day $dayNumber Plan",
+                                  style: CustomTextStyle.textStyle4),
                             ),
                             IconButton(
                               onPressed: () {

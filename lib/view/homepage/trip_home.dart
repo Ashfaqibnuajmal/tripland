@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/view/checklist/checklist.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/dayplanner/day_planner.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 import 'package:textcodetripland/view/homepage/edit_trip.dart';
@@ -48,7 +49,10 @@ class _TripHomeState extends State<TripHome> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(widget.location.toString()),
+        title: Text(
+          widget.location.toString(),
+          style: CustomTextStyle.headings,
+        ),
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
@@ -146,22 +150,17 @@ class _TripHomeState extends State<TripHome> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Text(
-                                    date.first.startDate != null
-                                        ? DateFormat('d MMMM yyyy')
-                                            .format(widget.startDate!)
-                                        : 'N/A',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13),
-                                  ),
+                                      date.first.startDate != null
+                                          ? DateFormat('d MMMM yyyy')
+                                              .format(widget.startDate!)
+                                          : 'N/A',
+                                      style: CustomTextStyle.textStyle5),
                                   Text(
                                     date.first.endDate != null
                                         ? DateFormat('d MMMM yyyy')
                                             .format(widget.endDate!)
                                         : 'N/A',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13),
+                                    style: CustomTextStyle.textStyle5,
                                   ),
                                 ],
                               )
@@ -176,8 +175,6 @@ class _TripHomeState extends State<TripHome> {
                           return const Center(
                             child: Text(
                               "No image available",
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.grey),
                             ),
                           );
                         }
@@ -210,14 +207,8 @@ class _TripHomeState extends State<TripHome> {
                                             size: 25), // Smaller icon
                                         const Gap(5),
                                         Text(
-                                          '${widget.selectedNumberOfPeople} Person',
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(0xFFFCC300),
-
-                                            fontSize: 12, // Smaller text size
-                                          ),
-                                        ),
+                                            '${widget.selectedNumberOfPeople} Person',
+                                            style: CustomTextStyle.category),
                                       ],
                                     ),
                                   ),
@@ -231,13 +222,8 @@ class _TripHomeState extends State<TripHome> {
                                         const Icon(Icons.travel_explore_rounded,
                                             size: 25),
                                         const Gap(5),
-                                        Text(
-                                          widget.selectedTripType.toString(),
-                                          style: const TextStyle(
-                                              fontSize: 12,
-                                              color: Color(0xFFFCC300),
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                        Text(widget.selectedTripType.toString(),
+                                            style: CustomTextStyle.category),
                                       ],
                                     ),
                                   ),
@@ -250,13 +236,8 @@ class _TripHomeState extends State<TripHome> {
                                         const Icon(Icons.currency_rupee_rounded,
                                             size: 25),
                                         const Gap(5),
-                                        Text(
-                                          widget.expance.toString(),
-                                          style: const TextStyle(
-                                              fontSize: 12,
-                                              color: Color(0xFFFCC300),
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                        Text(widget.expance.toString(),
+                                            style: CustomTextStyle.category),
                                       ],
                                     ),
                                   ),
@@ -265,8 +246,6 @@ class _TripHomeState extends State<TripHome> {
                             : const Center(
                                 child: Text(
                                   "No information available",
-                                  style: TextStyle(
-                                      fontSize: 16, color: Colors.grey),
                                 ),
                               );
                       },
@@ -311,10 +290,7 @@ class CategoryBox extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFFFCC300),
-          ),
+          style: CustomTextStyle.category,
           textAlign: TextAlign.center,
         ),
       ),

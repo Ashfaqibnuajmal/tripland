@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
 import 'package:textcodetripland/model/bucket_model/bucket.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
 import 'package:textcodetripland/view/constants/customsnackbar.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
@@ -19,6 +19,7 @@ class BucketlistAdd extends StatefulWidget {
 
 class _BucketlistAddState extends State<BucketlistAdd> {
   final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _budgetController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   DateTime? _date;
   String? _selectedTripType;
@@ -27,6 +28,7 @@ class _BucketlistAddState extends State<BucketlistAdd> {
   void dispose() {
     _locationController.dispose();
     _descriptionController.dispose();
+    _budgetController.dispose();
     super.dispose();
   }
 
@@ -49,6 +51,7 @@ class _BucketlistAddState extends State<BucketlistAdd> {
       "Please add a photo": _selectedImage == null,
       "Please enter a date": _date == null,
       "Please enter a location": _locationController.text.isEmpty,
+      "Please enter a budget": _budgetController.text.isEmpty,
       "Please enter a trip type": _selectedTripType == null,
       "Please enter description": _descriptionController.text.isEmpty
     };
@@ -65,6 +68,7 @@ class _BucketlistAddState extends State<BucketlistAdd> {
     final bucket = Bucket(
         date: _date,
         location: _locationController.text,
+        budget: _budgetController.text,
         description: _descriptionController.text,
         imageFile: _selectedImage?.path,
         selectedTripType: _selectedTripType);
@@ -111,7 +115,7 @@ class _BucketlistAddState extends State<BucketlistAdd> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text("Add Bucketlist", style: GoogleFonts.anton(fontSize: 20)),
+        title: Text("Add Bucketlist", style: CustomTextStyle.headings),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -176,15 +180,11 @@ class _BucketlistAddState extends State<BucketlistAdd> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            _date == null
-                                ? "Select a date"
-                                : DateFormat('dd/MM/yyyy')
-                                    .format(_date!), // Format the date
-                            style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
+                              _date == null
+                                  ? "Select a date"
+                                  : DateFormat('dd/MM/yyyy')
+                                      .format(_date!), // Format the date
+                              style: CustomTextStyle.textstyle2),
                           const Icon(Icons.calendar_month_rounded)
                         ],
                       ))),
@@ -200,16 +200,32 @@ class _BucketlistAddState extends State<BucketlistAdd> {
               child: TextFormField(
                 controller: _locationController,
                 textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: "Paris or France",
-                  contentPadding: const EdgeInsets.all(10),
-                  hintStyle:
-                      const TextStyle(fontSize: 12, color: Colors.black38),
-                  suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.location_on_outlined)),
-                ),
+                decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Paris or France",
+                    contentPadding: EdgeInsets.all(10),
+                    hintStyle: CustomTextStyle.hintText,
+                    suffixIcon: Icon(Icons.location_on_outlined)),
+              ),
+            ),
+            const Gap(10),
+            Container(
+              height: 50,
+              width: 300,
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: TextFormField(
+                keyboardType: TextInputType.number,
+                controller: _budgetController,
+                textAlign: TextAlign.center,
+                decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "₹19999",
+                    contentPadding: EdgeInsets.all(10),
+                    hintStyle: CustomTextStyle.hintText,
+                    suffixIcon: Icon(Icons.currency_rupee_rounded)),
               ),
             ),
             const Gap(10),
@@ -233,9 +249,7 @@ class _BucketlistAddState extends State<BucketlistAdd> {
                     value: option,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10.0),
-                      child: Text(option,
-                          style: const TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold)),
+                      child: Text(option, style: CustomTextStyle.textstyle2),
                     ),
                   );
                 }).toList(),
@@ -264,7 +278,7 @@ class _BucketlistAddState extends State<BucketlistAdd> {
                   hintText: "Description",
                   contentPadding: EdgeInsets.symmetric(
                       horizontal: 10, vertical: 20), // Reduced padding
-                  hintStyle: TextStyle(fontSize: 12, color: Colors.black38),
+                  hintStyle: CustomTextStyle.hintText,
                 ),
               ),
             ),

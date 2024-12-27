@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/expance_controllers.dart';
 import 'package:textcodetripland/model/expance_model/expance.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
 
 import 'package:textcodetripland/view/expance/expance_home.dart';
@@ -41,10 +42,7 @@ class _ExpanceAddState extends State<ExpanceAdd> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
-          "Add Expenses",
-          style: GoogleFonts.anton(fontSize: 20),
-        ),
+        title: Text("Add Expenses", style: CustomTextStyle.headings),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -91,12 +89,10 @@ class _ExpanceAddState extends State<ExpanceAdd> {
                     ),
                     child: Center(
                       child: Text(
-                        _date == null
-                            ? "21/12/2024"
-                            : "${_date!.day}/${_date!.month}/${_date!.year}",
-                        style: const TextStyle(
-                            fontSize: 14, color: Colors.black38),
-                      ),
+                          _date == null
+                              ? "21/12/2024"
+                              : "${_date!.day}/${_date!.month}/${_date!.year}",
+                          style: CustomTextStyle.textStyle5),
                     ),
                   ),
                 ),
@@ -121,7 +117,7 @@ class _ExpanceAddState extends State<ExpanceAdd> {
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: "Travel or stay",
-                      hintStyle: TextStyle(fontSize: 12, color: Colors.black38),
+                      hintStyle: CustomTextStyle.hintText,
                       contentPadding: EdgeInsets.symmetric(vertical: 15),
                     ),
                   ),
@@ -130,7 +126,7 @@ class _ExpanceAddState extends State<ExpanceAdd> {
                 const SizedBox(height: 20),
                 Text(
                   "Price",
-                  style: GoogleFonts.anton(color: Colors.white),
+                  style: GoogleFonts.roboto(color: Colors.white),
                 ),
                 const Gap(10),
                 Container(
@@ -147,7 +143,7 @@ class _ExpanceAddState extends State<ExpanceAdd> {
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: "₹10000",
-                      hintStyle: TextStyle(fontSize: 12, color: Colors.black38),
+                      hintStyle: CustomTextStyle.hintText,
                       contentPadding: EdgeInsets.symmetric(vertical: 15),
                     ),
                   ),

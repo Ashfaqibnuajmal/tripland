@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/checkllist_controllers.dart';
 import 'package:textcodetripland/model/checklist_model/checklist.dart';
 import 'package:textcodetripland/view/checklist/checklist.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
 
 class ChecklistAdd extends StatefulWidget {
@@ -25,7 +25,7 @@ class _ChecklistAddState extends State<ChecklistAdd> {
         backgroundColor: Colors.white,
         title: Text(
           "Add Expenses",
-          style: GoogleFonts.anton(fontSize: 20),
+          style: CustomTextStyle.headings,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -56,10 +56,7 @@ class _ChecklistAddState extends State<ChecklistAdd> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 20),
-                Text(
-                  "Name",
-                  style: GoogleFonts.anton(color: Colors.white),
-                ),
+                const Text("Name", style: CustomTextStyle.textstyle1),
                 const Gap(10),
                 Container(
                   height: 50,
@@ -74,7 +71,7 @@ class _ChecklistAddState extends State<ChecklistAdd> {
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: "Dress or id card",
-                      hintStyle: TextStyle(fontSize: 12, color: Colors.black38),
+                      hintStyle: CustomTextStyle.hintText,
                       contentPadding: EdgeInsets.symmetric(vertical: 15),
                     ),
                   ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/activities_controlers.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 class DayActivities extends StatefulWidget {
   final int index;
@@ -45,10 +45,7 @@ class _DayActivitiesState extends State<DayActivities> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
-          "Day Activities",
-          style: GoogleFonts.anton(fontSize: 20),
-        ),
+        title: Text("Day Activities", style: CustomTextStyle.headings),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -64,17 +61,20 @@ class _DayActivitiesState extends State<DayActivities> {
           builder: (context, activities, child) {
             if (activities.isEmpty) {
               return const Center(
-                child: Text("No activities found, try to add one"),
+                child: Text(
+                  "No activities found, try to add one",
+                  style: CustomTextStyle.empty,
+                ),
               );
             }
 
             // Reverse the activities list to show the last added item first
-            final reversedActivities = activities.reversed.toSet().toList();
+            final activitie = activities.toSet().toList();
 
             return ListView.builder(
-              itemCount: reversedActivities.length,
+              itemCount: activitie.length,
               itemBuilder: (context, index) {
-                final activity = reversedActivities[index];
+                final activity = activitie[index];
                 bool switchState = _switchStates[index] ?? false;
 
                 return ListTile(
@@ -94,13 +94,8 @@ class _DayActivitiesState extends State<DayActivities> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Activity Name
-                              Text(
-                                activity.activity ?? "Unnamed Activity",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),
-                              ),
+                              Text(activity.activity ?? "Unnamed Activity",
+                                  style: CustomTextStyle.textStyle3),
                               const SizedBox(height: 8),
                               // Time
                               Row(
@@ -112,11 +107,8 @@ class _DayActivitiesState extends State<DayActivities> {
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
-                                    "${activity.fromTime ?? 'No Start Time'} - ${activity.toTime ?? 'No End Time'}",
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                      "${activity.fromTime ?? 'No Start Time'} - ${activity.toTime ?? 'No End Time'}",
+                                      style: CustomTextStyle.textStyle5),
                                 ],
                               ),
                               const SizedBox(height: 8),
@@ -126,9 +118,7 @@ class _DayActivitiesState extends State<DayActivities> {
                                   const Icon(Icons.location_on, size: 16),
                                   const SizedBox(width: 8),
                                   Text(activity.place ?? "No Location",
-                                      style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold)),
+                                      style: CustomTextStyle.textStyle5),
                                 ],
                               ),
                               const SizedBox(height: 8),
@@ -138,9 +128,7 @@ class _DayActivitiesState extends State<DayActivities> {
                                   const Icon(Icons.directions_car, size: 16),
                                   const SizedBox(width: 8),
                                   Text(activity.vehicle ?? "No Vehicle",
-                                      style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold)),
+                                      style: CustomTextStyle.textStyle5),
                                 ],
                               ),
                             ],

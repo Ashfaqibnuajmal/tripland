@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 class AboutUs extends StatelessWidget {
   const AboutUs({super.key});
@@ -7,12 +8,10 @@ class AboutUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           "About us",
-          style: GoogleFonts.anton(color: Colors.black, fontSize: 20),
+          style: CustomTextStyle.settings,
         ),
         centerTitle: true,
         elevation: 4,
@@ -27,8 +26,7 @@ class AboutUs extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Center(
-            child: Text(
-              '''
+            child: Text('''
        About Us
 
 Welcome to TravelMate – your ultimate travel companion, thoughtfully crafted to make every aspect of your journeys effortless and enjoyable. Whether you're dreaming of adventures yet to come, organizing your current travels, or cherishing memories of trips past, TravelMate is here to support you every step of the way.
@@ -53,9 +51,8 @@ Our Mission
 
 At TravelMate, our mission is simple:
 We aim to make travel planning and management stress-free, inspiring you to explore the world and focus on what truly matters—creating lasting memories.''',
-              textAlign: TextAlign.justify,
-              style: TextStyle(fontSize: 16, height: 1.5),
-            ),
+                textAlign: TextAlign.justify,
+                style: CustomTextStyle.settingsText),
           ),
         ),
       ),

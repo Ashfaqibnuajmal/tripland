@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 class Custombutton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -22,12 +23,6 @@ class Custombutton extends StatelessWidget {
                 vertical: 5, horizontal: horizontalPadding),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-        child: Text(
-          text,
-          style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-              letterSpacing: -1),
-        ));
+        child: Text(text, style: CustomTextStyle.button));
   }
 }

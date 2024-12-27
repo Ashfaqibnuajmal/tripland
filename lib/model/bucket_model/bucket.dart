@@ -1,7 +1,6 @@
 import 'package:hive/hive.dart';
-
-// Part directive for Hive to generate the adapter code
 part 'bucket.g.dart';
+// Part directive for Hive to generate the adapter code
 
 // Defining a Hive type for Bucket class with a unique typeId
 @HiveType(typeId: 3)
@@ -22,6 +21,9 @@ class Bucket {
   @HiveField(5)
   String? location;
 
+  @HiveField(6)
+  String? budget;
+
   // Field to indicate if the bucket item is completed
   bool completed;
 
@@ -30,6 +32,7 @@ class Bucket {
     required this.date,
     required this.location,
     required this.description,
+    required this.budget,
     required this.imageFile,
     this.completed = false, // Default value for completed is false
     required this.selectedTripType,

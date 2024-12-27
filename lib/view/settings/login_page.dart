@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/controllers/user_controllers.dart';
 import 'package:textcodetripland/model/user_model/user.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class LoginPage extends StatefulWidget {
@@ -81,16 +82,8 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Gap(80),
-              Text(
-                "Log In to Your Account",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.anton(
-                  textStyle: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 24,
-                  ),
-                ),
-              ),
+              Text("Log In to Your Account",
+                  textAlign: TextAlign.center, style: CustomTextStyle.headings),
               const Gap(20),
               GestureDetector(
                 onTap: _pickImage,
@@ -111,12 +104,8 @@ class _LoginPageState extends State<LoginPage> {
                                 size: 70,
                                 color: Colors.black,
                               ),
-                              Text(
-                                "ADD PHOTO",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                              Text("ADD PHOTO",
+                                  style: CustomTextStyle.textStyle4),
                             ],
                           ),
                         )
@@ -165,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                           decoration: const InputDecoration(
                             border: InputBorder.none,
                             labelText: "Username",
-                            labelStyle: TextStyle(color: Colors.black54),
+                            labelStyle: CustomTextStyle.hintText,
                             prefixIcon: Icon(
                               Icons.person,
                               size: 30,
@@ -189,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             labelText: "Password",
-                            labelStyle: const TextStyle(color: Colors.black54),
+                            labelStyle: CustomTextStyle.hintText,
                             prefixIcon: const Icon(
                               Icons.lock_outlined,
                               size: 30,
@@ -226,7 +215,7 @@ class _LoginPageState extends State<LoginPage> {
                           decoration: const InputDecoration(
                             border: InputBorder.none,
                             labelText: "Confirm Password",
-                            labelStyle: TextStyle(color: Colors.black54),
+                            labelStyle: CustomTextStyle.hintText,
                             prefixIcon: Icon(
                               Icons.key_outlined,
                               size: 30,

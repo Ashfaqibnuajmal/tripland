@@ -1,12 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
 import 'package:textcodetripland/view/bucketlist/bucket_edit.dart';
 import 'package:textcodetripland/view/bucketlist/bucketlist._add.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/settings/proifle_page.dart';
 
 // ignore: must_be_immutable
@@ -76,10 +75,7 @@ class _BucketlistState extends State<Bucketlist> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: Text(
-            "BucketList",
-            style: GoogleFonts.anton(fontSize: 20),
-          ),
+          title: Text("BucketList", style: CustomTextStyle.headings),
           leading: IconButton(
               onPressed: () {
                 Navigator.push(
@@ -121,8 +117,7 @@ class _BucketlistState extends State<Bucketlist> {
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "Search by location",
-                  hintStyle:
-                      const TextStyle(color: Colors.black54, fontSize: 14),
+                  hintStyle: CustomTextStyle.search,
                   border: InputBorder.none,
                   contentPadding: const EdgeInsets.all(10),
                   prefixIcon: const Icon(Icons.search, color: Colors.black54),
@@ -156,15 +151,12 @@ class _BucketlistState extends State<Bucketlist> {
                 }).toList();
 
                 // Reverse the filtered list
-                final reversedFilteredList =
-                    filteredList.toSet().toList().reversed.toList();
+                final reversedFilteredList = filteredList.toSet().toList();
 
                 if (reversedFilteredList.isEmpty) {
                   return const Center(
-                    child: Text(
-                      "No BucketList Found!",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    child: Text("No BucketList Found!",
+                        style: CustomTextStyle.empty),
                   );
                 }
 
@@ -190,29 +182,20 @@ class _BucketlistState extends State<Bucketlist> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        bucket.location?.trim().replaceFirst(
-                                                bucket.location![0],
-                                                bucket.location![0]
-                                                    .toUpperCase()) ??
-                                            "NA",
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                          letterSpacing: -1,
-                                          color: Colors.black,
-                                        ),
-                                      ),
+                                          bucket.location?.trim().replaceFirst(
+                                                  bucket.location![0],
+                                                  bucket.location![0]
+                                                      .toUpperCase()) ??
+                                              "NA",
+                                          style: CustomTextStyle.headings),
                                       Text(
-                                        bucket.date == null
-                                            ? 'N/A'
-                                            : DateFormat('MMM dd, yyyy')
-                                                .format(bucket.date!),
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 12,
-                                          color: Colors.black54,
-                                        ),
-                                      ),
+                                          bucket.date == null
+                                              ? 'N/A'
+                                              : DateFormat('MMM dd, yyyy')
+                                                  .format(bucket.date!),
+                                          style: CustomTextStyle.textstyle2),
+                                      Text('₹${bucket.budget ?? "NA"}',
+                                          style: CustomTextStyle.textstyle2),
                                     ],
                                   ),
                                   Column(
@@ -255,6 +238,7 @@ class _BucketlistState extends State<Bucketlist> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) => BucketEdit(
+                                                          budget: bucket.budget,
                                                           date: bucket.date,
                                                           description: bucket
                                                               .description,
@@ -272,7 +256,6 @@ class _BucketlistState extends State<Bucketlist> {
                                                 builder: (ctx) =>
                                                     CustomDeleteDialog(
                                                         onDelete: () {
-                                                          // Add your logic for deleting the trip here
                                                           deleteBucket(index);
                                                         },
                                                         title: 'Delete Bucket?',
@@ -302,27 +285,18 @@ class _BucketlistState extends State<Bucketlist> {
                                 ),
                               ),
                               Text(
-                                (bucket.selectedTripType?.trim().replaceFirst(
-                                        bucket.selectedTripType![0],
-                                        bucket.selectedTripType![0]
-                                            .toUpperCase()) ??
-                                    "NA"),
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black87,
-                                ),
-                              ),
+                                  (bucket.selectedTripType?.trim().replaceFirst(
+                                          bucket.selectedTripType![0],
+                                          bucket.selectedTripType![0]
+                                              .toUpperCase()) ??
+                                      "NA"),
+                                  style: CustomTextStyle.guides),
                               Text(
                                 (bucket.description?.trim().replaceFirst(
                                         bucket.description![0],
                                         bucket.description![0].toUpperCase()) ??
                                     "NA"),
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 10,
-                                ),
+                                style: CustomTextStyle.textstyle2,
                                 textAlign: TextAlign.center,
                               ),
                               Row(

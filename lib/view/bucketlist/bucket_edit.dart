@@ -2,12 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
 import 'package:textcodetripland/model/bucket_model/bucket.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
+import 'package:textcodetripland/view/constants/customsnackbar.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 // ignore: must_be_immutable
@@ -18,9 +19,11 @@ class BucketEdit extends StatefulWidget {
   DateTime? date;
   String? imageFile;
   int index;
+  String? budget;
   BucketEdit(
       {super.key,
       required this.date,
+      required this.budget,
       required this.description,
       required this.imageFile,
       required this.location,
@@ -33,6 +36,8 @@ class BucketEdit extends StatefulWidget {
 
 class _BucketEditState extends State<BucketEdit> {
   TextEditingController _locationController = TextEditingController();
+  TextEditingController _budgetController = TextEditingController();
+
   TextEditingController _descriptionController = TextEditingController();
   String? _selectedTripType;
   DateTime? _date;
@@ -80,38 +85,21 @@ class _BucketEditState extends State<BucketEdit> {
   Future<void> _updateBucket() async {
     final location = _locationController.text;
     final date = _date;
+    final budget = _budgetController.text;
     final description = _descriptionController.text;
     final imageFile = _imageFile;
     final tripType = _selectedTripType;
     final update = Bucket(
+        budget: budget,
         date: date,
         location: location,
         description: description,
         imageFile: imageFile?.path,
         selectedTripType: tripType);
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Icon(
-              Icons.check_circle,
-              color: Colors.green,
-            ),
-            Text(
-              "Trip edit to your bucket list successfully!",
-              style:
-                  TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        duration: Duration(seconds: 2),
-        backgroundColor: Colors.black87,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-      ),
-    );
+    CustomSnackBar.show(
+        context: context,
+        message: "Bucket list trip editted! Adcenture awaits",
+        textColor: Colors.green);
     editBucket(widget.index, update);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => NotchBar()));
@@ -122,6 +110,8 @@ class _BucketEditState extends State<BucketEdit> {
     super.initState();
     _locationController = TextEditingController(text: widget.location);
     _descriptionController = TextEditingController(text: widget.description);
+    _budgetController = TextEditingController(text: widget.budget);
+
     _selectedTripType = widget.selectedTripType!;
     _date = widget.date;
     if (widget.imageFile != null) {
@@ -135,8 +125,7 @@ class _BucketEditState extends State<BucketEdit> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text("Add Bucketlist",
-            style: GoogleFonts.lato(fontSize: 20, fontWeight: FontWeight.w600)),
+        title: Text("Edit Bucketlist", style: CustomTextStyle.headings),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -201,15 +190,11 @@ class _BucketEditState extends State<BucketEdit> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            _date == null
-                                ? "Select a date"
-                                : DateFormat('dd/MM/yyyy')
-                                    .format(_date!), // Format the date
-                            style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
+                              _date == null
+                                  ? "Select a date"
+                                  : DateFormat('dd/MM/yyyy')
+                                      .format(_date!), // Format the date
+                              style: CustomTextStyle.textstyle2),
                           const Icon(Icons.calendar_month_rounded)
                         ],
                       ))),
@@ -225,16 +210,31 @@ class _BucketEditState extends State<BucketEdit> {
               child: TextFormField(
                 controller: _locationController,
                 textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: "Paris or France",
-                  contentPadding: const EdgeInsets.all(10),
-                  hintStyle:
-                      const TextStyle(fontSize: 12, color: Colors.black38),
-                  suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.location_on_outlined)),
-                ),
+                decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Paris or France",
+                    contentPadding: EdgeInsets.all(10),
+                    hintStyle: CustomTextStyle.hintText,
+                    suffixIcon: Icon(Icons.location_on_outlined)),
+              ),
+            ),
+            const Gap(10),
+            Container(
+              height: 50,
+              width: 300,
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: TextFormField(
+                controller: _budgetController,
+                textAlign: TextAlign.center,
+                decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "₹19999",
+                    contentPadding: EdgeInsets.all(10),
+                    hintStyle: CustomTextStyle.hintText,
+                    suffixIcon: Icon(Icons.currency_rupee_rounded)),
               ),
             ),
             const Gap(10),
@@ -258,11 +258,7 @@ class _BucketEditState extends State<BucketEdit> {
                     value: option,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        option,
-                        style: const TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
-                      ),
+                      child: Text(option, style: CustomTextStyle.empty),
                     ),
                   );
                 }).toList(),
@@ -291,7 +287,7 @@ class _BucketEditState extends State<BucketEdit> {
                   hintText: "Description",
                   contentPadding: EdgeInsets.symmetric(
                       horizontal: 10, vertical: 20), // Reduced padding
-                  hintStyle: TextStyle(fontSize: 12, color: Colors.black38),
+                  hintStyle: CustomTextStyle.hintText,
                 ),
               ),
             ),
