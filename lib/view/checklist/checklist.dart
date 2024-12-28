@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/controllers/checkllist_controllers.dart';
 import 'package:textcodetripland/view/checklist/checklist_add.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
+import 'package:textcodetripland/view/constants/custom_container.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
@@ -210,14 +211,8 @@ class _ChecklistsState extends State<Checklists> {
 
   // Build filter options for the bottom sheet
   Widget buildFilterOption(String option, BuildContext context) {
-    return Container(
-      height: 50,
-      width: 300,
-      margin: const EdgeInsets.only(bottom: 10),
-      decoration: BoxDecoration(
-        color: Colors.white38,
-        borderRadius: BorderRadius.circular(20),
-      ),
+    return CustomContainer(
+      color: Colors.white,
       child: TextButton(
         onPressed: () {
           setState(() {

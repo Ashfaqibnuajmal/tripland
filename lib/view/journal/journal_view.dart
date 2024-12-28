@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/journal_controllers.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
+import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 class JournalView extends StatefulWidget {
   final String? location;
@@ -41,7 +42,9 @@ class _JournalViewState extends State<JournalView> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(
-        title: widget.location.toString(),
+        title: widget.location != null && widget.location!.isNotEmpty
+            ? '${widget.location![0].toUpperCase()}${widget.location!.substring(1)}'
+            : 'No Location',
         ctx: context,
       ),
       body: SingleChildScrollView(
@@ -86,19 +89,13 @@ class _JournalViewState extends State<JournalView> {
                     ),
                   ),
                 )),
-            Text(
-              widget.selectedTripType.toString(),
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
+            Text(widget.selectedTripType.toString(),
+                style: CustomTextStyle.textStyle4),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
                 widget.journal.toString(),
-                style:
-                    const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                style: CustomTextStyle.textStyle6,
                 textAlign: TextAlign.center,
               ),
             ),

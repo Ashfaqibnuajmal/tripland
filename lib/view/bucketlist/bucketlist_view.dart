@@ -6,6 +6,7 @@ import 'package:textcodetripland/view/bucketlist/bucket_edit.dart';
 import 'package:textcodetripland/view/bucketlist/bucketlist._add.dart';
 import 'package:textcodetripland/view/constants/custom_action.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
+import 'package:textcodetripland/view/constants/custom_container.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/settings/proifle_page.dart';
@@ -262,10 +263,8 @@ class _BucketlistState extends State<Bucketlist> {
                                   )
                                 ],
                               ),
-                              Container(
+                              CustomContainer(
                                 height: 250,
-                                width: 300,
-                                color: Colors.transparent,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: Image.file(

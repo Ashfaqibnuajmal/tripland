@@ -133,16 +133,6 @@ class _DayActivitiesState extends State<DayActivities> {
                             children: [
                               IconButton(
                                   onPressed: () {
-                                    // showDialog(
-                                    //   context: context,
-                                    //   builder: (ctx) => CustomDeleteDialog(
-                                    //       onDelete: () {
-                                    //         deleteActivities(index);
-                                    //       },
-                                    //       title: 'Delete activities?',
-                                    //       message:
-                                    //           "Are you sure you want to delete this activity entry?"),
-                                    // );
                                     showMenu(
                                         color: Colors.white,
                                         context: context,

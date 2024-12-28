@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:textcodetripland/controllers/expance_controllers.dart';
 import 'package:textcodetripland/view/constants/custom_action.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
+import 'package:textcodetripland/view/constants/custom_container.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/expance/expance_add.dart';
@@ -66,14 +67,9 @@ class _ExpanceHomeState extends State<ExpanceHome> {
               ],
             ),
             const Gap(40),
-            Container(
-              height: 40,
-              width: 320,
-              decoration: BoxDecoration(
-                color: Colors.black87,
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: const Row(
+            const CustomContainer(
+              color: Colors.black,
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text("Items", style: CustomTextStyle.textStyle7),

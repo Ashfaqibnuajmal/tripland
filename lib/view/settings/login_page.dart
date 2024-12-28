@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/controllers/user_controllers.dart';
 import 'package:textcodetripland/model/user_model/user.dart';
+import 'package:textcodetripland/view/constants/custom_login.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
@@ -121,21 +122,19 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const Gap(30),
-              Container(
+              CustomLogin(
                 height: 400,
                 width: 350,
-                decoration: const BoxDecoration(
-                  color: Colors.black87,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      spreadRadius: 1,
-                      blurRadius: 1,
-                      offset: Offset(1, 1),
-                    )
-                  ],
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                ),
+                color: Colors.black87,
+                borderRadius: const BorderRadius.all(Radius.circular(50)),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.grey,
+                    spreadRadius: 1,
+                    blurRadius: 1,
+                    offset: Offset(1, 1),
+                  ),
+                ],
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -244,10 +243,9 @@ class _LoginPageState extends State<LoginPage> {
                               if (_formKey.currentState!.validate()) {
                                 if (_pickedImage == null) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content:
-                                            Text('Please select an image.')),
-                                  );
+                                      const SnackBar(
+                                          content:
+                                              Text('Please select an image.')));
                                   return;
                                 }
                                 final userdata = User(
