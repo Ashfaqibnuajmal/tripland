@@ -24,7 +24,7 @@ class TripAdapter extends TypeAdapter<Trip> {
       selectedTripType: fields[4] as String?,
       expance: fields[5] as String?,
       imageFile: fields[6] as String?,
-      checklist: (fields[7] as List?)?.cast<Checklist>(),
+      id: fields[7] as String?,
     );
   }
 
@@ -47,7 +47,7 @@ class TripAdapter extends TypeAdapter<Trip> {
       ..writeByte(6)
       ..write(obj.imageFile)
       ..writeByte(7)
-      ..write(obj.checklist);
+      ..write(obj.id);
   }
 
   @override

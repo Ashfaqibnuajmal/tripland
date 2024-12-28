@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
+import 'package:textcodetripland/model/trip_model/trip.dart';
 import 'package:textcodetripland/view/checklist/checklist.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
@@ -19,11 +20,14 @@ class TripHome extends StatefulWidget {
   final DateTime? endDate;
   final String? selectedNumberOfPeople;
   final String? selectedTripType;
+  final Trip tripModel;
+
   final String? expance;
   final String? imageFile;
   final int index;
   const TripHome(
       {super.key,
+      required this.tripModel,
       required this.location,
       required this.startDate,
       required this.endDate,
@@ -42,6 +46,7 @@ class _TripHomeState extends State<TripHome> {
   void initState() {
     super.initState();
     getAllTrips();
+    // getExpensesByTripId(widget.tripModel.id);/
   }
 
   @override
@@ -71,7 +76,9 @@ class _TripHomeState extends State<TripHome> {
                     label: 'Day Planner',
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const DayPlanner()));
+                          builder: (context) => DayPlanner(
+                                trip: widget.tripModel,
+                              )));
                     }),
                 CategoryBox(
                     label: 'Expense',

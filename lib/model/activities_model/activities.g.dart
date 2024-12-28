@@ -20,15 +20,18 @@ class ActivitiesAdapter extends TypeAdapter<Activities> {
       activity: fields[0] as String?,
       fromTime: fields[1] as String?,
       toTime: fields[2] as String?,
+      tripid: fields[5] as String,
+      indexofday: fields[6] as int,
       place: fields[3] as String?,
       vehicle: fields[4] as String?,
+      id: fields[7] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Activities obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.activity)
       ..writeByte(1)
@@ -38,7 +41,13 @@ class ActivitiesAdapter extends TypeAdapter<Activities> {
       ..writeByte(3)
       ..write(obj.place)
       ..writeByte(4)
-      ..write(obj.vehicle);
+      ..write(obj.vehicle)
+      ..writeByte(5)
+      ..write(obj.tripid)
+      ..writeByte(6)
+      ..write(obj.indexofday)
+      ..writeByte(7)
+      ..write(obj.id);
   }
 
   @override

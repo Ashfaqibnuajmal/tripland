@@ -1,9 +1,8 @@
 import 'package:hive/hive.dart';
-import 'package:textcodetripland/model/checklist_model/checklist.dart';
-
-// Part directive for Hive to generate the adapter code
+import 'package:uuid/uuid.dart';
 part 'trip.g.dart';
 
+// Part directive for Hive to generate the adapter code
 // Defining a Hive type for Trip class with a unique typeId
 @HiveType(typeId: 0)
 class Trip {
@@ -27,7 +26,7 @@ class Trip {
   @HiveField(4)
   String? selectedTripType;
 
-  // Field for the expenses related to the trip
+  // Field for the expenses related to the trip (changed to double)
   @HiveField(5)
   String? expance;
 
@@ -35,9 +34,9 @@ class Trip {
   @HiveField(6)
   String? imageFile;
 
-  // Field for the checklist related to the trip
+  // Field for the unique identifier of the trip
   @HiveField(7)
-  List<Checklist>? checklist;
+  final String id;
 
   // Constructor to initialize the Trip class with provided values
   Trip({
@@ -46,10 +45,9 @@ class Trip {
     required this.endDate,
     required this.selectedNumberOfPeople,
     required this.selectedTripType,
-    required this.expance,
+    required this.expance, // expance now expects a double
     required this.imageFile,
-    String? numberOfPeople,
-    String? tripType,
-    this.checklist, // Can be initialized as an empty list if needed
-  });
+    String? id, // Optional id parameter
+  }) : id = id ??
+            const Uuid().v4(); // If id is not provided, generate a new one
 }

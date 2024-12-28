@@ -1,16 +1,18 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:textcodetripland/model/trip_model/trip.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
-
 import 'package:textcodetripland/view/dayplanner/day_activites.dart';
 import 'package:textcodetripland/view/dayplanner/dayplan_add.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class DayPlanner extends StatefulWidget {
+  final Trip trip;
   const DayPlanner({
     super.key,
+    required this.trip,
   });
 
   @override
@@ -32,6 +34,9 @@ class _DayPlannerState extends State<DayPlanner> {
   @override
   void initState() {
     super.initState();
+    int tripDays =
+        widget.trip.endDate!.difference(widget.trip.startDate!).inDays + 1;
+    dailyPlans = List.generate(tripDays, (_) => []);
     _startQouteRotation();
   }
 
@@ -88,7 +93,8 @@ class _DayPlannerState extends State<DayPlanner> {
           const Gap(20),
           Expanded(
             child: ListView.builder(
-              itemCount: 5, // Replace with the actual number of days
+              itemCount: dailyPlans.length -
+                  1, // Replace with the actual number of days
               itemBuilder: (context, index) {
                 final int dayNumber =
                     index + 1; // To display Day 1, Day 2, etc.
@@ -116,6 +122,7 @@ class _DayPlannerState extends State<DayPlanner> {
                                   MaterialPageRoute(
                                     builder: (context) => DayActivities(
                                       index: index,
+                                      tripdata: widget.trip,
                                     ),
                                   ),
                                 );
@@ -128,8 +135,10 @@ class _DayPlannerState extends State<DayPlanner> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        const PlanYourDayAdd(),
+                                    builder: (context) => PlanYourDayAdd(
+                                      indexofday: index,
+                                      tripdata: widget.trip,
+                                    ),
                                   ),
                                 );
                               },

@@ -168,6 +168,7 @@ class _HomePageState extends State<HomePage> {
                                             location: data.location,
                                             startDate: data.startDate,
                                             endDate: data.endDate,
+                                            tripModel: data,
                                             selectedNumberOfPeople:
                                                 data.selectedNumberOfPeople,
                                             selectedTripType:

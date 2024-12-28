@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-
+import 'package:uuid/uuid.dart';
 // This part directive is necessary for Hive to generate the adapter
 part 'activities.g.dart';
 
@@ -22,12 +22,24 @@ class Activities {
   @HiveField(4)
   String? vehicle;
 
+  @HiveField(5)
+  final String tripid;
+
+  @HiveField(6)
+  final int indexofday;
+
+  @HiveField(7)
+  final String id;
+
   // Constructor to initialize the activity details
-  Activities({
-    required this.activity,
-    required this.fromTime,
-    required this.toTime,
-    required this.place,
-    required this.vehicle,
-  });
+  Activities(
+      {required this.activity,
+      required this.fromTime,
+      required this.toTime,
+      required this.tripid,
+      required this.indexofday,
+      required this.place,
+      required this.vehicle,
+      String? id})
+      : id = id ?? const Uuid().v4();
 }

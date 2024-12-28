@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:textcodetripland/controllers/activities_controlers.dart';
+import 'package:textcodetripland/model/trip_model/trip.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
-import 'package:textcodetripland/view/dayplanner/dayplan_edit.dart';
 
 class DayActivities extends StatefulWidget {
+  const DayActivities({super.key, required this.index, required this.tripdata});
   final int index;
-  const DayActivities({super.key, required this.index});
+  final Trip tripdata;
 
   @override
   State<DayActivities> createState() => _DayActivitiesState();
@@ -37,7 +38,7 @@ class _DayActivitiesState extends State<DayActivities> {
   @override
   void initState() {
     super.initState();
-    getAllActivities();
+    getAllActivities(widget.tripdata.id, widget.index);
     _loadAllSwitchStates();
   }
 
@@ -162,28 +163,29 @@ class _DayActivitiesState extends State<DayActivities> {
                                               ))
                                         ]).then((value) {
                                       if (value == 'edit') {
-                                        Navigator.push(
-                                            // ignore: use_build_context_synchronously
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    DayplanEdit(
-                                                        activity:
-                                                            activity.activity,
-                                                        fromTime:
-                                                            activity.fromTime,
-                                                        index: index,
-                                                        place: activity.place,
-                                                        toTime: activity.toTime,
-                                                        vehicle:
-                                                            activity.vehicle)));
+                                        // Navigator.push(
+                                        //     // ignore: use_build_context_synchronously
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) =>
+                                        //             DayplanEdit(
+                                        //                 activity:
+                                        //                     activity.activity,
+                                        //                 fromTime:
+                                        //                     activity.fromTime,
+                                        //                 index: index,
+                                        //                 place: activity.place,
+                                        //                 toTime: activity.toTime,
+                                        //                 vehicle:
+                                        //                     activity.vehicle)));
                                       } else if (value == 'delete') {
                                         showDialog(
                                           // ignore: use_build_context_synchronously
                                           context: context,
                                           builder: (ctx) => CustomDeleteDialog(
                                               onDelete: () {
-                                                deleteActivities(index);
+                                                deleteActivities(activity.id,
+                                                    index, widget.tripdata.id);
                                               },
                                               title: 'Delete Bucket?',
                                               message:

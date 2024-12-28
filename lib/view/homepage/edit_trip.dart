@@ -359,5 +359,3 @@ class _TripEditState extends State<TripEdit> {
     );
   }
 }
-
-class CustomButton {}
