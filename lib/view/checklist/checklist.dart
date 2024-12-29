@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/controllers/checkllist_controllers.dart';
+import 'package:textcodetripland/model/trip_model/trip.dart';
 import 'package:textcodetripland/view/checklist/checklist_add.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_container.dart';
@@ -10,7 +11,9 @@ import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class Checklists extends StatefulWidget {
-  const Checklists({super.key});
+  final String tripId;
+  final Trip tripModel;
+  const Checklists({super.key, required this.tripId, required this.tripModel});
 
   @override
   State<Checklists> createState() => _ChecklistsState();
@@ -23,26 +26,28 @@ class _ChecklistsState extends State<Checklists> {
   @override
   void initState() {
     super.initState();
-    getAllChecklist();
+    getChecklist(widget.tripModel.id);
     loadCheckboxStates(); // Load saved checkbox states
   }
 
-  // Load checkbox states from SharedPreferences
   Future<void> loadCheckboxStates() async {
     final prefs = await SharedPreferences.getInstance();
-    final keys = prefs.getKeys().where((key) => int.tryParse(key) != null);
+    final keys =
+        prefs.getKeys().where((key) => key.startsWith(widget.tripModel.id));
 
     setState(() {
       checkboxStates = {
-        for (var key in keys) int.parse(key): prefs.getBool(key) ?? false
+        for (var key in keys)
+          int.parse(key.split("_")[1]): prefs.getBool(key) ?? false
       };
     });
   }
 
-  // Save checkbox state to SharedPreferences
-  Future<void> saveCheckboxState(int index, bool value) async {
+  Future<void> saveCheckboxState(String tripId, int index, bool value) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(index.toString(), value);
+    String key =
+        "${tripId}_$index"; // Unique key for each trip and checklist item
+    await prefs.setBool(key, value);
   }
 
   @override
@@ -120,7 +125,7 @@ class _ChecklistsState extends State<Checklists> {
                         context: context,
                         builder: (ctx) => CustomDeleteDialog(
                           onDelete: () {
-                            deleteChecklist(index);
+                            deleteChecklist(checklist);
                           },
                           title: 'Delete checklist?',
                           message:
@@ -152,11 +157,11 @@ class _ChecklistsState extends State<Checklists> {
                               onChanged: (bool? value) {
                                 setState(() {
                                   checkboxStates[actualIndex] = value ?? false;
-                                  saveCheckboxState(
+                                  saveCheckboxState(widget.tripModel.id,
                                       actualIndex, value ?? false);
                                 });
                               },
-                            ),
+                            )
                           ],
                         ),
                       ),
@@ -175,7 +180,9 @@ class _ChecklistsState extends State<Checklists> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const ChecklistAdd(),
+                builder: (context) => ChecklistAdd(
+                  tripId: widget.tripId,
+                ),
               ),
             );
           },
@@ -211,16 +218,19 @@ class _ChecklistsState extends State<Checklists> {
 
   // Build filter options for the bottom sheet
   Widget buildFilterOption(String option, BuildContext context) {
-    return CustomContainer(
-      color: Colors.white,
-      child: TextButton(
-        onPressed: () {
-          setState(() {
-            filterType = option;
-          });
-          Navigator.pop(context); // Close the bottom sheet
-        },
-        child: Text(option, style: CustomTextStyle.textstyle1),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: CustomContainer(
+        color: Colors.white70,
+        child: TextButton(
+          onPressed: () {
+            setState(() {
+              filterType = option;
+            });
+            Navigator.pop(context); // Close the bottom sheet
+          },
+          child: Text(option, style: CustomTextStyle.textStyle4),
+        ),
       ),
     );
   }

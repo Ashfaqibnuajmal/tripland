@@ -70,7 +70,10 @@ class _TripHomeState extends State<TripHome> {
                     label: 'Checklist',
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const Checklists()));
+                          builder: (context) => Checklists(
+                                tripId: widget.tripModel.id,
+                                tripModel: widget.tripModel,
+                              )));
                     }),
                 CategoryBox(
                     label: 'Day Planner',

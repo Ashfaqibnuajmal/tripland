@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:textcodetripland/controllers/checkllist_controllers.dart';
 import 'package:textcodetripland/model/checklist_model/checklist.dart';
-import 'package:textcodetripland/view/checklist/checklist.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_container.dart';
 import 'package:textcodetripland/view/constants/custom_textformfield.dart';
@@ -10,16 +9,29 @@ import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
 
 class ChecklistAdd extends StatefulWidget {
-  const ChecklistAdd({
-    super.key,
-  });
+  final String tripId;
+  final Checklist? checklist;
+  const ChecklistAdd({super.key, required this.tripId, this.checklist});
 
   @override
   State<ChecklistAdd> createState() => _ChecklistAddState();
 }
 
 class _ChecklistAddState extends State<ChecklistAdd> {
-  final TextEditingController _nameController = TextEditingController();
+  late TextEditingController _nameController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(
+        text: widget.checklist != null ? widget.checklist!.name : "");
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,13 +100,10 @@ class _ChecklistAddState extends State<ChecklistAdd> {
       }
     }
     final checkedlist = Checklist(
+      tripId: widget.tripId,
       name: _nameController.text,
     );
     addChecklist(checkedlist);
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const Checklists()),
-    );
+    Navigator.pop(context);
   }
 }

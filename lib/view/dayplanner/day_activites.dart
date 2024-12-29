@@ -4,7 +4,6 @@ import 'package:textcodetripland/model/trip_model/trip.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
-import 'package:textcodetripland/view/dayplanner/dayplan_edit.dart';
 
 class DayActivities extends StatefulWidget {
   const DayActivities({super.key, required this.index, required this.tripdata});
