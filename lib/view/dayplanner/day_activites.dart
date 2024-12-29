@@ -4,6 +4,7 @@ import 'package:textcodetripland/model/trip_model/trip.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
+import 'package:textcodetripland/view/dayplanner/dayplan_edit.dart';
 
 class DayActivities extends StatefulWidget {
   const DayActivities({super.key, required this.index, required this.tripdata});
@@ -16,22 +17,28 @@ class DayActivities extends StatefulWidget {
 
 class _DayActivitiesState extends State<DayActivities> {
   final Map<int, bool> _switchStates = {};
+  String get tripId => widget.tripdata.id; // Use trip ID as a unique identifier
+  int get dayIndex => widget.index; // Use day index to identify the day
 
   Future<void> _loadAllSwitchStates() async {
     final activities = activitiesNotifier.value;
-    for (int index = 0; index < activities.length; index++) {
-      String key = 'switchState_$index';
-      bool state = await SharedPreferencesHelper.getSwitchStateByKey(key);
-      _switchStates[index] = state;
+    for (int activityIndex = 0;
+        activityIndex < activities.length;
+        activityIndex++) {
+      String key =
+          SharedPreferencesHelper.getUniqueKey(tripId, dayIndex, activityIndex);
+      bool state = await SharedPreferencesHelper.getSwitchState(key);
+      _switchStates[activityIndex] = state;
     }
     setState(() {});
   }
 
-  Future<void> _saveSwitchStateByKey(int index, bool value) async {
-    String key = 'switchState_$index';
-    await SharedPreferencesHelper.saveSwitchStateByKey(key, value);
+  Future<void> _saveSwitchStateByKey(int activityIndex, bool value) async {
+    String key =
+        SharedPreferencesHelper.getUniqueKey(tripId, dayIndex, activityIndex);
+    await SharedPreferencesHelper.saveSwitchState(key, value);
     setState(() {
-      _switchStates[index] = value;
+      _switchStates[activityIndex] = value;
     });
   }
 
@@ -140,17 +147,17 @@ class _DayActivitiesState extends State<DayActivities> {
                                         position: const RelativeRect.fromLTRB(
                                             100, 100, 0, 0),
                                         items: [
-                                          const PopupMenuItem(
-                                              value: "edit",
-                                              child: Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.edit_calendar_rounded,
-                                                  ),
-                                                  SizedBox(width: 8),
-                                                  Text("Edit"),
-                                                ],
-                                              )),
+                                          // const PopupMenuItem(
+                                          //     value: "edit",
+                                          //     child: Row(
+                                          //       children: [
+                                          //         Icon(
+                                          //           Icons.edit_calendar_rounded,
+                                          //         ),
+                                          //         SizedBox(width: 8),
+                                          //         Text("Edit"),
+                                          //       ],
+                                          //     )),
                                           const PopupMenuItem(
                                               value: 'delete',
                                               child: Row(
@@ -164,33 +171,43 @@ class _DayActivitiesState extends State<DayActivities> {
                                         ]).then((value) {
                                       if (value == 'edit') {
                                         // Navigator.push(
-                                        //     // ignore: use_build_context_synchronously
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (context) =>
-                                        //             DayplanEdit(
-                                        //                 activity:
-                                        //                     activity.activity,
-                                        //                 fromTime:
-                                        //                     activity.fromTime,
-                                        //                 index: index,
-                                        //                 place: activity.place,
-                                        //                 toTime: activity.toTime,
-                                        //                 vehicle:
-                                        //                     activity.vehicle)));
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //     builder: (context) => DayplanEdit(
+                                        //       tripdata: widget.tripdata,
+                                        //       indexofday: widget.index,
+                                        //       activity: activity.activity,
+                                        //       fromTime: activity.fromTime,
+                                        //       index: index,
+                                        //       place: activity.place,
+                                        //       toTime: activity.toTime,
+                                        //       vehicle: activity.vehicle,
+                                        //     ),
+                                        //   ),
+                                        // ).then((updatedActivity) {
+                                        //   if (updatedActivity != null) {
+                                        //     // Handle the updated activity
+                                        //     setState(() {
+                                        //       // Update the local list or state
+                                        //     });
+                                        //   }
+                                        // });
                                       } else if (value == 'delete') {
                                         showDialog(
-                                          // ignore: use_build_context_synchronously
-                                          context: context,
-                                          builder: (ctx) => CustomDeleteDialog(
-                                              onDelete: () {
-                                                deleteActivities(activity.id,
-                                                    index, widget.tripdata.id);
-                                              },
-                                              title: 'Delete Bucket?',
-                                              message:
-                                                  "Do you really want to remove this trip from your bucket list?"),
-                                        );
+                                            // ignore: use_build_context_synchronously
+                                            context: context,
+                                            builder: (ctx) =>
+                                                CustomDeleteDialog(
+                                                  onDelete: () {
+                                                    deleteActivities(
+                                                        activity.id,
+                                                        index,
+                                                        widget.tripdata.id);
+                                                  },
+                                                  title: 'Delete Activity?',
+                                                  message:
+                                                      "Do you really want to remove this activity from your trip?",
+                                                ));
                                       }
                                     });
                                   },
@@ -205,7 +222,7 @@ class _DayActivitiesState extends State<DayActivities> {
                                 onChanged: (bool value) {
                                   _saveSwitchStateByKey(index, value);
                                 },
-                              )
+                              ),
                             ],
                           )
                         ],

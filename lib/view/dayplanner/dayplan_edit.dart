@@ -3,6 +3,7 @@
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:textcodetripland/controllers/activities_controlers.dart';
 // import 'package:textcodetripland/model/activities_model/activities.dart';
+// import 'package:textcodetripland/model/trip_model/trip.dart';
 // import 'package:textcodetripland/view/constants/custom_appbar.dart';
 // import 'package:textcodetripland/view/constants/custom_container.dart';
 // import 'package:textcodetripland/view/constants/custom_textformfield.dart';
@@ -17,12 +18,16 @@
 //   final String? fromTime;
 //   final String? toTime;
 //   final String? place;
+//   final Trip tripdata;
+//   final int indexofday;
 //   final String? vehicle;
 //   final int index;
 
 //   const DayplanEdit({
 //     super.key,
 //     required this.activity,
+//     required this.indexofday,
+//     required this.tripdata,
 //     required this.fromTime,
 //     required this.index,
 //     required this.place,
@@ -97,6 +102,8 @@
 
 //     // Create updated activity object
 //     final update = Activities(
+//       tripid: widget.tripdata.id,
+//       indexofday: widget.indexofday,
 //       activity: activity,
 //       fromTime: startTime,
 //       toTime: endTime,
@@ -104,13 +111,10 @@
 //       vehicle: vehicle,
 //     );
 
-//     editActivities(widget.index, update);
-
-//     // Navigate back to home
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(builder: (context) => const DayPlanner()),
+//     editActivities(
+//       update,
 //     );
+//     Navigator.pop(context);
 //   }
 
 //   @override

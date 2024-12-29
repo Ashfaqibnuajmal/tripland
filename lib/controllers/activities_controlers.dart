@@ -59,17 +59,45 @@ Future<void> deleteActivities(
       name: 'Daily Plan Logger');
 }
 
-// Handles switch state operations using SharedPreferences
-class SharedPreferencesHelper {
-  // Saves switch state by key
-  static Future<void> saveSwitchStateByKey(String key, bool value) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(key, value);
+// Edits an existing activity in the database
+Future<void> editActivities(String dayplanId, Activities updatedActivity,
+    String tripId, int indexOfDay) async {
+  final activitiesDb = await Hive.openBox("activities_db");
+
+  // Check if the plan exists before attempting to edit
+  final exists = activitiesDb.containsKey(dayplanId);
+
+  if (exists) {
+    // Update the activity with the new values
+    await activitiesDb.put(dayplanId, updatedActivity);
+    log('Updated Daily Plan with ID: $dayplanId', name: 'Daily Plan Logger');
+
+    // Refresh the notifier list with updated activities
+    await getAllActivities(tripId, indexOfDay);
+  } else {
+    log('No Daily Plan found with ID: $dayplanId', name: 'Daily Plan Logger');
   }
 
-  // Retrieves switch state by key
-  static Future<bool> getSwitchStateByKey(String key) async {
+  // Optional: Log the current state of the database
+  log('Current Daily Plans: ${activitiesDb.keys.toList()}',
+      name: 'Daily Plan Logger');
+}
+
+class SharedPreferencesHelper {
+  // Generates a unique key for each activity based on day and index
+  static String getUniqueKey(String tripId, int dayIndex, int activityIndex) {
+    return 'switchState_${tripId}_day$dayIndex$activityIndex';
+  }
+
+  // Saves switch state
+  static Future<void> saveSwitchState(String uniqueKey, bool value) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(key) ?? false;
+    await prefs.setBool(uniqueKey, value);
+  }
+
+  // Retrieves switch state
+  static Future<bool> getSwitchState(String uniqueKey) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(uniqueKey) ?? false;
   }
 }
