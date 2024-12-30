@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
+import 'package:textcodetripland/controllers/activities_controlers.dart';
+import 'package:textcodetripland/controllers/checkllist_controllers.dart';
+import 'package:textcodetripland/controllers/expance_controllers.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
 import 'package:textcodetripland/view/checklist/checklist.dart';
@@ -46,7 +49,9 @@ class _TripHomeState extends State<TripHome> {
   void initState() {
     super.initState();
     getAllTrips();
-    // getExpensesByTripId(widget.tripModel.id);/
+    getAllExpance(widget.tripModel.id);
+    getAllActivities(widget.tripModel.id, widget.index);
+    getChecklist(widget.tripModel.id);
   }
 
   @override
@@ -87,7 +92,10 @@ class _TripHomeState extends State<TripHome> {
                     label: 'Expense',
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ExpanceHome()));
+                          builder: (context) => ExpanceHome(
+                                trip: widget.tripModel,
+                                tripId: widget.tripModel.id,
+                              )));
                     }),
               ],
             ),

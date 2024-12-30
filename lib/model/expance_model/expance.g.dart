@@ -17,22 +17,27 @@ class ExpanceAdapter extends TypeAdapter<Expance> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Expance(
-      date: fields[0] as String?,
-      name: fields[1] as String?,
-      price: fields[2] as String?,
-    );
+      date: fields[0] as String,
+      name: fields[1] as String,
+      price: fields[2] as String,
+      tripId: fields[4] as String,
+    )..id = fields[3] as String;
   }
 
   @override
   void write(BinaryWriter writer, Expance obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.date)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.price);
+      ..write(obj.price)
+      ..writeByte(3)
+      ..write(obj.id)
+      ..writeByte(4)
+      ..write(obj.tripId);
   }
 
   @override

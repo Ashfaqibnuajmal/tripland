@@ -9,12 +9,10 @@ import 'package:textcodetripland/view/constants/custom_textformfield.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 import 'package:textcodetripland/view/constants/custombutton.dart';
 
-import 'package:textcodetripland/view/expance/expance_home.dart';
-
 class ExpanceAdd extends StatefulWidget {
-  const ExpanceAdd({
-    super.key,
-  });
+  final String tripId;
+  final Expance? expance;
+  const ExpanceAdd({super.key, this.expance, required this.tripId});
 
   @override
   State<ExpanceAdd> createState() => _ExpanceAddState();
@@ -151,6 +149,7 @@ class _ExpanceAddState extends State<ExpanceAdd> {
       }
     }
     final expance = Expance(
+      tripId: widget.tripId,
       name: _nameController.text,
       price: _priceController.text,
       date: _date != null
@@ -158,10 +157,6 @@ class _ExpanceAddState extends State<ExpanceAdd> {
           : '', // Formatting the date as string
     );
     addExpance(expance);
-
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => ExpanceHome()),
-    );
+    Navigator.pop(context);
   }
 }
