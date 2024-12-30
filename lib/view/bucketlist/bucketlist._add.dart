@@ -36,11 +36,12 @@ class _BucketlistAddState extends State<BucketlistAdd> {
   }
 
   Future<void> _pickDate(BuildContext context) async {
+    final DateTime now = DateTime.now();
     final DateTime? selectDate = await showDatePicker(
       context: context,
-      firstDate: DateTime(2000),
+      firstDate: now,
       lastDate: DateTime(2100),
-      initialDate: DateTime.now(),
+      initialDate: now,
     );
     if (selectDate != null) {
       setState(() {
@@ -54,16 +55,20 @@ class _BucketlistAddState extends State<BucketlistAdd> {
       "Please add a photo": _selectedImage == null,
       "Please enter a date": _date == null,
       "Please enter a location": _locationController.text.isEmpty,
+      'Location must not contain numbers or emojis':
+          !RegExp(r'^[a-zA-Z\s]+$').hasMatch(_locationController.text),
       "Please enter a budget": _budgetController.text.isEmpty,
       "Please enter a trip type": _selectedTripType == null,
-      "Please enter description": _descriptionController.text.isEmpty
+      "Please enter description": _descriptionController.text.isEmpty,
+      'Description must not contain numbers or emojis':
+          !RegExp(r'^[a-zA-Z\s]+$').hasMatch(_descriptionController.text),
     };
     for (var msg in validations.entries) {
       if (msg.value) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.black,
           content: Text(msg.key),
-          duration: const Duration(seconds: 2),
+          duration: const Duration(seconds: 3),
         ));
         return;
       }
@@ -184,6 +189,7 @@ class _BucketlistAddState extends State<BucketlistAdd> {
             const Gap(10),
             CustomContainer(
               child: CustomTextFormField(
+                keyboardType: TextInputType.number,
                 controller: _budgetController,
                 hintText: "₹19999",
                 suffixIcon: const Icon(Icons.currency_rupee_rounded),

@@ -12,6 +12,7 @@ Future<void> addTrip(Trip value) async {
   final tripDb = await Hive.openBox<Trip>("trip_db");
   await tripDb.add(value);
   tripListNotifier.value.add(value);
+  // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
   tripListNotifier.notifyListeners();
 }
 
@@ -21,6 +22,7 @@ Future<void> getAllTrips() async {
   final tripDb = await Hive.openBox<Trip>("trip_db");
   tripListNotifier.value.clear();
   tripListNotifier.value.addAll(tripDb.values);
+  // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
   tripListNotifier.notifyListeners();
 }
 
@@ -29,6 +31,7 @@ Future<void> deleteTrip(int index) async {
   log("Deleting trip entry at index: $index...");
   final tripDb = await Hive.openBox<Trip>("trip_db");
   await tripDb.deleteAt(index);
+  // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
   tripListNotifier.notifyListeners();
   getAllTrips();
 }
@@ -38,6 +41,7 @@ Future<void> editTrip(int index, Trip value) async {
   log("Editing trip entry at index: $index...");
   final tripDb = await Hive.openBox<Trip>("trip_db");
   await tripDb.putAt(index, value);
+  // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
   tripListNotifier.notifyListeners();
   getAllTrips();
 }

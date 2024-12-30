@@ -37,11 +37,13 @@ class _JournalAddState extends State<JournalAdd> {
   }
 
   Future<void> _pickDate(BuildContext context) async {
+    final DateTime now = DateTime.now();
+
     final DateTime? selectDate = await showDatePicker(
       context: context,
-      firstDate: DateTime(2000),
+      firstDate: now,
       lastDate: DateTime(2100),
-      initialDate: DateTime.now(),
+      initialDate: now,
     );
     if (selectDate != null) {
       setState(() {
@@ -80,8 +82,12 @@ class _JournalAddState extends State<JournalAdd> {
       "Please enter the date ": _date == null,
       "Please enter the time": time == "Select Time",
       "Please enter the location": _locationController.text.isEmpty,
+      'Location must not contain numbers or emojis':
+          !RegExp(r'^[a-zA-Z\s]+$').hasMatch(_locationController.text),
       "Please enter the tripType": _selectedTripType == null,
-      "Please enter the journal": _journalController.text.isEmpty
+      "Please enter the journal": _journalController.text.isEmpty,
+      'Journal must not contain numbers or emojis':
+          !RegExp(r'^[a-zA-Z\s]+$').hasMatch(_journalController.text),
     };
     for (var msg in validations.entries) {
       if (msg.value) {
@@ -89,7 +95,7 @@ class _JournalAddState extends State<JournalAdd> {
           SnackBar(
               backgroundColor: Colors.black,
               content: Text(msg.key),
-              duration: const Duration(seconds: 2)),
+              duration: const Duration(seconds: 3)),
         );
         return;
       }

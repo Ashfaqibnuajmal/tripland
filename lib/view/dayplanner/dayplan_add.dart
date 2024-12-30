@@ -166,18 +166,23 @@ class _PlanYourDayAddState extends State<PlanYourDayAdd> {
   Future<void> onAddActivities() async {
     final validations = {
       "Please enter the activities": _activitiesController.text.isEmpty,
+      'Activites must not contain numbers or emojis':
+          !RegExp(r'^[a-zA-Z\s]+$').hasMatch(_activitiesController.text),
       "Please enter the location": _placeController.text.isEmpty,
+      'Place must not contain numbers or emojis':
+          !RegExp(r'^[a-zA-Z\s]+$').hasMatch(_placeController.text),
       "Please enter the transportation": _vehicleController.text.isEmpty,
+      'Vehicle must not contain numbers or emojis':
+          !RegExp(r'^[a-zA-Z\s]+$').hasMatch(_vehicleController.text),
       "Please select the from time": fromTime == "From Time",
       "Please select the to time": toTime == "To Time",
     };
-
     for (var msg in validations.entries) {
       if (msg.value) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(msg.key),
           backgroundColor: Colors.black,
-          duration: const Duration(seconds: 2),
+          duration: const Duration(seconds: 3),
         ));
         return;
       }

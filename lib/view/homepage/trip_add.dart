@@ -31,18 +31,33 @@ class _TripAddState extends State<TripAdd> {
   File? _selectedImage;
 
   Future<void> _pickDate(BuildContext context, bool isStartDate) async {
+    final DateTime now = DateTime.now(); // Get today's date
     final DateTime? selectedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
+      initialDate: now, // Start with today's date
+      firstDate: now, // Restrict past dates
       lastDate: DateTime(2100),
     );
+
     if (selectedDate != null) {
       setState(() {
         if (isStartDate) {
           _startDate = selectedDate;
+          // If end date is before the start date, reset it
+          if (_endDate != null && _endDate!.isBefore(_startDate!)) {
+            _endDate = null;
+          }
         } else {
-          _endDate = selectedDate;
+          if (_startDate != null && selectedDate.isBefore(_startDate!)) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("End date must be after the start date"),
+                duration: Duration(seconds: 2),
+              ),
+            );
+          } else {
+            _endDate = selectedDate;
+          }
         }
       });
     }
@@ -62,8 +77,13 @@ class _TripAddState extends State<TripAdd> {
   Future<void> onAddTrip() async {
     final validations = {
       'Please enter a location': _locationController.text.isEmpty,
+      'Location must not contain numbers or emojis':
+          !RegExp(r'^[a-zA-Z\s]+$').hasMatch(_locationController.text),
       'Please select a start date': _startDate == null,
       'Please select an end date': _endDate == null,
+      'End date must be after the start date': _startDate != null &&
+          _endDate != null &&
+          _endDate!.isBefore(_startDate!),
       'Please select the number of people':
           _selectedNumberOfPeople.text.isEmpty,
       'Please select a trip type':
@@ -76,9 +96,10 @@ class _TripAddState extends State<TripAdd> {
       if (msg.value) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              backgroundColor: Colors.black,
-              content: Text(msg.key),
-              duration: const Duration(seconds: 2)),
+            backgroundColor: Colors.black,
+            content: Text(msg.key),
+            duration: const Duration(seconds: 3),
+          ),
         );
         return;
       }

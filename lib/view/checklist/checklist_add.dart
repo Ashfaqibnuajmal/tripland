@@ -86,14 +86,18 @@ class _ChecklistAddState extends State<ChecklistAdd> {
   }
 
   Future<void> onAddChecklist() async {
-    final validations = {"Please enter the name": _nameController.text.isEmpty};
+    final validations = {
+      "Please enter the name": _nameController.text.isEmpty,
+      'Name must not contain numbers or emojis':
+          !RegExp(r'^[a-zA-Z\s]+$').hasMatch(_nameController.text),
+    };
     for (var msg in validations.entries) {
       if (msg.value) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(msg.key),
             backgroundColor: Colors.black,
-            duration: const Duration(seconds: 2),
+            duration: const Duration(seconds: 3),
           ),
         );
         return;

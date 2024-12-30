@@ -47,11 +47,12 @@ class _BucketEditState extends State<BucketEdit> {
   File? _imageFile;
 
   Future<void> _pickDate(BuildContext context) async {
+    final DateTime now = DateTime.now();
     final DateTime? selectDate = await showDatePicker(
       context: context,
-      firstDate: DateTime(2000),
+      firstDate: now,
       lastDate: DateTime(2100),
-      initialDate: DateTime.now(),
+      initialDate: now,
     );
     if (selectDate != null) {
       setState(() {

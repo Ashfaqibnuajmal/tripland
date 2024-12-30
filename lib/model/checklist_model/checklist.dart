@@ -19,12 +19,4 @@ class Checklist {
     required this.name,
     required this.tripId,
   }) : id = const Uuid().v4();
-  Checklist copyWith({
-    String? name,
-    String? tripId,
-    String? id,
-  }) {
-    return Checklist(name: name ?? this.name, tripId: tripId ?? this.tripId)
-      ..id = id ?? this.id;
-  }
 }

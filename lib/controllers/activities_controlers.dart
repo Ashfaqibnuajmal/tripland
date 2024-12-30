@@ -12,12 +12,13 @@ Future<void> addActivities(Activities value) async {
   log("Adding activity...");
   final activitiesDb = await Hive.openBox("activities_db");
   await activitiesDb.put(value.id, value);
+  // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
   activitiesNotifier.notifyListeners();
 }
 
 // getAllActivities
 Future<void> getAllActivities(String tripId, int indexOfDay) async {
-  log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+  log("GetAll activites...");
   final activitiesDb = await Hive.openBox("activities_db");
 
   // Get all plans from the Hive box
@@ -30,6 +31,7 @@ Future<void> getAllActivities(String tripId, int indexOfDay) async {
 
   // Update the notifier list with the filtered plans
   activitiesNotifier.value = filteredPlans;
+  // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
   activitiesNotifier.notifyListeners();
 }
 
@@ -81,6 +83,8 @@ Future<void> editActivities(String dayplanId, Activities updatedActivity,
   // Optional: Log the current state of the database
   log('Current Daily Plans: ${activitiesDb.keys.toList()}',
       name: 'Daily Plan Logger');
+  // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+  activitiesNotifier.notifyListeners();
 }
 
 class SharedPreferencesHelper {

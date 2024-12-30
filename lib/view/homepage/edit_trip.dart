@@ -64,18 +64,31 @@ class _TripEditState extends State<TripEdit> {
   }
 
   Future<void> _pickDate(BuildContext context, bool isStartDate) async {
-    DateTime? selectedDate = await showDatePicker(
+    final DateTime? selectedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
     );
+
     if (selectedDate != null) {
       setState(() {
         if (isStartDate) {
           _startDate = selectedDate;
+          if (_endDate != null && _endDate!.isBefore(_startDate!)) {
+            _endDate = null; // Reset end date if it's invalid
+          }
         } else {
-          _endDate = selectedDate;
+          if (_startDate != null && selectedDate.isBefore(_startDate!)) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("End date must be after the start date"),
+                duration: Duration(seconds: 2),
+              ),
+            );
+          } else {
+            _endDate = selectedDate;
+          }
         }
       });
     }

@@ -45,6 +45,7 @@ class _LoginPageState extends State<LoginPage> {
     final prefs = await SharedPreferences.getInstance();
     final bool isLoggedIn = prefs.getBool("isLoggedIn") ?? false;
     if (isLoggedIn) {
+      // ignore: use_build_context_synchronously
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => NotchBar()),
         (Route<dynamic> route) => false,
@@ -58,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
       return "Username is required";
     }
     if (!RegExp(r'^[a-zA-Z0-9]{5,}$').hasMatch(value)) {
-      return "Username must be at least 5 characters long and contain only letters and numbers";
+      return "Username must be at least 5 characters ";
     }
 
     return null;
@@ -68,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
     if (value == null || value.isEmpty) {
       return "Password is required";
     } else if (value.length < 6) {
-      return "Password must be at least 6 characters long";
+      return "Password must be at least 6 characters ";
     }
     return null;
   }

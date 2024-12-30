@@ -24,11 +24,13 @@ class _ExpanceAddState extends State<ExpanceAdd> {
   DateTime? _date;
 
   Future<void> _pickDate(BuildContext context) async {
+    final DateTime now = DateTime.now();
+
     final DateTime? selectDate = await showDatePicker(
       context: context,
-      firstDate: DateTime(2000),
+      firstDate: now,
       lastDate: DateTime(2100),
-      initialDate: DateTime.now(),
+      initialDate: now,
     );
     if (selectDate != null) {
       setState(() {
@@ -142,7 +144,7 @@ class _ExpanceAddState extends State<ExpanceAdd> {
           SnackBar(
             content: Text(msg.key),
             backgroundColor: Colors.black,
-            duration: const Duration(seconds: 2),
+            duration: const Duration(seconds: 3),
           ),
         );
         return;
