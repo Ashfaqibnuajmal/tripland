@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 class HelpSupport extends StatelessWidget {
@@ -9,24 +9,14 @@ class HelpSupport extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text(
-          "Help & Support",
-          style: CustomTextStyle.settings,
-        ),
-        centerTitle: true,
-        elevation: 4,
-        leading: CustomBackButton(
-          ctx: context,
-          color: Colors.white,
-        ),
+      appBar: CustomAppBar(
+        title: 'Help & Support',
+        ctx: context,
       ),
       body: const Padding(
         padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Text('''
-Help and Support
 
 1. Frequently Asked Questions (FAQ)
 

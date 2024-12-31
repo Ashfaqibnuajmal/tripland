@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
@@ -20,7 +19,7 @@ class JournalEdit extends StatefulWidget {
   String? selectedTripType;
   DateTime? date;
   int index;
-  String? imageFile;
+  List<String> imageFile;
   String? time;
   JournalEdit({
     super.key,
@@ -42,8 +41,9 @@ class _JournalEditState extends State<JournalEdit> {
   TextEditingController _journalController = TextEditingController();
   String? _selectedTripType;
   DateTime? _date;
-  File? _selectedImage;
+  List<File> _selectedImages = []; // Updated to store multiple images
   String time = "Select Time";
+
   Future<void> selectedTime() async {
     TimeOfDay? selectedTime =
         await showTimePicker(context: context, initialTime: TimeOfDay.now());
@@ -68,13 +68,14 @@ class _JournalEditState extends State<JournalEdit> {
     }
   }
 
-  Future<void> _pickImage() async {
+  Future<void> _pickImages() async {
     final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile =
-        await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
+    final List<XFile>? pickedFiles =
+        await picker.pickMultiImage(); // Pick multiple images
+    if (pickedFiles != null && pickedFiles.isNotEmpty) {
       setState(() {
-        _selectedImage = File(pickedFile.path); // Store the image file
+        _selectedImages.addAll(pickedFiles
+            .map((file) => File(file.path))); // Add selected images to the list
       });
     }
   }
@@ -92,6 +93,7 @@ class _JournalEditState extends State<JournalEdit> {
     "Family Vacation",
     "Weekend Getaway"
   ];
+
   @override
   void initState() {
     super.initState();
@@ -100,8 +102,10 @@ class _JournalEditState extends State<JournalEdit> {
     _selectedTripType = widget.selectedTripType;
     _date = widget.date;
     time = widget.time ?? "Select Time";
-    if (widget.imageFile != null) {
-      _selectedImage = File(widget.imageFile!);
+    if (widget.imageFile.isNotEmpty) {
+      _selectedImages = widget.imageFile
+          .map((path) => File(path))
+          .toList(); // Convert string paths to files
     }
   }
 
@@ -109,8 +113,7 @@ class _JournalEditState extends State<JournalEdit> {
     final location = _locationController.text;
     final date = _date;
     final journal = _journalController.text; // Use the correct controller
-    final imageFile =
-        _selectedImage; // Assuming _selectedImage holds the image file
+    final imageFile = _selectedImages; // Now it's a list of File objects
     final tripType = _selectedTripType;
     final selectedTime = time; // Add the time here
 
@@ -118,7 +121,9 @@ class _JournalEditState extends State<JournalEdit> {
       date: date,
       location: location,
       journal: journal,
-      imageFile: imageFile?.path, // Convert image file to path if necessary
+      imageFiles: imageFile
+          .map((file) => file.path)
+          .toList(), // Convert File to path list
       selectedTripType: tripType,
       time: selectedTime, // Include the time in the updated journal
     );
@@ -156,12 +161,12 @@ class _JournalEditState extends State<JournalEdit> {
                   color: Colors.black87,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: _selectedImage == null
+                child: _selectedImages.isEmpty
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           IconButton(
-                            onPressed: _pickImage,
+                            onPressed: _pickImages,
                             icon: const Icon(Icons.camera_alt_rounded,
                                 color: Color(0xFFFCC300), size: 70),
                           ),
@@ -172,7 +177,7 @@ class _JournalEditState extends State<JournalEdit> {
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image.file(
-                          _selectedImage!,
+                          _selectedImages[0], // Display the first image
                           fit: BoxFit.cover,
                           height: 300,
                           width: 300,
@@ -258,6 +263,7 @@ class _JournalEditState extends State<JournalEdit> {
               style: const TextStyle(color: Colors.black, fontSize: 10),
               items: options.map((String option) {
                 return DropdownMenuItem<String>(
+                  // Trip type dropdown
                   value: option,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10.0),

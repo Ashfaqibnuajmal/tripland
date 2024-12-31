@@ -37,7 +37,7 @@ Future<void> getAllActivities(String tripId, int indexOfDay) async {
 
 // Deletes an activity from the database
 Future<void> deleteActivities(
-    String DayplanId, int indexOfDay, String tripId) async {
+    String dayplanId, int indexOfDay, String tripId) async {
   final activitiesDb = await Hive.openBox("activities_db");
 
   // Log current keys before checking
@@ -45,15 +45,15 @@ Future<void> deleteActivities(
       name: 'Daily Plan Logger');
 
   // Check if the plan exists before attempting to delete
-  final exists = activitiesDb.containsKey(DayplanId);
+  final exists = activitiesDb.containsKey(dayplanId);
 
   if (exists) {
-    await activitiesDb.delete(DayplanId);
-    log('Deleted Daily Plan with ID: $DayplanId', name: 'Daily Plan Logger');
+    await activitiesDb.delete(dayplanId);
+    log('Deleted Daily Plan with ID: $dayplanId', name: 'Daily Plan Logger');
 
     await getAllActivities(tripId, indexOfDay);
   } else {
-    log('No Daily Plan found with ID: $DayplanId', name: 'Daily Plan Logger');
+    log('No Daily Plan found with ID: $dayplanId', name: 'Daily Plan Logger');
   }
 
   // Optional: Log the current state of the database

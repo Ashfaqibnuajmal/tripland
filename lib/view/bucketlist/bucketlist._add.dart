@@ -60,8 +60,8 @@ class _BucketlistAddState extends State<BucketlistAdd> {
       "Please enter a budget": _budgetController.text.isEmpty,
       "Please enter a trip type": _selectedTripType == null,
       "Please enter description": _descriptionController.text.isEmpty,
-      'Description must not contain numbers or emojis':
-          !RegExp(r'^[a-zA-Z\s]+$').hasMatch(_descriptionController.text),
+      'Description must be contain atleast 10  characters.':
+          _descriptionController.text.length < 10
     };
     for (var msg in validations.entries) {
       if (msg.value) {
@@ -132,7 +132,7 @@ class _BucketlistAddState extends State<BucketlistAdd> {
               padding: const EdgeInsets.all(16.0),
               child: Center(
                   child: CustomContainer(
-                      height: 300,
+                      height: 250,
                       width: 300,
                       color: Colors.black87,
                       child: _selectedImage == null

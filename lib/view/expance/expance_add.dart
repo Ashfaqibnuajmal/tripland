@@ -81,7 +81,7 @@ class _ExpanceAddState extends State<ExpanceAdd> {
                       child: Center(
                         child: Text(
                             _date == null
-                                ? "21/12/2024"
+                                ? "Enter the date"
                                 : "${_date!.day}/${_date!.month}/${_date!.year}",
                             style: CustomTextStyle.textStyle5),
                       ),

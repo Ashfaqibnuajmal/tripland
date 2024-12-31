@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                       future: getRatingForTrip(
                           tripKey), // Fetch rating for each trip
                       builder: (context, snapshot) {
-                        double rating = snapshot.data ?? 3.0;
+                        double rating = snapshot.data ?? 0.0;
                         return Column(
                           children: [
                             Row(

@@ -68,6 +68,12 @@ class _JournalHomeState extends State<JournalHome> {
                   itemCount: journals.length,
                   itemBuilder: (context, index) {
                     final data = journals[index];
+                    // Check if imageFiles is not null and not empty, then get the first image
+                    String imagePath = (data.imageFiles != null &&
+                            data.imageFiles!.isNotEmpty)
+                        ? data.imageFiles![0]
+                        : "NA"; // Default to "NA" if the list is null or empty
+
                     return Padding(
                       padding: const EdgeInsets.all(2),
                       child: GestureDetector(
@@ -107,7 +113,7 @@ class _JournalHomeState extends State<JournalHome> {
                                   MaterialPageRoute(
                                       builder: (context) => JournalEdit(
                                           date: data.date,
-                                          imageFile: data.imageFile,
+                                          imageFile: data.imageFiles!,
                                           index: index,
                                           journal: data.journal,
                                           location: data.location,
@@ -116,7 +122,6 @@ class _JournalHomeState extends State<JournalHome> {
                                               data.selectedTripType)));
                             } else if (value == 'delete') {
                               showDialog(
-                                // ignore: use_build_context_synchronously
                                 context: context,
                                 builder: (ctx) => CustomDeleteDialog(
                                   onDelete: () {
@@ -139,7 +144,8 @@ class _JournalHomeState extends State<JournalHome> {
                                 location: data.location,
                                 date: data.date,
                                 journal: data.journal,
-                                imageFile: data.imageFile,
+                                imageFiles:
+                                    data.imageFiles, // Pass the list here
                                 time: data.time,
                                 selectedTripType: data.selectedTripType,
                               ),
@@ -149,7 +155,7 @@ class _JournalHomeState extends State<JournalHome> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.file(
-                            File(data.imageFile ?? "NA"),
+                            File(imagePath), // Use the first image path
                             fit: BoxFit.fill,
                             width: double.infinity,
                           ),

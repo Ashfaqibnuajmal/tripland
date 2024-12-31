@@ -4,10 +4,12 @@ import 'package:textcodetripland/model/trip_model/trip.dart';
 import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_showdilog.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
+import 'package:textcodetripland/view/dayplanner/dayplan_edit.dart';
 
 class DayActivities extends StatefulWidget {
-  const DayActivities({super.key, required this.index, required this.tripdata});
-  final int index;
+  const DayActivities(
+      {super.key, required this.indexofday, required this.tripdata});
+  final int indexofday;
   final Trip tripdata;
 
   @override
@@ -17,7 +19,7 @@ class DayActivities extends StatefulWidget {
 class _DayActivitiesState extends State<DayActivities> {
   final Map<int, bool> _switchStates = {};
   String get tripId => widget.tripdata.id; // Use trip ID as a unique identifier
-  int get dayIndex => widget.index; // Use day index to identify the day
+  int get dayIndex => widget.indexofday; // Use day index to identify the day
 
   Future<void> _loadAllSwitchStates() async {
     final activities = activitiesNotifier.value;
@@ -44,7 +46,7 @@ class _DayActivitiesState extends State<DayActivities> {
   @override
   void initState() {
     super.initState();
-    getAllActivities(widget.tripdata.id, widget.index);
+    getAllActivities(widget.tripdata.id, widget.indexofday);
     _loadAllSwitchStates();
   }
 
@@ -146,17 +148,17 @@ class _DayActivitiesState extends State<DayActivities> {
                                         position: const RelativeRect.fromLTRB(
                                             100, 100, 0, 0),
                                         items: [
-                                          // const PopupMenuItem(
-                                          //     value: "edit",
-                                          //     child: Row(
-                                          //       children: [
-                                          //         Icon(
-                                          //           Icons.edit_calendar_rounded,
-                                          //         ),
-                                          //         SizedBox(width: 8),
-                                          //         Text("Edit"),
-                                          //       ],
-                                          //     )),
+                                          const PopupMenuItem(
+                                              value: "edit",
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.edit_calendar_rounded,
+                                                  ),
+                                                  SizedBox(width: 8),
+                                                  Text("Edit"),
+                                                ],
+                                              )),
                                           const PopupMenuItem(
                                               value: 'delete',
                                               child: Row(
@@ -169,28 +171,29 @@ class _DayActivitiesState extends State<DayActivities> {
                                               ))
                                         ]).then((value) {
                                       if (value == 'edit') {
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: (context) => DayplanEdit(
-                                        //       tripdata: widget.tripdata,
-                                        //       indexofday: widget.index,
-                                        //       activity: activity.activity,
-                                        //       fromTime: activity.fromTime,
-                                        //       index: index,
-                                        //       place: activity.place,
-                                        //       toTime: activity.toTime,
-                                        //       vehicle: activity.vehicle,
-                                        //     ),
-                                        //   ),
-                                        // ).then((updatedActivity) {
-                                        //   if (updatedActivity != null) {
-                                        //     // Handle the updated activity
-                                        //     setState(() {
-                                        //       // Update the local list or state
-                                        //     });
-                                        //   }
-                                        // });
+                                        Navigator.push(
+                                          // ignore: use_build_context_synchronously
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => DayplanEdit(
+                                              tripdata: widget.tripdata,
+                                              indexofday: widget.indexofday,
+                                              activity: activity.activity,
+                                              fromTime: activity.fromTime,
+                                              index: index,
+                                              place: activity.place,
+                                              toTime: activity.toTime,
+                                              vehicle: activity.vehicle,
+                                            ),
+                                          ),
+                                        ).then((updatedActivity) {
+                                          if (updatedActivity != null) {
+                                            // Handle the updated activity
+                                            setState(() {
+                                              // Update the local list or state
+                                            });
+                                          }
+                                        });
                                       } else if (value == 'delete') {
                                         showDialog(
                                             // ignore: use_build_context_synchronously

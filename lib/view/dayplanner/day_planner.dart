@@ -121,7 +121,7 @@ class _DayPlannerState extends State<DayPlanner> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => DayActivities(
-                                      index: index,
+                                      indexofday: index,
                                       tripdata: widget.trip,
                                     ),
                                   ),

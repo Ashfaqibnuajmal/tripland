@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
+import 'package:textcodetripland/view/constants/customsnackbar.dart';
 
 class CustomDeleteDialog extends StatelessWidget {
   final VoidCallback onDelete;
@@ -67,6 +68,10 @@ class CustomDeleteDialog extends StatelessWidget {
                     onPressed: () {
                       onDelete();
                       Navigator.pop(context);
+                      CustomSnackBar.show(
+                          context: context,
+                          message: "Successfully removed the selected item.",
+                          textColor: Colors.red);
                     },
                     child:
                         const Text('Delete', style: CustomTextStyle.textStyle7),

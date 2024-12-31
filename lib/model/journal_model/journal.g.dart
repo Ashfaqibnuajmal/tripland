@@ -18,7 +18,7 @@ class JournalAdapter extends TypeAdapter<Journal> {
     };
     return Journal(
       date: fields[1] as DateTime?,
-      imageFile: fields[0] as String?,
+      imageFiles: (fields[0] as List?)?.cast<String>(),
       journal: fields[5] as String?,
       location: fields[3] as String?,
       selectedTripType: fields[4] as String?,
@@ -31,7 +31,7 @@ class JournalAdapter extends TypeAdapter<Journal> {
     writer
       ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.imageFile)
+      ..write(obj.imageFiles)
       ..writeByte(1)
       ..write(obj.date)
       ..writeByte(2)

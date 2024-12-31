@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 class TermsCondition extends StatelessWidget {
@@ -9,37 +9,27 @@ class TermsCondition extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text(
-          "Terms & Condition",
-          style: CustomTextStyle.settings,
-        ),
-        centerTitle: true,
-        elevation: 4,
-        leading: CustomBackButton(
-          ctx: context,
-          color: Colors.white,
-        ),
+      appBar: CustomAppBar(
+        title: 'Terms & Conditions',
+        ctx: context,
       ),
       body: const Padding(
         padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Text('''
-Terms and Conditions
 Effective Date: [31/12/2024]
 
-Welcome to TravelMate! By accessing or using our app, you agree to abide by these Terms and Conditions. If you do not agree, please discontinue use immediately.
+Welcome to Trippy! By accessing or using our app, you agree to abide by these Terms and Conditions. If you do not agree, please discontinue use immediately.
 
 
 1. Acceptance of Terms
 
-By using TravelMate, you confirm your acceptance of these Terms. This agreement applies to all users of the app.
+By using Trippy, you confirm your acceptance of these Terms. This agreement applies to all users of the app.
 
 
 2. Use of the App
 
-Purpose: TravelMate is designed for personal travel planning and journaling.
+Purpose: Trippy is designed for personal travel planning and journaling.
 User Responsibilities:
 Provide accurate and truthful information when using the app.
 Ensure the security of your account, including login credentials.
@@ -48,12 +38,12 @@ Use the app in compliance with applicable laws and avoid harmful activities.
 
 3. Intellectual Property
 
-All content within the app, including designs, logos, and features, is the property of TravelMate or its licensors. You may not copy, distribute, or modify app content without prior written permission.
+All content within the app, including designs, logos, and features, is the property of Trippy or its licensors. You may not copy, distribute, or modify app content without prior written permission.
 
 
 4. Privacy
 
-Your use of TravelMate is governed by our Privacy Policy. The Privacy Policy explains how your data is collected, stored, and used.
+Your use of Trippy is governed by our Privacy Policy. The Privacy Policy explains how your data is collected, stored, and used.
 
 
 5. Account Termination
@@ -75,7 +65,7 @@ We may update these Terms or modify app features from time to time. Please revie
 
 8. Third-Party Services
 
-TravelMate may include third-party content or services. We are not responsible for the accuracy, legality, or functionality of these external tools or content.
+Trippy may include third-party content or services. We are not responsible for the accuracy, legality, or functionality of these external tools or content.
 
 9. Governing Law
 

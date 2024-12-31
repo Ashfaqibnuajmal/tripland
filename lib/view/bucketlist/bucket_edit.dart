@@ -64,10 +64,11 @@ class _BucketEditState extends State<BucketEdit> {
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? pickedFile =
-        await picker.pickImage(source: ImageSource.gallery);
+        await picker.pickImage(source: ImageSource.gallery); // Access gallery
+
     if (pickedFile != null) {
       setState(() {
-        _imageFile = File(pickedFile.path); // Store the image file
+        _imageFile = File(pickedFile.path); // Update the image
       });
     }
   }
@@ -139,37 +140,42 @@ class _BucketEditState extends State<BucketEdit> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Center(
-                  child: CustomContainer(
-                      height: 300,
-                      width: 300,
-                      color: Colors.black87,
-                      child: _imageFile == null
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                  onPressed:
-                                      _pickImage, // Pick image when tapped
-                                  icon: const Icon(
-                                    Icons.camera_alt_rounded,
-                                    color: Color(0xFFFCC300),
-                                    size: 70,
-                                  ),
+                child: CustomContainer(
+                  height: 250,
+                  width: 300,
+                  color: Colors.black87,
+                  child: GestureDetector(
+                    onTap:
+                        _pickImage, // Allow image selection when tapping the container
+                    child: _imageFile == null
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                onPressed: _pickImage, // Pick image when tapped
+                                icon: const Icon(
+                                  Icons.camera_alt_rounded,
+                                  color: Color(0xFFFCC300),
+                                  size: 70,
                                 ),
-                                const Text("ADD PHOTO",
-                                    style: TextStyle(color: Colors.white)),
-                              ],
-                            )
-                          : ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.file(
-                                // Display the selected image
-                                _imageFile!,
-                                fit: BoxFit.cover,
-                                height: 300,
-                                width: 300,
                               ),
-                            ))),
+                              const Text("ADD PHOTO",
+                                  style: TextStyle(color: Colors.white)),
+                            ],
+                          )
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.file(
+                              // Display the selected image
+                              _imageFile!,
+                              fit: BoxFit.cover,
+                              height: 300,
+                              width: 300,
+                            ),
+                          ),
+                  ),
+                ),
+              ),
             ),
             GestureDetector(
                 onTap: () => _pickDate(context),

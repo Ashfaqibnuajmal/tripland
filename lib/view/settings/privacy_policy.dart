@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
+import 'package:textcodetripland/view/constants/custom_appbar.dart';
 import 'package:textcodetripland/view/constants/custom_textstyle.dart';
 
 class PrivacyPolicy extends StatelessWidget {
@@ -9,24 +9,14 @@ class PrivacyPolicy extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text(
-          "Privacy & Policy",
-          style: CustomTextStyle.settings,
-        ),
-        centerTitle: true,
-        elevation: 4,
-        leading: CustomBackButton(
-          ctx: context,
-          color: Colors.white,
-        ),
+      appBar: CustomAppBar(
+        title: 'Privacy & Policy',
+        ctx: context,
       ),
       body: const Padding(
         padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Text('''
-Privacy Policy
 Effective Date: [31/12/2024]
 
 Welcome to Trippy! We value your trust and are committed to safeguarding your privacy. Here’s how we handle your information:

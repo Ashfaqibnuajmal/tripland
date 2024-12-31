@@ -1,14 +1,13 @@
 import 'package:hive/hive.dart';
 
-// Part directive for Hive to generate the adapter code
-part 'journal.g.dart';
+part 'journal.g.dart'; // Part directive for Hive to generate the adapter code
 
 // Defining a Hive type for Journal class with a unique typeId
 @HiveType(typeId: 4)
 class Journal {
-  // Field for the image file associated with the journal entry
+  // Field for the list of image files associated with the journal entry
   @HiveField(0)
-  String? imageFile;
+  List<String>? imageFiles;
 
   // Field for the date of the journal entry
   @HiveField(1)
@@ -33,7 +32,7 @@ class Journal {
   // Constructor to initialize the Journal class with provided values
   Journal({
     required this.date,
-    required this.imageFile,
+    required this.imageFiles,
     required this.journal,
     required this.location,
     required this.selectedTripType,

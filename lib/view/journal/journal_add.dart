@@ -23,9 +23,10 @@ class _JournalAddState extends State<JournalAdd> {
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _journalController = TextEditingController();
   DateTime? _date;
-  File? _selectedImage;
+  final List<File> _selectedImages = []; // List to store selected images
   String time = "Select Time";
   String? _selectedTripType;
+
   Future<void> selectedTime() async {
     TimeOfDay? selectedTime =
         await showTimePicker(context: context, initialTime: TimeOfDay.now());
@@ -52,13 +53,14 @@ class _JournalAddState extends State<JournalAdd> {
     }
   }
 
-  Future<void> _pickImage() async {
+  Future<void> _pickImages() async {
     final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile =
-        await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
+    final List<XFile> pickedFiles =
+        await picker.pickMultiImage(); // Pick multiple images
+
+    if (pickedFiles.isNotEmpty) {
       setState(() {
-        _selectedImage = File(pickedFile.path); // Store the image file
+        _selectedImages.addAll(pickedFiles.map((file) => File(file.path)));
       });
     }
   }
@@ -76,9 +78,10 @@ class _JournalAddState extends State<JournalAdd> {
     "Family Vacation",
     "Weekend Getaway"
   ];
+
   Future<void> onAddJournal() async {
     final validations = {
-      "Please give the Image": _selectedImage == null,
+      "Please give the Image": _selectedImages.isEmpty, // Check for no images
       "Please enter the date ": _date == null,
       "Please enter the time": time == "Select Time",
       "Please enter the location": _locationController.text.isEmpty,
@@ -86,8 +89,8 @@ class _JournalAddState extends State<JournalAdd> {
           !RegExp(r'^[a-zA-Z\s]+$').hasMatch(_locationController.text),
       "Please enter the tripType": _selectedTripType == null,
       "Please enter the journal": _journalController.text.isEmpty,
-      'Journal must not contain numbers or emojis':
-          !RegExp(r'^[a-zA-Z\s]+$').hasMatch(_journalController.text),
+      'Journal must be contanis atleast 10  characters.':
+          _journalController.text.length < 10,
     };
     for (var msg in validations.entries) {
       if (msg.value) {
@@ -100,14 +103,18 @@ class _JournalAddState extends State<JournalAdd> {
         return;
       }
     }
+
     final journal = Journal(
         date: _date!,
-        imageFile: _selectedImage?.path,
+        imageFiles: _selectedImages
+            .map((e) => e.path)
+            .toList(), // Store paths of multiple images
         journal: _journalController.text,
         location: _locationController.text,
         selectedTripType: _selectedTripType,
         time: time);
-    addJournal(journal);
+
+    addJournal(journal); // Add the journal to the list
     CustomSnackBar.show(
       context: context,
       message: "Journal added! Ready to go.",
@@ -138,26 +145,35 @@ class _JournalAddState extends State<JournalAdd> {
                   color: Colors.black87,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: _selectedImage == null
+                child: _selectedImages.isEmpty
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           IconButton(
-                            onPressed: _pickImage,
+                            onPressed: _pickImages,
                             icon: const Icon(Icons.camera_alt_rounded,
                                 color: Color(0xFFFCC300), size: 70),
                           ),
-                          const Text("ADD PHOTO",
+                          const Text("ADD PHOTOS",
                               style: TextStyle(color: Colors.white)),
                         ],
                       )
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: Image.file(
-                          _selectedImage!,
-                          fit: BoxFit.cover,
-                          height: 300,
-                          width: 300,
+                        child: GridView.builder(
+                          itemCount: _selectedImages.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
+                          itemBuilder: (context, index) {
+                            return Image.file(
+                              _selectedImages[index],
+                              fit: BoxFit.cover,
+                            );
+                          },
                         ),
                       ),
               ),

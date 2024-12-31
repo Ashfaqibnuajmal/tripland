@@ -64,10 +64,12 @@ class _TripEditState extends State<TripEdit> {
   }
 
   Future<void> _pickDate(BuildContext context, bool isStartDate) async {
+    final DateTime now = DateTime.now(); // Get today's date
+
     final DateTime? selectedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
+      initialDate: now, // Start with today's date
+      firstDate: now, // Restrict past dates
       lastDate: DateTime(2100),
     );
 
