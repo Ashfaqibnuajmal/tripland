@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
@@ -26,7 +26,8 @@ class _BucketlistAddState extends State<BucketlistAdd> {
   final TextEditingController _descriptionController = TextEditingController();
   DateTime? _date;
   String? _selectedTripType;
-  File? _selectedImage;
+  Uint8List? _selectedImage;
+
   @override
   void dispose() {
     _locationController.dispose();
@@ -60,7 +61,7 @@ class _BucketlistAddState extends State<BucketlistAdd> {
       "Please enter a budget": _budgetController.text.isEmpty,
       "Please enter a trip type": _selectedTripType == null,
       "Please enter description": _descriptionController.text.isEmpty,
-      'Description must be contain atleast 10  characters.':
+      'Description must be contain atleast 10 characters.':
           _descriptionController.text.length < 10
     };
     for (var msg in validations.entries) {
@@ -78,7 +79,7 @@ class _BucketlistAddState extends State<BucketlistAdd> {
         location: _locationController.text,
         budget: _budgetController.text,
         description: _descriptionController.text,
-        imageFile: _selectedImage?.path,
+        imageFile: _selectedImage, // Passing the image file as Uint8List
         selectedTripType: _selectedTripType);
     addBucket(bucket);
     CustomSnackBar.show(
@@ -111,8 +112,9 @@ class _BucketlistAddState extends State<BucketlistAdd> {
     final XFile? pickedFile =
         await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      setState(() {
-        _selectedImage = File(pickedFile.path); // Store the image file
+      setState(() async {
+        _selectedImage =
+            await pickedFile.readAsBytes(); // Store image as Uint8List
       });
     }
   }
@@ -154,8 +156,8 @@ class _BucketlistAddState extends State<BucketlistAdd> {
                             )
                           : ClipRRect(
                               borderRadius: BorderRadius.circular(20),
-                              child: Image.file(
-                                // Display the selected image
+                              child: Image.memory(
+                                // Display the selected image using memory
                                 _selectedImage!,
                                 fit: BoxFit.cover,
                                 height: 300,
@@ -198,8 +200,7 @@ class _BucketlistAddState extends State<BucketlistAdd> {
             const Gap(10),
             CustomContainer(
               child: DropdownButton<String>(
-                value:
-                    _selectedTripType, // Use _selectedTripType instead of selectedOption
+                value: _selectedTripType,
                 icon: const Icon(Icons.arrow_drop_down),
                 iconSize: 24,
                 underline: const SizedBox(),
@@ -216,7 +217,7 @@ class _BucketlistAddState extends State<BucketlistAdd> {
                 }).toList(),
                 onChanged: (String? newValue) {
                   setState(() {
-                    _selectedTripType = newValue; // Update the selected value
+                    _selectedTripType = newValue;
                   });
                 },
               ),

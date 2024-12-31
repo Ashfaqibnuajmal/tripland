@@ -23,7 +23,7 @@ class TripAdapter extends TypeAdapter<Trip> {
       selectedNumberOfPeople: fields[3] as String?,
       selectedTripType: fields[4] as String?,
       expance: fields[5] as String?,
-      imageFile: fields[6] as String?,
+      imageFile: fields[6] as Uint8List?,
       id: fields[7] as String?,
     );
   }

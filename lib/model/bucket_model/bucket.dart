@@ -1,13 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:hive/hive.dart';
-part 'bucket.g.dart';
 // Part directive for Hive to generate the adapter code
+part 'bucket.g.dart';
 
 // Defining a Hive type for Bucket class with a unique typeId
 @HiveType(typeId: 3)
 class Bucket {
   // Fields for the bucket details with Hive annotations
   @HiveField(0)
-  String? imageFile;
+  Uint8List? imageFile;
 
   @HiveField(1)
   DateTime? date;

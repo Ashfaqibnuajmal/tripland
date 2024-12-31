@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
@@ -207,11 +206,16 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
-                                    child: Image.file(
-                                      File(data.imageFile ?? "NA"),
-                                      fit: BoxFit.fill,
-                                      width: double.infinity,
-                                    ),
+                                    child: data.imageFile == null
+                                        ? Image.asset(
+                                            'assets/default_image.png', // Default image if no file
+                                            fit: BoxFit.fill,
+                                            width: double.infinity,
+                                          )
+                                        : Image.memory(
+                                            data.imageFile!,
+                                            fit: BoxFit.cover,
+                                          ),
                                   ),
                                 ),
                               ),

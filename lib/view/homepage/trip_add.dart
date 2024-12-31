@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
@@ -28,7 +28,7 @@ class _TripAddState extends State<TripAdd> {
   DateTime? _startDate;
   DateTime? _endDate;
   String? _selectedTripType;
-  File? _selectedImage;
+  Uint8List? _selectedImage;
 
   Future<void> _pickDate(BuildContext context, bool isStartDate) async {
     final DateTime now = DateTime.now(); // Get today's date
@@ -68,8 +68,9 @@ class _TripAddState extends State<TripAdd> {
     final XFile? pickedFile =
         await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      setState(() {
-        _selectedImage = File(pickedFile.path);
+      setState(() async {
+        _selectedImage =
+            await pickedFile.readAsBytes(); // Store image as Uint8List
       });
     }
   }
@@ -112,7 +113,7 @@ class _TripAddState extends State<TripAdd> {
       selectedNumberOfPeople: _selectedNumberOfPeople.text,
       selectedTripType: _selectedTripType,
       expance: _expanceController.text,
-      imageFile: _selectedImage?.path,
+      imageFile: _selectedImage,
     );
 
     addTrip(trip);
@@ -315,8 +316,6 @@ class _TripAddState extends State<TripAdd> {
                 ],
               ),
               const SizedBox(height: 20),
-
-              // Image Picker Button
               GestureDetector(
                 onTap: _pickImage,
                 child: _selectedImage != null
@@ -330,7 +329,7 @@ class _TripAddState extends State<TripAdd> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.file(
+                          child: Image.memory(
                             _selectedImage!,
                             fit: BoxFit.cover,
                           ),
@@ -355,8 +354,7 @@ class _TripAddState extends State<TripAdd> {
                         ),
                       ),
               ),
-              const SizedBox(height: 20),
-
+              const Gap(20),
               Custombutton(text: 'SAVE ITINERARY', onPressed: onAddTrip)
             ],
           ),

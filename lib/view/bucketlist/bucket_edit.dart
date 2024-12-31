@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -20,18 +20,20 @@ class BucketEdit extends StatefulWidget {
   String? description;
   String? selectedTripType;
   DateTime? date;
-  String? imageFile;
+  Uint8List? imageFile;
   int index;
   String? budget;
-  BucketEdit(
-      {super.key,
-      required this.date,
-      required this.budget,
-      required this.description,
-      required this.imageFile,
-      required this.location,
-      required this.index,
-      required this.selectedTripType});
+
+  BucketEdit({
+    super.key,
+    required this.date,
+    required this.budget,
+    required this.description,
+    required this.imageFile,
+    required this.location,
+    required this.index,
+    required this.selectedTripType,
+  });
 
   @override
   State<BucketEdit> createState() => _BucketEditState();
@@ -40,11 +42,11 @@ class BucketEdit extends StatefulWidget {
 class _BucketEditState extends State<BucketEdit> {
   TextEditingController _locationController = TextEditingController();
   TextEditingController _budgetController = TextEditingController();
-
   TextEditingController _descriptionController = TextEditingController();
+
   String? _selectedTripType;
   DateTime? _date;
-  File? _imageFile;
+  Uint8List? _imageBytes;
 
   Future<void> _pickDate(BuildContext context) async {
     final DateTime now = DateTime.now();
@@ -64,11 +66,12 @@ class _BucketEditState extends State<BucketEdit> {
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? pickedFile =
-        await picker.pickImage(source: ImageSource.gallery); // Access gallery
+        await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
       setState(() {
-        _imageFile = File(pickedFile.path); // Update the image
+        _imageBytes = bytes; // Store image as Uint8List
       });
     }
   }
@@ -85,29 +88,37 @@ class _BucketEditState extends State<BucketEdit> {
     "Cultural Visit",
     "Food Tasting Tour",
     "Family Vacation",
-    "Weekend Getaway"
+    "Weekend Getaway",
   ];
+
   Future<void> _updateBucket() async {
     final location = _locationController.text;
     final date = _date;
     final budget = _budgetController.text;
     final description = _descriptionController.text;
-    final imageFile = _imageFile;
+    final imageFile = _imageBytes;
     final tripType = _selectedTripType;
+
     final update = Bucket(
-        budget: budget,
-        date: date,
-        location: location,
-        description: description,
-        imageFile: imageFile?.path,
-        selectedTripType: tripType);
+      budget: budget,
+      date: date,
+      location: location,
+      description: description,
+      imageFile: imageFile, // Pass Uint8List
+      selectedTripType: tripType,
+    );
+
     CustomSnackBar.show(
-        context: context,
-        message: "Bucket list trip editted! Adcenture awaits",
-        textColor: Colors.green);
+      context: context,
+      message: "Bucket list trip edited! Adventure awaits",
+      textColor: Colors.green,
+    );
+
     editBucket(widget.index, update);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => NotchBar()));
+      context,
+      MaterialPageRoute(builder: (context) => NotchBar()),
+    );
   }
 
   @override
@@ -117,11 +128,9 @@ class _BucketEditState extends State<BucketEdit> {
     _descriptionController = TextEditingController(text: widget.description);
     _budgetController = TextEditingController(text: widget.budget);
 
-    _selectedTripType = widget.selectedTripType!;
+    _selectedTripType = widget.selectedTripType;
     _date = widget.date;
-    if (widget.imageFile != null) {
-      _imageFile = File(widget.imageFile!);
-    }
+    _imageBytes = widget.imageFile;
   }
 
   @override
@@ -147,7 +156,7 @@ class _BucketEditState extends State<BucketEdit> {
                   child: GestureDetector(
                     onTap:
                         _pickImage, // Allow image selection when tapping the container
-                    child: _imageFile == null
+                    child: _imageBytes == null
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -165,9 +174,9 @@ class _BucketEditState extends State<BucketEdit> {
                           )
                         : ClipRRect(
                             borderRadius: BorderRadius.circular(20),
-                            child: Image.file(
+                            child: Image.memory(
                               // Display the selected image
-                              _imageFile!,
+                              _imageBytes!,
                               fit: BoxFit.cover,
                               height: 300,
                               width: 300,
@@ -203,6 +212,7 @@ class _BucketEditState extends State<BucketEdit> {
             const Gap(10),
             CustomContainer(
               child: CustomTextFormField(
+                keyboardType: TextInputType.number,
                 controller: _budgetController,
                 hintText: "₹19999",
                 suffixIcon: const Icon(Icons.currency_rupee_rounded),

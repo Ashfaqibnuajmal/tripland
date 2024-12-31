@@ -21,7 +21,7 @@ class BucketAdapter extends TypeAdapter<Bucket> {
       location: fields[5] as String?,
       description: fields[4] as String?,
       budget: fields[6] as String?,
-      imageFile: fields[0] as String?,
+      imageFile: fields[0] as Uint8List?,
       selectedTripType: fields[2] as String?,
     );
   }

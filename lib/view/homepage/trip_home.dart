@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
@@ -26,7 +25,7 @@ class TripHome extends StatefulWidget {
   final Trip tripModel;
 
   final String? expance;
-  final String? imageFile;
+  final Uint8List? imageFile;
   final int index;
   const TripHome(
       {super.key,
@@ -196,8 +195,11 @@ class _TripHomeState extends State<TripHome> {
                                 borderRadius: BorderRadius.circular(20)),
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
-                                child: Image.file(
-                                    File(widget.imageFile ?? 'NA'))));
+                                child: widget.imageFile == null
+                                    ? Image.asset(
+                                        'assets/default_image.png', // Default image if no file
+                                      )
+                                    : Image.memory(widget.imageFile!)));
                       },
                     ),
                     const Gap(10),

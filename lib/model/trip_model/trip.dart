@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
 part 'trip.g.dart';
@@ -32,7 +34,7 @@ class Trip {
 
   // Field for the image file associated with the trip
   @HiveField(6)
-  String? imageFile;
+  Uint8List? imageFile;
 
   // Field for the unique identifier of the trip
   @HiveField(7)

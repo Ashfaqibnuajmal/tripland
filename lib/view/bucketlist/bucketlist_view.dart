@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
@@ -267,10 +266,16 @@ class _BucketlistState extends State<Bucketlist> {
                                 height: 250,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: Image.file(
-                                    File(bucket.imageFile ?? "NA"),
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: bucket.imageFile == null
+                                      ? Image.asset(
+                                          'assets/default_image.png', // Default image if no file
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.memory(
+                                          bucket
+                                              .imageFile!, // Display the image directly from the Uint8List
+                                          fit: BoxFit.cover,
+                                        ),
                                 ),
                               ),
                               Text(

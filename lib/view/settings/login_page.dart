@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,15 +25,26 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   bool _isObscure = true; // Controls password visibility
-  File? _pickedImage;
+  // ignore: prefer_typing_uninitialized_variables
+  var _pickedImage; // Store both File (mobile) and String (web) for image
+  Uint8List? webImage;
+  final ImagePicker picker = ImagePicker();
 
   Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        _pickedImage = File(image.path);
-      });
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      if (kIsWeb) {
+        // For web, read the image as bytes and store it as base64
+        webImage = await pickedImage.readAsBytes();
+        setState(() {
+          _pickedImage = base64Encode(webImage!); // Store base64 string for web
+        });
+      } else {
+        // For mobile, store the image as a File
+        setState(() {
+          _pickedImage = File(pickedImage.path); // Store the file for mobile
+        });
+      }
     }
   }
 
@@ -59,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
       return "Username is required";
     }
     if (!RegExp(r'^[a-zA-Z0-9]{5,}$').hasMatch(value)) {
-      return "Username must be at least 5 characters ";
+      return "Username must be at least 5 characters";
     }
 
     return null;
@@ -69,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
     if (value == null || value.isEmpty) {
       return "Password is required";
     } else if (value.length < 6) {
-      return "Password must be at least 6 characters ";
+      return "Password must be at least 6 characters long";
     }
     return null;
   }
@@ -111,15 +124,25 @@ class _LoginPageState extends State<LoginPage> {
                             ],
                           ),
                         )
-                      : ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Image.file(
-                            _pickedImage!,
-                            fit: BoxFit.cover,
-                            width: 150,
-                            height: 150,
-                          ),
-                        ),
+                      : kIsWeb
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Image.memory(
+                                webImage!,
+                                fit: BoxFit.cover,
+                                width: 150,
+                                height: 150,
+                              ),
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Image.file(
+                                _pickedImage!,
+                                fit: BoxFit.cover,
+                                width: 150,
+                                height: 150,
+                              ),
+                            ),
                 ),
               ),
               const Gap(30),
@@ -247,10 +270,13 @@ class _LoginPageState extends State<LoginPage> {
                                       const SnackBar(
                                           content:
                                               Text('Please select an image.')));
+
                                   return;
                                 }
                                 final userdata = User(
-                                    image: _pickedImage!.path,
+                                    image: _pickedImage is String
+                                        ? _pickedImage
+                                        : _pickedImage!.path,
                                     name: _usernameController.text,
                                     password: _passwordController.text);
                                 await addUser(userdata);

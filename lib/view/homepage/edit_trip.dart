@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
@@ -20,7 +20,7 @@ class TripEdit extends StatefulWidget {
   String? selectedNumberOfPeople;
   String? selectedTripType;
   String? expance;
-  String? imageFile;
+  Uint8List? imageFile;
   int index;
 
   TripEdit({
@@ -46,7 +46,7 @@ class _TripEditState extends State<TripEdit> {
   DateTime? _endDate;
   String? _selectedTripType;
   TextEditingController _expanceController = TextEditingController();
-  File? _selectedImage;
+  Uint8List? _selectedImage;
 
   @override
   void initState() {
@@ -59,7 +59,7 @@ class _TripEditState extends State<TripEdit> {
     _endDate = widget.endDate;
     _selectedTripType = widget.selectedTripType!;
     if (widget.imageFile != null) {
-      _selectedImage = File(widget.imageFile!);
+      _selectedImage = widget.imageFile;
     }
   }
 
@@ -102,8 +102,9 @@ class _TripEditState extends State<TripEdit> {
         await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
       setState(() {
-        _selectedImage = File(pickedFile.path);
+        _selectedImage = bytes; // Store image as Uint8List
       });
     }
   }
@@ -124,7 +125,7 @@ class _TripEditState extends State<TripEdit> {
       selectedNumberOfPeople: selectedNumberOfPeople,
       selectedTripType: selectedTripType,
       expance: expance,
-      imageFile: imageFile?.path,
+      imageFile: imageFile,
     );
 
     CustomSnackBar.show(
@@ -154,7 +155,7 @@ class _TripEditState extends State<TripEdit> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Location Field
+            const Gap(20),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -333,8 +334,6 @@ class _TripEditState extends State<TripEdit> {
               ],
             ),
             const SizedBox(height: 20),
-
-            // Image Section
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -352,21 +351,21 @@ class _TripEditState extends State<TripEdit> {
                   child: GestureDetector(
                     onTap: _pickImage,
                     child: Container(
-                      height: 200,
-                      width: 330,
-                      decoration: BoxDecoration(
-                        color: Colors.black12,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: _selectedImage != null
-                          ? Image.file(_selectedImage!)
-                          : const Icon(Icons.camera_alt_outlined),
-                    ),
+                        height: 200,
+                        width: 330,
+                        decoration: BoxDecoration(
+                          color: Colors.black12,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: _selectedImage == null
+                            ? const Icon(Icons.camera_alt_outlined)
+                            : Image.memory(_selectedImage!)),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 30),
+            const Gap(20),
+
             Custombutton(text: 'UPDATE ITINERARY', onPressed: _updateItinerary)
           ],
         ),
