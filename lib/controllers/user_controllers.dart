@@ -13,8 +13,8 @@ Future<void> addUser(User value) async {
 // For get the user .
 Future<User?> getUser() async {
   final userDb = await Hive.openBox<User>("user_db");
-  final data = await userDb.get("profile");
-  log('${data?.name ?? 'User is null'}');
+  final data = userDb.get("profile");
+  log(data?.name ?? 'User is null');
   return data;
 }
 

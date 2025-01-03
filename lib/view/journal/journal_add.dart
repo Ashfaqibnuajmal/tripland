@@ -5,11 +5,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/journal_controllers.dart';
 import 'package:textcodetripland/model/journal_model/journal.dart';
-import 'package:textcodetripland/view/constants/custom_appbar.dart';
-import 'package:textcodetripland/view/constants/custom_container.dart';
-import 'package:textcodetripland/view/constants/custom_textformfield.dart';
-import 'package:textcodetripland/view/constants/custombutton.dart';
-import 'package:textcodetripland/view/constants/customsnackbar.dart';
+import 'package:textcodetripland/view/widgets/custom_appbar.dart';
+import 'package:textcodetripland/view/widgets/custom_container.dart';
+import 'package:textcodetripland/view/widgets/custom_textformfield.dart';
+import 'package:textcodetripland/view/widgets/custombutton.dart';
+import 'package:textcodetripland/view/widgets/customsnackbar.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class JournalAdd extends StatefulWidget {
@@ -38,13 +38,11 @@ class _JournalAddState extends State<JournalAdd> {
   }
 
   Future<void> _pickDate(BuildContext context) async {
-    final DateTime now = DateTime.now();
-
     final DateTime? selectDate = await showDatePicker(
       context: context,
-      firstDate: now,
+      firstDate: DateTime(2000),
       lastDate: DateTime(2100),
-      initialDate: now,
+      initialDate: DateTime.now(),
     );
     if (selectDate != null) {
       setState(() {

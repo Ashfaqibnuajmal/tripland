@@ -8,8 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/controllers/user_controllers.dart';
 import 'package:textcodetripland/model/user_model/user.dart';
-import 'package:textcodetripland/view/constants/custom_login.dart';
-import 'package:textcodetripland/view/constants/custom_textstyle.dart';
+import 'package:textcodetripland/view/widgets/custom_login.dart';
+import 'package:textcodetripland/view/widgets/custom_textstyle.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class LoginPage extends StatefulWidget {

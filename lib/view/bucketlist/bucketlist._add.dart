@@ -5,12 +5,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
 import 'package:textcodetripland/model/bucket_model/bucket.dart';
-import 'package:textcodetripland/view/constants/custom_appbar.dart';
-import 'package:textcodetripland/view/constants/custom_container.dart';
-import 'package:textcodetripland/view/constants/custom_textformfield.dart';
-import 'package:textcodetripland/view/constants/custom_textstyle.dart';
-import 'package:textcodetripland/view/constants/custombutton.dart';
-import 'package:textcodetripland/view/constants/customsnackbar.dart';
+import 'package:textcodetripland/view/widgets/custom_appbar.dart';
+import 'package:textcodetripland/view/widgets/custom_container.dart';
+import 'package:textcodetripland/view/widgets/custom_textformfield.dart';
+import 'package:textcodetripland/view/widgets/custom_textstyle.dart';
+import 'package:textcodetripland/view/widgets/custombutton.dart';
+import 'package:textcodetripland/view/widgets/customsnackbar.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class BucketlistAdd extends StatefulWidget {

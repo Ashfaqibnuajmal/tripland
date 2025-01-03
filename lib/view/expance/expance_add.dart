@@ -3,11 +3,11 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/expance_controllers.dart';
 import 'package:textcodetripland/model/expance_model/expance.dart';
-import 'package:textcodetripland/view/constants/custom_appbar.dart';
-import 'package:textcodetripland/view/constants/custom_container.dart';
-import 'package:textcodetripland/view/constants/custom_textformfield.dart';
-import 'package:textcodetripland/view/constants/custom_textstyle.dart';
-import 'package:textcodetripland/view/constants/custombutton.dart';
+import 'package:textcodetripland/view/widgets/custom_appbar.dart';
+import 'package:textcodetripland/view/widgets/custom_container.dart';
+import 'package:textcodetripland/view/widgets/custom_textformfield.dart';
+import 'package:textcodetripland/view/widgets/custom_textstyle.dart';
+import 'package:textcodetripland/view/widgets/custombutton.dart';
 
 class ExpanceAdd extends StatefulWidget {
   final String tripId;
@@ -24,13 +24,11 @@ class _ExpanceAddState extends State<ExpanceAdd> {
   DateTime? _date;
 
   Future<void> _pickDate(BuildContext context) async {
-    final DateTime now = DateTime.now();
-
     final DateTime? selectDate = await showDatePicker(
       context: context,
-      firstDate: now,
+      firstDate: DateTime(2000),
       lastDate: DateTime(2100),
-      initialDate: now,
+      initialDate: DateTime.now(),
     );
     if (selectDate != null) {
       setState(() {
@@ -90,7 +88,7 @@ class _ExpanceAddState extends State<ExpanceAdd> {
                 // Name Section
                 const SizedBox(height: 20),
                 Text(
-                  "Name",
+                  "Itrm name",
                   style: GoogleFonts.anton(color: Colors.white),
                 ),
                 const Gap(10),
@@ -104,7 +102,7 @@ class _ExpanceAddState extends State<ExpanceAdd> {
                 const SizedBox(height: 20),
                 Text(
                   "Price",
-                  style: GoogleFonts.roboto(color: Colors.white),
+                  style: GoogleFonts.anton(color: Colors.white),
                 ),
                 const Gap(10),
 

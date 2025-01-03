@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:textcodetripland/model/expance_model/expance.dart';
 
+// add expance based on id
 ValueNotifier<List<Expance>> expanceNotifier = ValueNotifier([]);
 Future<void> addExpance(Expance value) async {
   log(" add the expance....");
@@ -14,6 +15,7 @@ Future<void> addExpance(Expance value) async {
   expanceNotifier.notifyListeners();
 }
 
+// getallexpance  based on in tripId
 Future<void> getAllExpance(String tripId) async {
   log("getallexpances......");
   final expanceDb = await Hive.openBox<Expance>("expance_db");
@@ -31,6 +33,7 @@ Future<void> getAllExpance(String tripId) async {
   expanceNotifier.notifyListeners();
 }
 
+// delete the expance from the id
 Future<void> deleteExpance(Expance expance) async {
   log("delete the expance.....");
   final expanceDb = await Hive.openBox<Expance>("expance_db");

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:textcodetripland/view/constants/custom_textstyle.dart';
+import 'package:textcodetripland/view/widgets/custom_textstyle.dart';
 
 class SettingsButton extends StatelessWidget {
   final IconData icon;

@@ -5,12 +5,12 @@ import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
-import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
-import 'package:textcodetripland/view/constants/custom_container.dart';
-import 'package:textcodetripland/view/constants/custom_textformfield.dart';
-import 'package:textcodetripland/view/constants/custom_textstyle.dart';
-import 'package:textcodetripland/view/constants/custombutton.dart';
-import 'package:textcodetripland/view/constants/customsnackbar.dart';
+import 'package:textcodetripland/view/widgets/custom_back_arrow.dart';
+import 'package:textcodetripland/view/widgets/custom_container.dart';
+import 'package:textcodetripland/view/widgets/custom_textformfield.dart';
+import 'package:textcodetripland/view/widgets/custom_textstyle.dart';
+import 'package:textcodetripland/view/widgets/custombutton.dart';
+import 'package:textcodetripland/view/widgets/customsnackbar.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class TripAdd extends StatefulWidget {

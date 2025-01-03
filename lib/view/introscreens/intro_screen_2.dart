@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:textcodetripland/view/introscreens/intro_screen_3.dart';
 import 'package:textcodetripland/view/settings/login_page.dart';
-import '../constants/custom_intro_screen.dart';
+import '../widgets/custom_intro_screen.dart';
 
 class IntroScreen2 extends StatelessWidget {
   const IntroScreen2({super.key});

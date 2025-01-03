@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
-import 'package:textcodetripland/view/constants/custom_appbar.dart';
-import 'package:textcodetripland/view/constants/custom_textstyle.dart';
+import 'package:textcodetripland/view/widgets/custom_appbar.dart';
+import 'package:textcodetripland/view/widgets/custom_textstyle.dart';
 import 'package:textcodetripland/view/dayplanner/day_activites.dart';
 import 'package:textcodetripland/view/dayplanner/dayplan_add.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
@@ -93,8 +93,7 @@ class _DayPlannerState extends State<DayPlanner> {
           const Gap(20),
           Expanded(
             child: ListView.builder(
-              itemCount: dailyPlans.length -
-                  1, // Replace with the actual number of days
+              itemCount: dailyPlans.length,
               itemBuilder: (context, index) {
                 final int dayNumber =
                     index + 1; // To display Day 1, Day 2, etc.

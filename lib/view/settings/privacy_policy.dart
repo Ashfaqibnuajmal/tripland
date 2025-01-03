@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:textcodetripland/view/constants/custom_appbar.dart';
-import 'package:textcodetripland/view/constants/custom_textstyle.dart';
+import 'package:textcodetripland/view/widgets/custom_appbar.dart';
+import 'package:textcodetripland/view/widgets/custom_textstyle.dart';
 
 class PrivacyPolicy extends StatelessWidget {
   const PrivacyPolicy({super.key});

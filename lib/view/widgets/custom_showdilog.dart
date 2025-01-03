@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:textcodetripland/view/constants/custom_textstyle.dart';
-import 'package:textcodetripland/view/constants/customsnackbar.dart';
+import 'package:textcodetripland/view/widgets/custom_textstyle.dart';
+import 'package:textcodetripland/view/widgets/customsnackbar.dart';
 
 class CustomDeleteDialog extends StatelessWidget {
   final VoidCallback onDelete;

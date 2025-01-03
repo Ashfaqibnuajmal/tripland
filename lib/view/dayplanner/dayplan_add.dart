@@ -4,11 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:textcodetripland/controllers/activities_controlers.dart';
 import 'package:textcodetripland/model/activities_model/activities.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
-import 'package:textcodetripland/view/constants/custom_appbar.dart';
-import 'package:textcodetripland/view/constants/custom_container.dart';
-import 'package:textcodetripland/view/constants/custom_textformfield.dart';
-import 'package:textcodetripland/view/constants/custom_textstyle.dart';
-import 'package:textcodetripland/view/constants/custombutton.dart';
+import 'package:textcodetripland/view/widgets/custom_appbar.dart';
+import 'package:textcodetripland/view/widgets/custom_container.dart';
+import 'package:textcodetripland/view/widgets/custom_textformfield.dart';
+import 'package:textcodetripland/view/widgets/custom_textstyle.dart';
+import 'package:textcodetripland/view/widgets/custombutton.dart';
 
 class PlanYourDayAdd extends StatefulWidget {
   final Trip tripdata;

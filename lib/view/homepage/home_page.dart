@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // Import shared_preferences package
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
-import 'package:textcodetripland/view/constants/custom_action.dart';
-import 'package:textcodetripland/view/constants/custom_appbar.dart';
-import 'package:textcodetripland/view/constants/custom_bottomsheet.dart';
-import 'package:textcodetripland/view/constants/custom_showdilog.dart';
-import 'package:textcodetripland/view/constants/custom_textstyle.dart';
+import 'package:textcodetripland/view/widgets/custom_action.dart';
+import 'package:textcodetripland/view/widgets/custom_appbar.dart';
+import 'package:textcodetripland/view/widgets/custom_bottomsheet.dart';
+import 'package:textcodetripland/view/widgets/custom_textstyle.dart';
+import 'package:textcodetripland/view/widgets/cutom_tripcard.dart';
 import 'package:textcodetripland/view/homepage/trip_add.dart';
-import 'package:textcodetripland/view/homepage/trip_home.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -137,121 +135,23 @@ class _HomePageState extends State<HomePage> {
                       future: getRatingForTrip(
                           tripKey), // Fetch rating for each trip
                       builder: (context, snapshot) {
-                        double rating = snapshot.data ?? 0.0;
-                        return Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  Icons.location_on_outlined,
-                                  color: Colors.black,
-                                  size: 20,
-                                ),
-                                Text(
-                                    data.location?.isNotEmpty ?? false
-                                        ? data.location![0].toUpperCase() +
-                                            data.location!.substring(1)
-                                        : 'NA',
-                                    style: CustomTextStyle.location)
-                              ],
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => TripHome(
-                                            index: index,
-                                            location: data.location,
-                                            startDate: data.startDate,
-                                            endDate: data.endDate,
-                                            tripModel: data,
-                                            selectedNumberOfPeople:
-                                                data.selectedNumberOfPeople,
-                                            selectedTripType:
-                                                data.selectedTripType,
-                                            expance: data.expance,
-                                            imageFile: data.imageFile)));
+                        return FutureBuilder<double>(
+                          future: getRatingForTrip(
+                              "rating_${data.location}"), // Fetch rating
+                          builder: (context, snapshot) {
+                            double rating =
+                                snapshot.data ?? 3.0; // Default rating is 3.0
+                            return TripCard(
+                              tripData: data,
+                              index: index,
+                              initialRating: rating,
+                              saveRatingCallback: saveRatingForTrip,
+                              onDelete: () {
+                                deleteTrip(
+                                    index); // Call your delete function here
                               },
-                              child: GestureDetector(
-                                onLongPress: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (ctx) => CustomDeleteDialog(
-                                        onDelete: () {
-                                          // Call your delete function here
-                                          deleteTrip(index); // Example
-                                        },
-                                        title: 'Delete Itinerary?',
-                                        message:
-                                            "Do you want to delete this trip permanently?"),
-                                  );
-                                },
-                                child: Container(
-                                  height: 250,
-                                  width: 350,
-                                  margin: const EdgeInsets.only(bottom: 20),
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.3),
-                                        spreadRadius: 2,
-                                        blurRadius: 8,
-                                        offset: const Offset(4, 4),
-                                      ),
-                                    ],
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: data.imageFile == null
-                                        ? Image.asset(
-                                            'assets/default_image.png', // Default image if no file
-                                            fit: BoxFit.fill,
-                                            width: double.infinity,
-                                          )
-                                        : Image.memory(
-                                            data.imageFile!,
-                                            fit: BoxFit.cover,
-                                          ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  RatingBar.builder(
-                                    initialRating:
-                                        rating, // Set the initial rating here
-                                    minRating: 1,
-                                    maxRating: 5,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemCount: 5,
-                                    itemSize: 30,
-                                    itemBuilder: (context, _) => const Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                    ),
-                                    onRatingUpdate: (newRating) {
-                                      setState(() {
-                                        saveRatingForTrip(tripKey,
-                                            newRating); // Save rating when changed
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 40),
-                          ],
+                            );
+                          },
                         );
                       },
                     );

@@ -4,10 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/controllers/checkllist_controllers.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
 import 'package:textcodetripland/view/checklist/checklist_add.dart';
-import 'package:textcodetripland/view/constants/custom_appbar.dart';
-import 'package:textcodetripland/view/constants/custom_container.dart';
-import 'package:textcodetripland/view/constants/custom_showdilog.dart';
-import 'package:textcodetripland/view/constants/custom_textstyle.dart';
+import 'package:textcodetripland/view/widgets/custom_appbar.dart';
+import 'package:textcodetripland/view/widgets/custom_container.dart';
+import 'package:textcodetripland/view/widgets/custom_showdilog.dart';
+import 'package:textcodetripland/view/widgets/custom_textstyle.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class Checklists extends StatefulWidget {

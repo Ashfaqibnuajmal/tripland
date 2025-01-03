@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:textcodetripland/view/constants/custom_back_arrow.dart';
-import 'package:textcodetripland/view/constants/custom_textstyle.dart';
+import 'package:textcodetripland/view/widgets/custom_back_arrow.dart';
+import 'package:textcodetripland/view/widgets/custom_textstyle.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
