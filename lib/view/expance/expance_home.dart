@@ -25,7 +25,7 @@ class _ExpanceHomeState extends State<ExpanceHome> {
   @override
   Widget build(BuildContext context) {
     String totalAmountString =
-        widget.trip.expance ?? '0'; // Default to '0' if null
+        widget.trip.expance ?? '0.00'; // Default to '0' if null
     double totalAmount =
         double.tryParse(totalAmountString) ?? 0.0; // Convert to double
 

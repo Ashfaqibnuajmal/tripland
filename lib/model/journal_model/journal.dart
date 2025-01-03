@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
-
-part 'journal.g.dart'; // Part directive for Hive to generate the adapter code
+part 'journal.g.dart';
 
 // Defining a Hive type for Journal class with a unique typeId
 @HiveType(typeId: 4)

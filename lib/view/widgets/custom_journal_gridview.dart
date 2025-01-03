@@ -10,10 +10,10 @@ class JournalGridView extends StatelessWidget {
   final Function deleteJournal;
 
   const JournalGridView({
-    Key? key,
+    super.key,
     required this.journals,
     required this.deleteJournal,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +62,7 @@ class JournalGridView extends StatelessWidget {
               ).then((value) {
                 if (value == 'edit') {
                   Navigator.push(
+                    // ignore: use_build_context_synchronously
                     context,
                     MaterialPageRoute(
                       builder: (context) => JournalEdit(
@@ -77,6 +78,7 @@ class JournalGridView extends StatelessWidget {
                   );
                 } else if (value == 'delete') {
                   showDialog(
+                    // ignore: use_build_context_synchronously
                     context: context,
                     builder: (ctx) => CustomDeleteDialog(
                       onDelete: () {

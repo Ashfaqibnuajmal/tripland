@@ -3,12 +3,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:textcodetripland/controllers/bucket_controllers.dart';
 import 'package:textcodetripland/model/bucket_model/bucket.dart';
 import 'package:textcodetripland/view/widgets/custom_back_arrow.dart';
-import 'package:textcodetripland/view/widgets/custom_container.dart';
-import 'package:textcodetripland/view/widgets/custom_textformfield.dart';
+import 'package:textcodetripland/view/widgets/custom_bucket_add.dart';
 import 'package:textcodetripland/view/widgets/custom_textstyle.dart';
 import 'package:textcodetripland/view/widgets/custombutton.dart';
 import 'package:textcodetripland/view/widgets/customsnackbar.dart';
@@ -146,112 +144,17 @@ class _BucketEditState extends State<BucketEdit> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Center(
-                child: CustomContainer(
-                  height: 250,
-                  width: 300,
-                  color: Colors.black87,
-                  child: GestureDetector(
-                    onTap:
-                        _pickImage, // Allow image selection when tapping the container
-                    child: _imageBytes == null
-                        ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                onPressed: _pickImage, // Pick image when tapped
-                                icon: const Icon(
-                                  Icons.camera_alt_rounded,
-                                  color: Color(0xFFFCC300),
-                                  size: 70,
-                                ),
-                              ),
-                              const Text("ADD PHOTO",
-                                  style: TextStyle(color: Colors.white)),
-                            ],
-                          )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.memory(
-                              // Display the selected image
-                              _imageBytes!,
-                              fit: BoxFit.cover,
-                              height: 300,
-                              width: 300,
-                            ),
-                          ),
-                  ),
-                ),
-              ),
-            ),
-            GestureDetector(
-                onTap: () => _pickDate(context),
-                child: CustomContainer(
-                    child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                                _date == null
-                                    ? "Select a date"
-                                    : DateFormat('dd/MM/yyyy')
-                                        .format(_date!), // Format the date
-                                style: CustomTextStyle.textstyle2),
-                            const Icon(Icons.calendar_month_rounded)
-                          ],
-                        )))),
-            const Gap(10),
-            CustomContainer(
-                child: CustomTextFormField(
-                    controller: _locationController,
-                    hintText: "Paris or France",
-                    suffixIcon: const Icon(Icons.location_on_outlined))),
-            const Gap(10),
-            CustomContainer(
-              child: CustomTextFormField(
-                keyboardType: TextInputType.number,
-                controller: _budgetController,
-                hintText: "₹19999",
-                suffixIcon: const Icon(Icons.currency_rupee_rounded),
-              ),
-            ),
-            const Gap(10),
-            CustomContainer(
-              child: DropdownButton<String>(
-                value:
-                    _selectedTripType, // Use _selectedTripType instead of selectedOption
-                icon: const Icon(Icons.arrow_drop_down),
-                iconSize: 24,
-                underline: const SizedBox(),
-                isExpanded: true,
-                style: const TextStyle(color: Colors.black, fontSize: 16),
-                items: options.map((String option) {
-                  return DropdownMenuItem<String>(
-                    value: option,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: Text(option, style: CustomTextStyle.empty),
-                    ),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    _selectedTripType = newValue; // Update the selected value
-                  });
-                },
-              ),
-            ),
-            const Gap(10),
-            CustomContainer(
-              height: 100,
-              child: CustomTextFormField(
-                controller: _descriptionController,
-                hintText: "Description",
-                maxLines: null, // Allows the field to grow dynamically
-              ),
+            BucketEditForm(
+              locationController: _locationController,
+              budgetController: _budgetController,
+              descriptionController: _descriptionController,
+              selectedTripType: _selectedTripType,
+              date: _date,
+              imageFile: _imageBytes,
+              options: options,
+              updateBucket: _updateBucket,
+              pickDate: _pickDate,
+              pickImage: _pickImage,
             ),
             const Gap(10),
             Custombutton(text: "UPDATE BUCKET", onPressed: _updateBucket)

@@ -9,12 +9,12 @@ class ChecklistItem extends StatelessWidget {
   final Function onDelete;
 
   const ChecklistItem({
-    Key? key,
+    super.key,
     required this.index,
     required this.checklist,
     required this.checkboxStates,
     required this.onDelete,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

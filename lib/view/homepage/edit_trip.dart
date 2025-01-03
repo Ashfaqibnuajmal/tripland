@@ -134,7 +134,7 @@ class _TripEditState extends State<TripEdit> {
         textColor: Colors.green);
     editTrip(widget.index, update);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => NotchBar()));
+        context, MaterialPageRoute(builder: (context) => const NotchBar()));
   }
 
   @override

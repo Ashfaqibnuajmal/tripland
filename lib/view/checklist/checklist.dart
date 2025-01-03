@@ -147,7 +147,7 @@ class _ChecklistsState extends State<Checklists> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              child: Text(checklist.name ?? "NA",
+                              child: Text(checklist.name ?? "None",
                                   style: CustomTextStyle.textStyle4),
                             ),
                             Checkbox(

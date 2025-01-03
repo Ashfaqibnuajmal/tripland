@@ -8,9 +8,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/controllers/user_controllers.dart';
 import 'package:textcodetripland/model/user_model/user.dart';
+import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 import 'package:textcodetripland/view/widgets/custom_login.dart';
 import 'package:textcodetripland/view/widgets/custom_textstyle.dart';
-import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
     if (isLoggedIn) {
       // ignore: use_build_context_synchronously
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => NotchBar()),
+        MaterialPageRoute(builder: (context) => const NotchBar()),
         (Route<dynamic> route) => false,
       );
     }
@@ -284,7 +284,8 @@ class _LoginPageState extends State<LoginPage> {
                                     // ignore: use_build_context_synchronously
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => NotchBar()));
+                                        builder: (context) =>
+                                            const NotchBar()));
                               }
                             },
                             child: Text(

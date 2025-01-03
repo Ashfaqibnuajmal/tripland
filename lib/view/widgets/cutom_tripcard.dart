@@ -13,13 +13,13 @@ class TripCard extends StatelessWidget {
   final VoidCallback onDelete;
 
   const TripCard({
-    Key? key,
+    super.key,
     required this.tripData,
     required this.index,
     required this.initialRating,
     required this.saveRatingCallback,
     required this.onDelete,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

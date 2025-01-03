@@ -119,7 +119,7 @@ class _JournalEditState extends State<JournalEdit> {
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => NotchBar()),
+      MaterialPageRoute(builder: (context) => const NotchBar()),
     );
   }
 

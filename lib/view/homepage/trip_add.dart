@@ -123,7 +123,7 @@ class _TripAddState extends State<TripAdd> {
         textColor: Colors.green);
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => NotchBar()),
+      MaterialPageRoute(builder: (context) => const NotchBar()),
     );
   }
 

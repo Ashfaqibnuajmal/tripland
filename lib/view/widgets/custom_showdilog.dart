@@ -49,7 +49,7 @@ class CustomDeleteDialog extends StatelessWidget {
                   height: 40,
                   width: 90,
                   decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: Colors.white12,
                       borderRadius: BorderRadius.circular(5)),
                   child: TextButton(
                     onPressed: () => Navigator.of(context).pop(),

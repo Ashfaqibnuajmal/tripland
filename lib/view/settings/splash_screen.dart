@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:textcodetripland/controllers/user_controllers.dart';
 import 'package:textcodetripland/view/homepage/bottom_navigation.dart';
 import 'package:textcodetripland/view/introscreens/intro_screen_1.dart';
-import 'package:textcodetripland/view/settings/login_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -49,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen>
       Navigator.pushReplacement(
         // ignore: use_build_context_synchronously
         context,
-        MaterialPageRoute(builder: (context) => NotchBar()),
+        MaterialPageRoute(builder: (context) => const NotchBar()),
       );
     } else {
       Navigator.pushReplacement(

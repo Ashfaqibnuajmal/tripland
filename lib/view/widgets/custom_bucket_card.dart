@@ -15,7 +15,8 @@ class CustomBucketCard extends StatelessWidget {
   final Function(int, bool) saveFavoriteStateByKey;
   final Function(int, bool) saveSwitchStateByKey;
 
-  CustomBucketCard({
+  const CustomBucketCard({
+    super.key,
     required this.bucket,
     required this.index,
     required this.switchState,
@@ -131,7 +132,7 @@ class CustomBucketCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 child: bucket.imageFile == null
                     ? Image.asset(
-                        'assets/default_image.png', // Default image if no file
+                        '', // Default image if no file
                         fit: BoxFit.cover,
                       )
                     : Image.memory(

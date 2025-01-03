@@ -120,7 +120,7 @@ class _JournalAddState extends State<JournalAdd> {
     );
 
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => NotchBar()));
+        context, MaterialPageRoute(builder: (context) => const NotchBar()));
   }
 
   @override

@@ -9,14 +9,14 @@ class CustomLogin extends StatelessWidget {
   final List<BoxShadow>? boxShadow;
 
   const CustomLogin({
-    Key? key,
+    super.key,
     required this.height,
     required this.width,
     required this.child,
     this.color = Colors.white,
     this.borderRadius = const BorderRadius.all(Radius.circular(20)),
     this.boxShadow,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +28,11 @@ class CustomLogin extends StatelessWidget {
         borderRadius: borderRadius,
         boxShadow: boxShadow ??
             [
-              BoxShadow(
+              const BoxShadow(
                 color: Colors.grey,
                 spreadRadius: 1,
                 blurRadius: 1,
-                offset: const Offset(1, 1),
+                offset: Offset(1, 1),
               ),
             ],
       ),

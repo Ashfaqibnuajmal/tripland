@@ -9,12 +9,12 @@ class ActivityCard extends StatelessWidget {
   final VoidCallback onDeletePressed;
 
   const ActivityCard({
-    Key? key,
+    super.key,
     required this.activity,
     required this.switchState,
     required this.onSwitchChanged,
     required this.onDeletePressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

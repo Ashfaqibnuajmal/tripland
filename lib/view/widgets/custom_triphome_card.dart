@@ -56,6 +56,7 @@ class TripHomeCard extends StatelessWidget {
                         ]).then((value) {
                       if (value == 'edit') {
                         Navigator.push(
+                          // ignore: use_build_context_synchronously
                           context,
                           MaterialPageRoute(
                             builder: (context) => TripEdit(

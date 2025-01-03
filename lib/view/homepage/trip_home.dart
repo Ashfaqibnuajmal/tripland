@@ -61,7 +61,7 @@ class _TripHomeState extends State<TripHome> {
         title: widget.location.toString(),
         ctx: context,
         shouldNavigate: true,
-        targetPage: NotchBar(),
+        targetPage: const NotchBar(),
       ),
       body: ValueListenableBuilder(
         valueListenable: tripListNotifier,

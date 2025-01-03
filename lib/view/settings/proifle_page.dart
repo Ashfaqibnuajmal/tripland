@@ -63,13 +63,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     GestureDetector(
                       child: CircleAvatar(
-                        radius: 60,
-                        backgroundColor: Colors.black12,
-                        backgroundImage: userdata?.image != null
-                            ? FileImage(File(userdata!
-                                .image!)) // Convert string to File object
-                            : null, // Show a default image if userdata or image is null
-                      ),
+                          radius: 60,
+                          backgroundColor: Colors.black12,
+                          backgroundImage: userdata?.image != null
+                              ? FileImage(File(userdata!
+                                  .image!)) // Convert string to File object
+                              : const AssetImage(
+                                  "assets/images/profiePicture.png")),
                     ),
                     const Gap(10),
                     Text(
