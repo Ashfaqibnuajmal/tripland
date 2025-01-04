@@ -162,6 +162,7 @@ class _TripEditState extends State<TripEdit> {
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 35),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.location_pin),
                       Text("Itinerary Location",
@@ -240,6 +241,7 @@ class _TripEditState extends State<TripEdit> {
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 35),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.people_outline_sharp),
                       Text("Number of People",
@@ -265,6 +267,7 @@ class _TripEditState extends State<TripEdit> {
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 35),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.transfer_within_a_station_sharp),
                       Text("Trip Guides", style: CustomTextStyle.textStyle5),
@@ -315,6 +318,7 @@ class _TripEditState extends State<TripEdit> {
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 35),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.attach_money_rounded),
                       Text("Budget", style: CustomTextStyle.textStyle5),
@@ -340,6 +344,7 @@ class _TripEditState extends State<TripEdit> {
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 25),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.image),
                       Text("Trip Image", style: CustomTextStyle.textStyle5),

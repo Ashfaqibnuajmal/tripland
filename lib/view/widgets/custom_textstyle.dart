@@ -95,7 +95,7 @@ class CustomTextStyle {
   static const TextStyle textStyle6 =
       TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black);
   static const TextStyle textStyle7 =
-      TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white);
+      TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
   static const TextStyle textstyle8 =
       TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600);
 

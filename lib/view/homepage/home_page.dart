@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Container(
               height: 45,
-              width: 340,
+              width: MediaQuery.of(context).size.width * 0.9,
               decoration: BoxDecoration(
                 border: Border.all(color: const Color(0xFFFCC300), width: 1),
                 color: Colors.white12,

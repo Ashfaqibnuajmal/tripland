@@ -16,7 +16,7 @@ class SettingsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      width: 300,
+      width: MediaQuery.of(context).size.width * 0.75,
       decoration: BoxDecoration(
           color: Colors.grey, borderRadius: BorderRadius.circular(20)),
       child: TextButton(

@@ -62,17 +62,27 @@ class ExpenseSummary extends StatelessWidget {
           ],
         ),
         const Gap(30),
-        const CustomContainer(
-          width: 400,
+        CustomContainer(
+          width:
+              MediaQuery.of(context).size.width * 0.95, // 90% of screen width
           color: Colors.black,
-          child: Padding(
-            padding: EdgeInsets.all(10.0),
+          child: const Padding(
+            padding: EdgeInsets.all(10.0), // Fixed padding
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Items", style: CustomTextStyle.textStyle7),
-                Text("Date", style: CustomTextStyle.textStyle7),
-                Text("Price", style: CustomTextStyle.textStyle7),
+                Text(
+                  "Items",
+                  style: CustomTextStyle.textStyle7, // Use fixed text styling
+                ),
+                Text(
+                  "Date",
+                  style: CustomTextStyle.textStyle7, // Use fixed text styling
+                ),
+                Text(
+                  "Price",
+                  style: CustomTextStyle.textStyle7, // Use fixed text styling
+                ),
               ],
             ),
           ),

@@ -64,7 +64,7 @@ class _DayPlannerState extends State<DayPlanner> {
         title: "Day Planner",
         ctx: context,
         shouldNavigate: true,
-        targetPage: NotchBar(),
+        targetPage: const NotchBar(),
       ),
       body: Column(
         children: [

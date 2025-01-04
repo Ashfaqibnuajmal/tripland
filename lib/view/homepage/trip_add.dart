@@ -150,6 +150,7 @@ class _TripAddState extends State<TripAdd> {
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 35),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.location_pin),
                         Text("Itinerary Location",
@@ -228,6 +229,7 @@ class _TripAddState extends State<TripAdd> {
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 35),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.people_outline_sharp),
                         Text("Number of People",
@@ -253,6 +255,7 @@ class _TripAddState extends State<TripAdd> {
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 35),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.transfer_within_a_station_sharp),
                         Text("Trip Guides", style: CustomTextStyle.textStyle5),
@@ -300,6 +303,7 @@ class _TripAddState extends State<TripAdd> {
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 35),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.attach_money_rounded),
                         Text("Budget", style: CustomTextStyle.textStyle5),

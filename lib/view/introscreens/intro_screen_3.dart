@@ -10,7 +10,7 @@ class IntroScreen3 extends StatelessWidget {
     return CustomIntroScreen(
       imagePath: "assets/images/introimage3.png",
       nextButtonText: "START",
-      showSkipButton: false,
+      showSkipButton: true,
       heading: "Global Adventures",
       description:
           "Discover the beauty and diversity our world has to offer. From distant cultures to stunning landscapes, every trip broadens horizons and deepens your sense of wonder", // Description text

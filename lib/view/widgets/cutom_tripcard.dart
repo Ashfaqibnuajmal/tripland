@@ -23,6 +23,7 @@ class TripCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size; // Get screen size
     String tripKey = "rating_${tripData.location}"; // Unique key for each trip
 
     return Column(
@@ -74,8 +75,8 @@ class TripCard extends StatelessWidget {
             );
           },
           child: Container(
-            height: 250,
-            width: 350,
+            height: size.height * 0.35, // Responsive height
+            width: size.width * 0.95, // Responsive width
             margin: const EdgeInsets.only(bottom: 20),
             decoration: BoxDecoration(
               color: Colors.transparent,
@@ -94,7 +95,7 @@ class TripCard extends StatelessWidget {
               child: tripData.imageFile == null
                   ? Image.asset(
                       'assets/default_image.png',
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                       width: double.infinity,
                     )
                   : Image.memory(
@@ -105,9 +106,10 @@ class TripCard extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(
+              horizontal: size.width * 0.04), // Responsive padding
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               RatingBar.builder(
                 initialRating: initialRating,
@@ -116,7 +118,7 @@ class TripCard extends StatelessWidget {
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,
-                itemSize: 30,
+                itemSize: size.width * 0.07, // Responsive star size
                 itemBuilder: (context, _) => const Icon(
                   Icons.star,
                   color: Colors.amber,
@@ -128,7 +130,7 @@ class TripCard extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 40),
+        SizedBox(height: size.height * 0.05), // Responsive spacing
       ],
     );
   }
