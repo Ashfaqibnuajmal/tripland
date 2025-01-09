@@ -115,7 +115,7 @@ class _BucketEditState extends State<BucketEdit> {
     editBucket(widget.index, update);
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => NotchBar()),
+      MaterialPageRoute(builder: (context) => const NotchBar()),
     );
   }
 

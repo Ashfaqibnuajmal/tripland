@@ -88,7 +88,7 @@ class _BucketlistAddState extends State<BucketlistAdd> {
         textColor: Colors.green);
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => NotchBar()),
+      MaterialPageRoute(builder: (context) => const NotchBar()),
     );
   }
 

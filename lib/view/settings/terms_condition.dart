@@ -19,7 +19,7 @@ class TermsCondition extends StatelessWidget {
           child: Text('''
 Effective Date: [31/12/2024]
 
-Welcome to Trippy! By accessing or using our app, you agree to abide by these Terms and Conditions. If you do not agree, please discontinue use immediately.
+Welcome to Tripland! By accessing or using our app, you agree to abide by these Terms and Conditions. If you do not agree, please discontinue use immediately.
 
 
 1. Acceptance of Terms
@@ -29,7 +29,7 @@ By using Trippy, you confirm your acceptance of these Terms. This agreement appl
 
 2. Use of the App
 
-Purpose: Trippy is designed for personal travel planning and journaling.
+Purpose: Tripland is designed for personal travel planning and journaling.
 User Responsibilities:
 Provide accurate and truthful information when using the app.
 Ensure the security of your account, including login credentials.
@@ -38,12 +38,12 @@ Use the app in compliance with applicable laws and avoid harmful activities.
 
 3. Intellectual Property
 
-All content within the app, including designs, logos, and features, is the property of Trippy or its licensors. You may not copy, distribute, or modify app content without prior written permission.
+All content within the app, including designs, logos, and features, is the property of Tripland or its licensors. You may not copy, distribute, or modify app content without prior written permission.
 
 
 4. Privacy
 
-Your use of Trippy is governed by our Privacy Policy. The Privacy Policy explains how your data is collected, stored, and used.
+Your use of Tripland is governed by our Privacy Policy. The Privacy Policy explains how your data is collected, stored, and used.
 
 
 5. Account Termination

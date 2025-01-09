@@ -52,7 +52,7 @@ Your device and app version.
 
 4. Feedback
 
-We value your feedback to improve Trippy! Share your suggestions, ideas, or concerns using the Feedback option in the app or email us at ashfaqkv2107@gmail.com.
+We value your feedback to improve Tripland! Share your suggestions, ideas, or concerns using the Feedback option in the app or email us at ashfaqkv2107@gmail.com.
 
 
 5. Additional Resources

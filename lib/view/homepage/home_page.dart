@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // Import shared_preferences package
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textcodetripland/controllers/trip_controllers.dart';
 import 'package:textcodetripland/model/trip_model/trip.dart';
 import 'package:textcodetripland/view/widgets/custom_action.dart';
@@ -20,6 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController _searchController = TextEditingController();
   String? _selectedTripType;
+  String _selectedDateFilter = "All";
   final List<String> tripType = [
     "All",
     "Solo",
@@ -32,6 +33,7 @@ class _HomePageState extends State<HomePage> {
     "Backpacking",
     "Natural",
   ];
+  final List<String> dateFilters = ["All", "Upcoming", "Completed"];
 
   @override
   void initState() {
@@ -48,17 +50,35 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  // Function to get rating from SharedPreferences for a particular trip
   Future<double> getRatingForTrip(String tripKey) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getDouble(tripKey) ??
-        3.0; // Default rating is 3.0 if not found
+    return prefs.getDouble(tripKey) ?? 3.0;
   }
 
-  // Function to save rating to SharedPreferences for a particular trip
   Future<void> saveRatingForTrip(String tripKey, double rating) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setDouble(tripKey, rating);
+  }
+
+  List<Trip> _getFilteredTrips(List<Trip> tripList) {
+    final now = DateTime.now();
+
+    return tripList.where((trip) {
+      final matchesType = _selectedTripType == null ||
+          _selectedTripType == "All" ||
+          trip.selectedTripType == _selectedTripType;
+
+      final matchesSearch = trip.location
+              ?.toLowerCase()
+              .contains(_searchController.text.trim().toLowerCase()) ??
+          false;
+
+      final matchesDateFilter = _selectedDateFilter == "All" ||
+          (_selectedDateFilter == "Upcoming" && trip.endDate!.isAfter(now)) ||
+          (_selectedDateFilter == "Completed" && trip.endDate!.isBefore(now));
+
+      return matchesType && matchesSearch && matchesDateFilter;
+    }).toList();
   }
 
   @override
@@ -66,7 +86,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(
-        title: "Trippy",
+        title: "Tripland  ",
         ctx: context,
         leading: IconButton(
           onPressed: () => _showBottomSheetHome(context),
@@ -81,33 +101,72 @@ class _HomePageState extends State<HomePage> {
           const Gap(20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Container(
-              height: 45,
-              width: MediaQuery.of(context).size.width * 0.9,
-              decoration: BoxDecoration(
-                border: Border.all(color: const Color(0xFFFCC300), width: 1),
-                color: Colors.white12,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  hintText: "Search by location",
-                  hintStyle: CustomTextStyle.search,
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      _searchController.clear();
-                    },
-                    icon: const Icon(
-                      Icons.cancel_rounded,
-                      size: 20,
-                      color: Colors.black,
+            child: Row(
+              children: [
+                // Search Field
+                Expanded(
+                  child: Container(
+                    height: 45,
+                    decoration: BoxDecoration(
+                      border:
+                          Border.all(color: const Color(0xFFFCC300), width: 1),
+                      color: Colors.white12,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        hintText: "Search by location",
+                        hintStyle: CustomTextStyle.search,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            _searchController.clear();
+                          },
+                          icon: const Icon(
+                            Icons.cancel_rounded,
+                            size: 20,
+                            color: Colors.black,
+                          ),
+                        ),
+                        border: InputBorder.none,
+                        contentPadding:
+                            const EdgeInsets.only(left: 10, top: 10),
+                      ),
                     ),
                   ),
-                  border: InputBorder.none,
-                  contentPadding: const EdgeInsets.only(left: 10, top: 10),
                 ),
-              ),
+                // Date Filter Dropdown
+                IconButton(
+                  onPressed: () {
+                    showMenu(
+                      color: Colors.white,
+                      context: context,
+                      position: const RelativeRect.fromLTRB(100, 100, 0, 0),
+                      items: [
+                        const PopupMenuItem(
+                          value: "All",
+                          child: Text("All Trips"),
+                        ),
+                        const PopupMenuItem(
+                          value: "Upcoming",
+                          child: Text("Upcoming Trips"),
+                        ),
+                        const PopupMenuItem(
+                          value: "Completed",
+                          child: Text("Completed Trips"),
+                        ),
+                      ],
+                    ).then((value) {
+                      if (value != null) {
+                        setState(() {
+                          _selectedDateFilter = value;
+                        });
+                      }
+                    });
+                  },
+                  icon: const Icon(Icons.tune_rounded),
+                ),
+              ],
             ),
           ),
           const Gap(20),
@@ -115,43 +174,22 @@ class _HomePageState extends State<HomePage> {
             child: ValueListenableBuilder<List<Trip>>(
               valueListenable: tripListNotifier,
               builder: (context, tripList, child) {
-                final filteredTrip = tripList
-                    .where((trip) =>
-                        (_selectedTripType == null ||
-                            _selectedTripType == "All" ||
-                            trip.selectedTripType == _selectedTripType) &&
-                        (trip.location?.toLowerCase().contains(
-                                _searchController.text.trim().toLowerCase()) ??
-                            false))
-                    .toList();
-                final filteredTrips = filteredTrip.toSet().toList();
+                final filteredTrips = _getFilteredTrips(tripList);
                 return ListView.builder(
                   itemCount: filteredTrips.length,
                   itemBuilder: (context, index) {
                     final data = filteredTrips[index];
-                    String tripKey =
-                        "rating_${data.location}"; // Unique key for each trip based on location
+                    String tripKey = "rating_${data.location}";
                     return FutureBuilder<double>(
-                      future: getRatingForTrip(
-                          tripKey), // Fetch rating for each trip
+                      future: getRatingForTrip(tripKey),
                       builder: (context, snapshot) {
-                        return FutureBuilder<double>(
-                          future: getRatingForTrip(
-                              "rating_${data.location}"), // Fetch rating
-                          builder: (context, snapshot) {
-                            double rating =
-                                snapshot.data ?? 3.0; // Default rating is 3.0
-                            return TripCard(
-                              tripData: data,
-                              index: index,
-                              initialRating: rating,
-                              saveRatingCallback: saveRatingForTrip,
-                              onDelete: () {
-                                deleteTrip(
-                                    index); // Call your delete function here
-                              },
-                            );
-                          },
+                        double rating = snapshot.data ?? 3.0;
+                        return TripCard(
+                          tripData: data,
+                          index: index,
+                          initialRating: rating,
+                          saveRatingCallback: saveRatingForTrip,
+                          onDelete: () => deleteTrip(index),
                         );
                       },
                     );

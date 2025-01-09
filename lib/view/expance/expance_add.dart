@@ -88,7 +88,7 @@ class _ExpanceAddState extends State<ExpanceAdd> {
                 // Name Section
                 const SizedBox(height: 20),
                 Text(
-                  "Itrm name",
+                  "Iterm name",
                   style: GoogleFonts.anton(color: Colors.white),
                 ),
                 const Gap(10),

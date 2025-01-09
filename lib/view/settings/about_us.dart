@@ -19,14 +19,14 @@ class AboutUs extends StatelessWidget {
           child: Center(
             child: Text('''
 
-Welcome to Trippy – your ultimate travel companion, thoughtfully crafted to make every aspect of your journeys effortless and enjoyable.
+Welcome to Tripland – your ultimate travel companion, thoughtfully crafted to make every aspect of your journeys effortless and enjoyable.
 
 
  Whether you're dreaming of adventures yet to come, organizing your current travels, or cherishing memories of trips past, 
  Trippy is here to support you every step of the way.
 
-What Trippy Offers:
-With Trippy, you can:
+What Tripland Offers:
+With Tripland, you can:
 
 Plan with Precision: Create and manage detailed itineraries, including budgets, activities, and travel guides.
 

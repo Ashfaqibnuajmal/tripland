@@ -57,7 +57,7 @@ class _ExpanceHomeState extends State<ExpanceHome> {
                 getAllExpance(widget.trip.id);
               }
             },
-            icon: const Icon(Icons.add),
+            icon: const Icon(Icons.note_add_rounded),
           ),
         ],
       ),

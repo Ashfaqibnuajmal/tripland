@@ -19,7 +19,7 @@ class PrivacyPolicy extends StatelessWidget {
           child: Text('''
 Effective Date: [31/12/2024]
 
-Welcome to Trippy! We value your trust and are committed to safeguarding your privacy. Here’s how we handle your information:
+Welcome to Tripland! We value your trust and are committed to safeguarding your privacy. Here’s how we handle your information:
 
 
 1. Information We Collect
