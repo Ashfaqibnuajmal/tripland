@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
   List<Trip> _getFilteredTrips(List<Trip> tripList) {
     final now = DateTime.now();
 
-    return tripList.where((trip) {
+    final filteredList = tripList.where((trip) {
       final matchesType = _selectedTripType == null ||
           _selectedTripType == "All" ||
           trip.selectedTripType == _selectedTripType;
@@ -79,6 +79,9 @@ class _HomePageState extends State<HomePage> {
 
       return matchesType && matchesSearch && matchesDateFilter;
     }).toList();
+
+    // Convert to Set to remove duplicates and back to List
+    return filteredList.toSet().toList();
   }
 
   @override
